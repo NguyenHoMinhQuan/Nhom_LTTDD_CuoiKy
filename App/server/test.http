@@ -1,0 +1,18 @@
+### Login admin
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+### Login sv001
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "sv001",
+  "password": "sv001"
+}
+
