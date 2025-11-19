@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:layout_margin="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/ivItemImage"
+            android:scaleType="centerCrop"
+            android:background="#4CAD50"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#AA424242"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage" />
+
+        <TextView
+            android:id="@+id/tvItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="4dp"
+            android:text="Tiếng Anh Level 2"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvItemTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvItemPrice"/>
+
+        <TextView
+            android:id="@+id/tvItemTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="Thời lượng: 3 tháng"
+            android:textColor="#E0E0E0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="2.449.000 đ"
+            android:textColor="#FFEB3B"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:backgroundTint="#E53935"
+            android:text="MUA NGAY"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/ivItemImage"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
