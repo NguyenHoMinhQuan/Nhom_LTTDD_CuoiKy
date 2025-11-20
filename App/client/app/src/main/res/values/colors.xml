@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_2001">#FFBB86FC</color>
+    <color name="purple_5001">#6200EE</color>
+    <color name="purple_7001">#3700B3</color>
+    <color name="teal_2001">#03DAC5</color>
+    <color name="teal_7001">#018786</color>
+    <color name="black1">#FF000000</color>
+    <color name="white1">#FFFFFFFF</color>
+
+    <color name="app_background">#E0F8F7</color> <color name="card_pink">#E57373</color>    <color name="btn_green">#1DE9B6</color>     <color name="btn_cancel">#D1C4E9</color>    <color name="text_dark">#1A1A1A</color>
+    <color name="text_gray">#757575</color>
+
 </resources>
+

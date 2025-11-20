@@ -20,7 +20,7 @@
         android:id="@+id/tvHello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xin Chào\nHữu Thuận"
+        android:text="Xin Chào\nHọc Viên"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/black"
