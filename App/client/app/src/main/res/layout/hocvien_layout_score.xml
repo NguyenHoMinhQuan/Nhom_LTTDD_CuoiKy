@@ -99,12 +99,12 @@
             <TableRow>
                 <TextView
                     android:text="Các cột điểm"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text="Điểm"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:gravity="center"/>
@@ -113,12 +113,12 @@
             <TableRow>
                 <TextView
                     android:text="Bài tập 1"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text=""
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:minWidth="60dp"/>
@@ -127,60 +127,60 @@
             <TableRow>
                 <TextView
                     android:text="Bài tập 2"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text=""
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:text="Bài tập 3"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text=""
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:text="Bài tập giữa kì"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text=""
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:text="Bài tập cuối kì"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text=""
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:text="Tổng điểm"
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:textColor="#000000"
                     android:padding="10dp"/>
                 <TextView
                     android:text=""
-                    android:background="@drawable/bg_table_cell"
+                    android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
         </TableLayout>
