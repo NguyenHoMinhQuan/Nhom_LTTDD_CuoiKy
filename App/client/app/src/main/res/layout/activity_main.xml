@@ -17,6 +17,7 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:gravity="center_horizontal">
+<<<<<<< HEAD
 
     <ImageView
         android:layout_width="100dp"
@@ -111,5 +112,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+</LinearLayout>
+>>>>>>> feature/Quan-03_UIUX_Admin
+=======
 </LinearLayout>
 >>>>>>> feature/Quan-03_UIUX_Admin

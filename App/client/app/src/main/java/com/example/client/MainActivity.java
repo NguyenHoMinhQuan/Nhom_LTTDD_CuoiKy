@@ -25,10 +25,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast; // Thư viện thông báo
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+<<<<<<< HEAD
 
     private LinearLayout btnGoToUser, btnGoToCourse, btnGoToClass;
 
@@ -80,4 +81,6 @@ public class MainActivity extends AppCompatActivity {
 >>>>>>> feature/Quan-03_UIUX_Admin
         });
     }
+=======
+>>>>>>> feature/Quan-03_UIUX_Admin
 }
