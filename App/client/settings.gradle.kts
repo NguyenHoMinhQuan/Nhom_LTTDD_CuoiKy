@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "client"
 include(":app")
+include(":app:java")
+include(":app:java2")
