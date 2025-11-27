@@ -7,11 +7,11 @@
   CSDL chỉ lưu trữ chuỗi hash BCrypt.
 */
 
--- Create database (optional)
--- CREATE DATABASE UniversityDB;
--- GO
--- USE UniversityDB;
--- GO
+--Create database (optional) 
+CREATE DATABASE UniversityDB;
+GO
+USE UniversityDB;
+GO
 
 -----------------------------
 -- Table: Roles

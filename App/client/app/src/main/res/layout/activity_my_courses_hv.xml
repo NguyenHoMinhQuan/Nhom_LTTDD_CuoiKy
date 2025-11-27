@@ -7,38 +7,13 @@
     android:background="@color/app_background">
 
     <!-- Header Section (Giữ nguyên) -->
-    <LinearLayout
+    <include
         android:id="@+id/headerLayout"
+        layout="@layout/layout_common_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/logo"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Xin Chào\nHữu Thuận"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/avata"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
-
-    <!-- === THAY ĐỔI 1: Sử dụng ImageView cho nút Back === -->
     <ImageView
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
@@ -47,10 +22,10 @@
         android:src="@drawable/back1"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerLayout"
         tools:ignore="ContentDescription" />
-
     <!-- Title for Courses -->
     <TextView
         android:id="@+id/titleTextView"

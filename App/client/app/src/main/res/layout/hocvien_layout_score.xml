@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0F7FA"
@@ -11,48 +12,17 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_agenda"
-            app:tint="#0D47A1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvGreeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Xin Chào\nHữu Thuận"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/ivLogo"
-            app:layout_constraintStart_toEndOf="@id/ivLogo"
-            app:layout_constraintTop_toTopOf="@id/ivLogo"
-            android:layout_marginStart="10dp"/>
-
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@android:drawable/btn_default_small"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tvLabelScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="Điểm"
+            android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivLogo"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvStudentName"
@@ -109,7 +79,6 @@
                     android:padding="10dp"
                     android:gravity="center"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Bài tập 1"
@@ -123,7 +92,6 @@
                     android:padding="10dp"
                     android:minWidth="60dp"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Bài tập 2"
@@ -135,7 +103,6 @@
                     android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Bài tập 3"
@@ -147,7 +114,6 @@
                     android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Bài tập giữa kì"
@@ -159,7 +125,6 @@
                     android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Bài tập cuối kì"
@@ -171,7 +136,6 @@
                     android:background="@drawable/hocvien_row_table_score_gray"
                     android:padding="10dp"/>
             </TableRow>
-
             <TableRow>
                 <TextView
                     android:text="Tổng điểm"
