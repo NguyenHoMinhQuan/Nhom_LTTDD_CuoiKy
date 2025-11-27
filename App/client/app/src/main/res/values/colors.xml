@@ -7,10 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-<<<<<<< HEAD
     <color name="btn">#094C8E</color>
     <color name="tv_lostpass">#462FE4</color>
-=======
 
     <color name="bg_screen">#E0F7FA</color>
     <color name="bg_card_cyan">#B2EBF2</color>
@@ -28,5 +26,4 @@
     <color name="status_red">#FF1744</color>
     <color name="status_yellow">#FFEA00</color>
     <color name="status_green">#00E676</color>
->>>>>>> feature/Quan-03_UIUX_Admin
 </resources>
