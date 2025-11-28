@@ -1,4 +1,4 @@
-package com.example.client; // Sửa lại package của bạn
+package com.example.client.HocVien; // Sửa lại package của bạn
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.client.LoginActivity;
+import com.example.client.R;
+import com.example.client.StudyStatusActivity;
 
 // Class này chứa logic chung cho toàn bộ App
 public class BaseHocVienActivity extends AppCompatActivity {

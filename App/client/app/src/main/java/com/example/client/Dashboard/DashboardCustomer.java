@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.Dashboard;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.client.LoginActivity;
+import com.example.client.R;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

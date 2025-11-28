@@ -1,28 +1,31 @@
-package com.example.client;
+package com.example.client.HocVien;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SearchActivity extends AppCompatActivity {
-    private ImageView btnBack;
+import com.example.client.R;
+
+public class ProfileActivity extends AppCompatActivity {
+
+    private View btnBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hocvien_search);
+        setContentView(R.layout.hocvien_layout_infor_student);
 
+        // 2. SỬA ID: Tìm theo ID mới @+id/btnBack đã sửa ở bước 1
         btnBack = findViewById(R.id.btnBack);
-        //xử lý nút quy lại trang trước
+
+        // Xử lý sự kiện
         if(btnBack != null){
             btnBack.setOnClickListener(v -> {
-                finish();// đóng trang này để lộ ra trang trước đó
+                finish();
                 overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
-
             });
-
         }
     }
 }

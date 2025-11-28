@@ -41,12 +41,12 @@
 
         <activity android:name=".MainActivity"/>
 
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".HocVien.SearchActivity" />
 
 
 
 
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".HocVien.ProfileActivity" />
 
         <activity android:name=".StudyStatusActivity" />
 
@@ -55,10 +55,10 @@
 
         <!--Hocvien-->
         <activity
-            android:name=".DashboardCustomer"
+            android:name=".Dashboard.DashboardCustomer"
             android:exported="true" >  </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".MyCoursesActivity" />
+        <activity android:name=".HocVien.HomeActivity" />
+        <activity android:name=".HocVien.MyCoursesActivity" />
         <!-- end Hocvien-->
 
         <activity android:name=".QuanLyKhoaHocActivity"/>

@@ -1,23 +1,24 @@
-package com.example.client;
+package com.example.client.HocVien;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.jetbrains.annotations.Nullable;
+import com.example.client.R;
 
-
-public class ScoreFragment extends Fragment {
+public class AssignmentFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Liên kết với layout cũ: hocvien_layout_score
-        return inflater.inflate(R.layout.hocvien_layout_score, container, false);
+        // Liên kết với layout cũ của bạn: hocvien_layout_calender_school
+        return inflater.inflate(R.layout.hocvien_layout_assignment, container, false);
     }
+
 }

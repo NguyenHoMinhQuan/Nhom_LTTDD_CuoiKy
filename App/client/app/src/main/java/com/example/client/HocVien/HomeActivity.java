@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.HocVien;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -8,8 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.client.HocVien.BuyCourses;
-import com.example.client.HocVien.BuyCoursesAdapter;
+import com.example.client.R;
 
 import java.util.ArrayList;
 import java.util.List;

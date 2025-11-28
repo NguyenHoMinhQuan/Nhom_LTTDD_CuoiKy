@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.client.HocVien.AssignmentFragment;
+import com.example.client.HocVien.ScheduleFragment;
+import com.example.client.HocVien.ScoreFragment;
+
 public class StudyViewPagerAdapter extends FragmentStateAdapter {
     public StudyViewPagerAdapter(FragmentActivity fragmentActivity) {
         super(fragmentActivity);
