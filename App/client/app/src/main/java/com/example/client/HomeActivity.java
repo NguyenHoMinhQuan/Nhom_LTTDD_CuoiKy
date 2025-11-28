@@ -55,12 +55,6 @@ public class HomeActivity extends BaseActivity {
         });
 
     }
-
     //Hàm xử lý hiện danh sách khóa học ...
-
-
-
-
-
 
 }
