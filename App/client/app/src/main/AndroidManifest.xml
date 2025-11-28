@@ -51,6 +51,9 @@
 
         <activity android:name=".HomeActivity" />
 
+        <activity android:name=".QuanLyKhoaHocActivity"/>
+        <activity android:name=".QuanLyLopHocActivity"/>
+        <activity android:name=".QuanLyUserActivity"/>
     </application>
 
 </manifest>
