@@ -52,6 +52,7 @@
 
 
 
+
         <!--Hocvien-->
         <activity
             android:name=".DashboardCustomer"
@@ -59,6 +60,11 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".MyCoursesActivity" />
         <!-- end Hocvien-->
+
+        <activity android:name=".QuanLyKhoaHocActivity"/>
+        <activity android:name=".QuanLyLopHocActivity"/>
+        <activity android:name=".QuanLyUserActivity"/>
+
     </application>
 
 </manifest>
