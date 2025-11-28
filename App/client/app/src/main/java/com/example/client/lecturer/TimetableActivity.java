@@ -1,10 +1,14 @@
-package com.example.client;
+package com.example.client.lecturer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.client.R;
+import com.example.client.lecturer.adapter.ScheduleAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +22,7 @@ public class TimetableActivity extends AppCompatActivity implements ScheduleAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Sử dụng layout giangvien_timetable_layout.xml
-        setContentView(R.layout.giangvien_timetable_layout);
+        setContentView(R.layout.lecturer_timetable);
 
         recyclerView = findViewById(R.id.recycler_schedule);
 

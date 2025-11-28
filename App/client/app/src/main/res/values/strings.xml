@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">client</string>
+    <string name="greeting_format">Good Morning, %1$s</string>
 </resources>
