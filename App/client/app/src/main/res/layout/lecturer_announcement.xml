@@ -21,6 +21,6 @@
         android:id="@+id/recycler_announcement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_announcement"/>
+        tools:listitem="@layout/lecturer_item_announcement"/>
 
 </LinearLayout>

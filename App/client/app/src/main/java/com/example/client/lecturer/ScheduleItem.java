@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.lecturer;
 
 import java.io.Serializable;
 

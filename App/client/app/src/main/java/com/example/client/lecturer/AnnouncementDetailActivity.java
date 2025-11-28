@@ -1,19 +1,20 @@
-package com.example.client;
+package com.example.client.lecturer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import java.io.Serializable;
+
+import com.example.client.R;
 
 public class AnnouncementDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_announcement_detail);
+        setContentView(R.layout.lecturer_announcement_detail);
 
         // Lấy dữ liệu từ Intent
-        Announcement announcement = (Announcement) getIntent().getSerializableExtra(AnnouncementListActivity.EXTRA_ANNOUNCEMENT);
+        Announcement announcement = (Announcement) getIntent().getSerializableExtra(AnnouncementActivity.EXTRA_ANNOUNCEMENT);
 
         if (announcement != null) {
             // Ánh xạ View
