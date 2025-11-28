@@ -4,18 +4,25 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeActivity extends BaseActivity {
-    //Khai báo các thuộc tính
+import com.example.client.HocVien.BuyCourses;
+import com.example.client.HocVien.BuyCoursesAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HomeActivity extends BaseHocVienActivity {
+    // Khai báo các thuộc tính
     private ImageView imgAvatar;
     private TextView tvSearch;
     private RecyclerView rvHomeCourses;
 
-    //private CourseAdapter courseAdapter; // Adapter quản lý danh sách
-
+    // Khai báo Adapter và List cho phần Mua khóa học
+    private BuyCoursesAdapter featuredAdapter;
+    private List<BuyCourses> featuredList;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -23,29 +30,47 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hocvien_dashboard);
 
-        // 2. Gọi hàm setup header (Tự động xử lý Logo và Avatar)
+        // Gọi hàm setup header
         setupCommonHeader();
 
-        //Ánh xạ view từ layout
-
-        rvHomeCourses = findViewById(R.id.rvCourseList1);
+        // Ánh xạ view
+        // Đảm bảo ID này trùng khớp với file hocvien_dashboard.xml
+        rvHomeCourses = findViewById(R.id.recyclerViewCourses);
         tvSearch = findViewById(R.id.tvSearchTitle);
 
+        setupNavigation();
 
-        // cài đặt các chức năng
-        setupNavigation();// xử lý chuyển trang
-        //setupCourseList();// hiển thị danh sách khóa học
-
+        // GỌI HÀM TẠO DỮ LIỆU
+        setupCourseList();
     }
 
-    //Hàm xử lý chuyển trang
     private void setupNavigation() {
-        //sự kiện click nút tìm kiếm
         tvSearch.setOnClickListener(v -> {
             navigate(SearchActivity.class);
         });
-
     }
 
+    // Hàm tạo dữ liệu mẫu cho khóa học nổi bật
+    private void setupCourseList() {
+        featuredList = new ArrayList<>();
 
+        // Lưu ý: Nếu không có ảnh R.drawable.mon3, hãy thay bằng R.drawable.ic_launcher_background
+        int imgDefault = R.drawable.ic_launcher_background;
+
+        // Thêm dữ liệu mẫu (Tên, Giá, Thời gian, Ảnh)
+        featuredList.add(new BuyCourses("Lập trình Android Pro", "2.499.000 đ", "4 tháng", imgDefault));
+        featuredList.add(new BuyCourses("Fullstack Web Developer", "3.199.000 đ", "6 tháng", imgDefault));
+        featuredList.add(new BuyCourses("Python cho người mới", "1.200.000 đ", "2 tháng", imgDefault));
+        featuredList.add(new BuyCourses("Data Science Cơ bản", "4.500.000 đ", "5 tháng", imgDefault));
+
+        // Khởi tạo Adapter
+        featuredAdapter = new BuyCoursesAdapter(featuredList);
+
+        // Setup LayoutManager (Dọc)
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvHomeCourses.setLayoutManager(linearLayoutManager);
+
+        // Gán Adapter
+        rvHomeCourses.setAdapter(featuredAdapter);
+    }
 }

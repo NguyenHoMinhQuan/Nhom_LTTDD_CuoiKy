@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
@@ -13,9 +12,10 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 // Class này chứa logic chung cho toàn bộ App
-public class BaseActivity extends AppCompatActivity {
+public class BaseHocVienActivity extends AppCompatActivity {
 
     // 1. Hàm thiết lập Header chung (Gọi hàm này ở các trang con)
+
     protected void setupCommonHeader() {
         // Xử lý Logo -> Về Home
         ImageView imgLogo = findViewById(R.id.imgLogo);
@@ -77,7 +77,7 @@ public class BaseActivity extends AppCompatActivity {
 
         btnLogout.setOnClickListener(v -> {
             dialog.dismiss();
-            finishAffinity();
+            navigate(LoginActivity.class);// trang đăng nhập
         });
 
         dialog.show();
