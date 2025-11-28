@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.client.R;
 import com.example.client.lecturer.Announcement;
+import com.example.client.R;
 
 import java.util.List;
 

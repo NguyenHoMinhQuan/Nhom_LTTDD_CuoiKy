@@ -11,7 +11,7 @@ public class QuanLyKhoaHocActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.admin_course);
 
         ImageView btnMenu = findViewById(R.id.btnMenu);
         if (btnMenu != null) {

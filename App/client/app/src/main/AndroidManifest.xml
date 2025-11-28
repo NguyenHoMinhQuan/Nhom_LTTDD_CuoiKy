@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Client">
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +21,25 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+        <!--lecturer-->
+
+        <activity android:name=".lecturer.LecturerDashboardActivity"/>
+
+        <activity android:name=".lecturer.TimetableActivity"/>
+
+        <activity android:name=".lecturer.LecturerAssignmentActivity"/>
+
+        <activity android:name=".lecturer.AnnouncementActivity"/>
+
+        <activity android:name=".lecturer.AnnouncementDetailActivity"/>
+
+        <!--end lecturer-->
+
+        <activity android:name=".ForgotPassActivity"/>
+
+        <activity android:name=".AdminDashboardActivity"/>
+
+        <activity android:name=".MainActivity"/>
 
         <activity android:name=".SearchActivity" />
 
@@ -33,6 +49,7 @@
 
         <activity android:name=".StudyStatusActivity" />
 
+        <activity android:name=".HomeActivity" />
 
     </application>
 

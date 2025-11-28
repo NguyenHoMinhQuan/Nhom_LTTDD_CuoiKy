@@ -37,7 +37,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/border_txt"
-        android:hint="Mã sinh viên/giảng viên" />
+        android:hint="Tên đăng nhập" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
