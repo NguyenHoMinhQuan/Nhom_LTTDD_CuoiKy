@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gv">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_gv"
+    tools:context=".lecturer.LecturerAssignmentActivity">
 
     <RelativeLayout
         android:id="@+id/header_container"
