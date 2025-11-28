@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.lecturer.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.client.R;
+import com.example.client.lecturer.Announcement;
+
 import java.util.List;
 
 public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.AnnouncementViewHolder> {
@@ -27,8 +31,8 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     @NonNull
     @Override
     public AnnouncementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Ánh xạ layout item_announcement.xml vào View
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_announcement, parent, false);
+        // Ánh xạ layout item_recent_announcement.xml vào View
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lecturer_item_announcement, parent, false);
         return new AnnouncementViewHolder(view);
     }
 

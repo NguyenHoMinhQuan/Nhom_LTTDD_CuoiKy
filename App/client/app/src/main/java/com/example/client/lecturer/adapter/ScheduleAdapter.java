@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.lecturer.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.client.R;
+import com.example.client.lecturer.ScheduleItem;
+
 import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
@@ -28,7 +32,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     @NonNull
     @Override
     public ScheduleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_giangvien_timetable_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lecturer_item_timetable, parent, false);
         return new ScheduleViewHolder(view);
     }
 

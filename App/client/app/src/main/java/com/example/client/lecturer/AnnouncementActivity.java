@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.lecturer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,9 +7,11 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
-import android.widget.Toast;
 
-public class AnnouncementListActivity extends AppCompatActivity implements AnnouncementAdapter.OnItemClickListener {
+import com.example.client.R;
+import com.example.client.lecturer.adapter.AnnouncementAdapter;
+
+public class AnnouncementActivity extends AppCompatActivity implements AnnouncementAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private AnnouncementAdapter adapter;
@@ -20,7 +22,7 @@ public class AnnouncementListActivity extends AppCompatActivity implements Annou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Đảm bảo bạn đang sử dụng layout activity_announcement_list.xml
-        setContentView(R.layout.activity_announcement_list);
+        setContentView(R.layout.lecturer_announcement);
 
         recyclerView = findViewById(R.id.recycler_announcement);
 
@@ -41,7 +43,7 @@ public class AnnouncementListActivity extends AppCompatActivity implements Annou
     public void onItemClick(Announcement announcement) {
         // 1. Tạo Intent để mở Detail Activity
         // Giả sử Activity chi tiết của bạn tên là AnnouncementDetailActivity.java
-        Intent detailIntent = new Intent(AnnouncementListActivity.this, AnnouncementDetailActivity.class);
+        Intent detailIntent = new Intent(AnnouncementActivity.this, AnnouncementDetailActivity.class);
 
         // 2. Truyền đối tượng Announcement sang Activity chi tiết
         detailIntent.putExtra(EXTRA_ANNOUNCEMENT, announcement);
