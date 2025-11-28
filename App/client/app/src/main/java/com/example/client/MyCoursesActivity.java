@@ -1,18 +1,9 @@
 package com.example.client;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MyCoursesActivity extends BaseActivity {
     private ImageView btnBack;
@@ -21,7 +12,7 @@ public class MyCoursesActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_courses_hv);
+        setContentView(R.layout.hocvien_mycourse);
 
 
         btnBack = findViewById(R.id.btnBack);

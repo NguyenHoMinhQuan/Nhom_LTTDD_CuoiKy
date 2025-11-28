@@ -1,7 +1,6 @@
 package com.example.client;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -13,7 +12,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_hv);
+        setContentView(R.layout.hocvien_search);
 
         btnBack = findViewById(R.id.btnBack);
         //xử lý nút quy lại trang trước
