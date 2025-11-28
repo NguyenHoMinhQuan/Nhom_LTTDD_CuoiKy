@@ -16,7 +16,7 @@ public class AssignmentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Liên kết với layout cũ của bạn: hocvien_layout_calender_school
-        return inflater.inflate(R.layout.hocvien_layout_calender_school, container, false);
+        return inflater.inflate(R.layout.hocvien_layout_assignment, container, false);
     }
 
 }
