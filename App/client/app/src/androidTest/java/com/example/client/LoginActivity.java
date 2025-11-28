@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
+        setContentView(R.layout.public_login);
         edt_username = findViewById(R.id.edt_username);
         edt_pass = findViewById(R.id.edt_pass);
         txtv_lostpass = findViewById(R.id.tv_lostpass);

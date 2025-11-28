@@ -32,7 +32,7 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_calendar);
+        setContentView(R.layout.admin_class_calendar);
 
         // 1. Ánh xạ View (Kết nối Java với XML)
         initViews();
@@ -224,7 +224,7 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
     private void showDetailPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_class_detail, null);
+        View dialogView = inflater.inflate(R.layout.admin_class_detail, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {

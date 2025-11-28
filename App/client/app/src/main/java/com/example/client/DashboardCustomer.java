@@ -22,7 +22,7 @@ public class DashboardCustomer extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_customer);
+        setContentView(R.layout.khachvanglai_dashboard);
 
         // ánh xạ
         viewPagerBanner = findViewById(R.id.viewPagerBanner);

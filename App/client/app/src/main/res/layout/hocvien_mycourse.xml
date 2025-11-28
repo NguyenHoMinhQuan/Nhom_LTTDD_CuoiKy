@@ -53,6 +53,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_my_course_hv" />
+        tools:listitem="@layout/hocvien_item_mycourse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

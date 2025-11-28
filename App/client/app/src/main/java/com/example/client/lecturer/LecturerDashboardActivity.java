@@ -23,6 +23,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
 
     private RecyclerView timetableRecyclerView;
     private RecyclerView announcementRecyclerView;
+    private ImageView imgAnnouncement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
         // Khởi tạo các thành phần chính
         timetableRecyclerView = findViewById(R.id.recycler_timetable_today);
         announcementRecyclerView = findViewById(R.id.recycler_announcements_recent);
+        imgAnnouncement = findViewById(R.id.iv_notification);
 
         // Thiết lập các Nút Hành động Nhanh
         setupQuickActions();
@@ -44,6 +46,13 @@ public class LecturerDashboardActivity extends AppCompatActivity
 
         // Thiết lập Header (Avatar, Tên, Notification)
         setupHeader();
+
+        imgAnnouncement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LecturerDashboardActivity.this, AnnouncementActivity.class));
+            }
+        });
     }
 
     /** Thiết lập Header: Hiển thị tên giảng viên */
@@ -89,6 +98,8 @@ public class LecturerDashboardActivity extends AppCompatActivity
         hwText.setText("Assign Homework");
         hwAction.setOnClickListener(v -> {
             Toast.makeText(this, "Chức năng Giao bài tập", Toast.LENGTH_SHORT).show();
+            Intent intentAssignment = new Intent(this, LecturerAssignmentActivity.class);
+            startActivity(intentAssignment);
         });
     }
 
