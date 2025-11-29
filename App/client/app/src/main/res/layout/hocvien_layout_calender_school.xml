@@ -55,74 +55,236 @@
             android:stretchColumns="0,1"
             app:layout_constraintTop_toBottomOf="@id/tvStudentId">
 
-            <TableRow>
-                <TextView
-                    android:text="Môn học"
-                    android:background="@drawable/hocvien_header_table_calender_school_blue"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="Giảng viên"
-                    android:background="@drawable/hocvien_header_table_calender_school_blue"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="Phòng"
-                    android:background="@drawable/hocvien_header_table_calender_school_blue"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="Thứ"
-                    android:background="@drawable/hocvien_header_table_calender_school_blue"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="Tiết"
-                    android:background="@drawable/hocvien_header_table_calender_school_blue"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-            </TableRow>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="10dp">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView android:id="@+id/tabNgay" android:clickable="true"
+                        android:text="Theo Ngày" android:textColor="#000"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_btn_pink"
+                        android:gravity="center" android:padding="8dp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView android:id="@+id/tabTuan" android:clickable="true"
+                        android:text="Theo Tuần" android:textColor="#555"
+                        android:background="@drawable/bg_btn_grey"
+                        android:gravity="center" android:padding="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView android:id="@+id/tabThang" android:clickable="true"
+                        android:text="Theo Tháng" android:textColor="#555"
+                        android:background="@drawable/bg_btn_grey" android:gravity="center"
+                        android:padding="8dp" android:layout_marginLeft="8dp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView android:id="@+id/tabNam" android:clickable="true" android:text="Theo Năm" android:textColor="#555" android:background="@drawable/bg_btn_grey" android:gravity="center" android:padding="8dp"
+                        android:layout_marginLeft="8dp" android:layout_width="100dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-            <TableRow>
+            </HorizontalScrollView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <TextView
-                    android:text="Công nghệ XML"
-                    android:background="@drawable/hocvien_row_table_calender_school_white"
-                    android:textColor="#333333"
-                    android:textSize="13sp"/>
+                    android:id="@+id/btnLui"
+                    android:clickable="true"
+                    android:text="&lt; Lùi"
+                    android:textColor="@color/status_red"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
                 <TextView
-                    android:text="Ngô Lê Quân"
-                    android:background="@drawable/hocvien_row_table_calender_school_white"
-                    android:textColor="#333333"
-                    android:textSize="13sp"/>
-                <TextView
-                    android:text="B104"
-                    android:background="@drawable/hocvien_row_table_calender_school_white"
-                    android:textColor="#333333"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="2"
-                    android:background="@drawable/hocvien_row_table_calender_school_white"
-                    android:textColor="#333333"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="1-4"
-                    android:background="@drawable/hocvien_row_table_calender_school_white"
-                    android:textColor="#333333"
-                    android:textSize="13sp"
-                    android:gravity="center"/>
-            </TableRow>
+                    android:id="@+id/btnTiep"
+                    android:clickable="true"
+                    android:text="Tiếp &gt;"
+                    android:textColor="@color/status_red"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvHienThiThoiGian"
+                android:text="Thứ Bảy, 25/10/2025"
+                android:background="@drawable/bg_btn_pink"
+                android:backgroundTint="@color/status_red"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/itemLopHoc1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:background="@color/status_red" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_item_card_yellow"
+                            android:orientation="vertical"
+                            android:padding="16dp"> <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Perl &amp; Python"
+                                android:textColor="@color/status_red"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🕒 13:00 - 15:00"
+                                android:textColor="#000"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Lớp: CS 466 M"
+                                android:textColor="#555"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Phòng: 405 - Tòa F"
+                                android:textColor="#555"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/itemLopHoc2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:background="@color/status_red" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_item_card_yellow"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Lịch Sử Đảng"
+                                    android:textColor="@color/status_red"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🕒 17:45 - 21:00"
+                                    android:textColor="#000"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Lớp: HIS 362 AI"
+                                android:textColor="#555"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Phòng: 504 - Tòa C"
+                                android:textColor="#555"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <View android:layout_width="5dp" android:layout_height="match_parent" android:layout_marginRight="8dp" android:background="@color/status_red" />
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_item_card_yellow" android:orientation="vertical" android:padding="16dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tư Tưởng HCM" android:textColor="@color/status_red" android:textSize="16sp" android:textStyle="bold" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🕒 07:00 - 11:00" android:textColor="#000" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Lớp: MLN 111" android:textColor="#555" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Phòng: Online" android:textColor="#555" android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+
+
 
         </TableLayout>
 
