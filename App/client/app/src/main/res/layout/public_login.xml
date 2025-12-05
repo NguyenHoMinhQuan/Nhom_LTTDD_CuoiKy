@@ -55,6 +55,7 @@
         android:hint="*******"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:inputType="textPassword"
         android:background="@drawable/border_txt"
         android:drawableRight="@android:drawable/ic_menu_view"
         android:drawableTint="#757575"

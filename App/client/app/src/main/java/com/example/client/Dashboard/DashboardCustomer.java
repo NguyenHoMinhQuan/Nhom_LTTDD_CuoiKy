@@ -1,10 +1,12 @@
-package com.example.client;
+package com.example.client.Dashboard;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.client.LoginActivity;
+import com.example.client.R;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +25,7 @@ public class DashboardCustomer extends AppCompatActivity {
     private ViewPager2 viewPagerBanner;
     private Handler sliderHandler = new Handler();
     private RecyclerView rvCourses;
-
+    private Button btnDangNhap;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.khachvanglai_dashboard);
@@ -27,7 +33,20 @@ public class DashboardCustomer extends AppCompatActivity {
         // ánh xạ
         viewPagerBanner = findViewById(R.id.viewPagerBanner);
         rvCourses = findViewById(R.id.rvCourses);
+        btnDangNhap = findViewById(R.id.btnDangNhap);
 
+        // sự kiện nút đăng nhập
+        if (btnDangNhap != null) {
+            btnDangNhap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 3. Tạo Intent để chuyển sang màn hình chứa layoutA
+                    // Thay 'ActivityA.class' bằng tên file Java thực tế của bạn (ví dụ: LoginActivity.class)
+                    Intent intent = new Intent(DashboardCustomer.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
         // xử lí nút back (quay lại main)
         View btnBack = findViewById(R.id.btnBack);
         if(btnBack != null) {

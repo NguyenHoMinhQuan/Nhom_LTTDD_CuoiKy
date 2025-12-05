@@ -2,11 +2,12 @@ package com.example.client;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.client.HocVien.BaseHocVienActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-public class StudyStatusActivity extends BaseActivity {
+public class StudyStatusActivity extends BaseHocVienActivity {
 
 
     private TabLayout tabLayout;
