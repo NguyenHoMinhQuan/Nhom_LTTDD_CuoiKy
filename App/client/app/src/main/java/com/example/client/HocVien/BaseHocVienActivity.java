@@ -62,6 +62,7 @@ public class BaseHocVienActivity extends AppCompatActivity {
         Button btnMyCourse = dialog.findViewById(R.id.menu_btn_my_course);
         Button btnStatus = dialog.findViewById(R.id.menu_btn_status);
         Button btnInfo = dialog.findViewById(R.id.menu_btn_info);
+        Button btnCalender = dialog.findViewById(R.id.menu_btn_calender);
         Button btnLogout = dialog.findViewById(R.id.menu_btn_logout);
 
         btnMyCourse.setOnClickListener(v -> {
@@ -73,6 +74,12 @@ public class BaseHocVienActivity extends AppCompatActivity {
             dialog.dismiss();
             navigate(ProfileActivity.class);
         });
+
+        btnCalender.setOnClickListener(v -> {
+            dialog.dismiss();
+            navigate(CalenderSchoolActivity.class);
+        });
+
 
         btnStatus.setOnClickListener(v -> {
             dialog.dismiss();

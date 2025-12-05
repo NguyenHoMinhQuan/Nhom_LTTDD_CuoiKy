@@ -38,7 +38,7 @@ public class StudyStatusActivity extends BaseHocVienActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Lịch học");
+                    tab.setText("Đánh giá");
                     break;
                 case 1:
                     tab.setText("Điểm");

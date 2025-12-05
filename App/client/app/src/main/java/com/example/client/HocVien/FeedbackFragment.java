@@ -14,12 +14,12 @@ import com.example.client.R;
 import org.jetbrains.annotations.Nullable;
 
 
-public class ScheduleFragment extends Fragment {
+public class FeedbackFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Liên kết với layout cũ của bạn: hocvien_layout_calender_school
-        return inflater.inflate(R.layout.hocvien_layout_calender_school, container, false);
+        // Liên kết với layout cũ của bạn: hocvien_feedback
+        return inflater.inflate(R.layout.hocvien_feedback, container, false);
     }
 }

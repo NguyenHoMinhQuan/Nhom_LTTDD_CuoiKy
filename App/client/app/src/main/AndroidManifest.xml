@@ -50,6 +50,8 @@
 
         <activity android:name=".StudyStatusActivity" />
 
+        <activity android:name=".HocVien.CalenderSchoolActivity"/>
+
 
 
 
@@ -64,6 +66,7 @@
         <activity android:name=".QuanLyKhoaHocActivity"/>
         <activity android:name=".QuanLyLopHocActivity"/>
         <activity android:name=".QuanLyUserActivity"/>
+
 
     </application>
 

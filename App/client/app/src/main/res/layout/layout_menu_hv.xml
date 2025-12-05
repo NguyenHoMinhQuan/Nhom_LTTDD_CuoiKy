@@ -105,6 +105,22 @@
                 app:iconPadding="16dp"
                 app:iconSize="24dp"/>
 
+            <Button
+                android:id="@+id/menu_btn_calender"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="24dp"
+                android:text="Lịch Học"
+                android:textColor="@color/text_title"
+                android:textSize="16sp"
+                app:icon="@android:drawable/ic_menu_info_details"
+                app:iconTint="@color/primary_brand"
+                app:iconPadding="16dp"
+                app:iconSize="24dp"/>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.client.HocVien.AssignmentFragment;
-import com.example.client.HocVien.ScheduleFragment;
+import com.example.client.HocVien.FeedbackFragment;
 import com.example.client.HocVien.ScoreFragment;
 
 public class StudyViewPagerAdapter extends FragmentStateAdapter {
@@ -20,13 +20,13 @@ public class StudyViewPagerAdapter extends FragmentStateAdapter {
         //tab 0 : calender , tab 1 : score , tab 2 : assignment
         switch (position) {
             case 0:
-                return new ScheduleFragment();
+                return new FeedbackFragment();
             case 1:
                 return new ScoreFragment();
             case 2:
                 return new AssignmentFragment();
             default:
-                return new ScheduleFragment();
+                return new FeedbackFragment();
         }
 
     }

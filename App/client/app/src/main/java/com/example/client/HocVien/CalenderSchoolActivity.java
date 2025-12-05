@@ -1,27 +1,26 @@
 package com.example.client.HocVien;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.client.R;
 
-public class ProfileActivity extends AppCompatActivity {
-
-    private View btnBack;
+public class CalenderSchoolActivity extends BaseHocVienActivity {
+    private TextView btnLui;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hocvien_layout_infor_student);
+        setContentView(R.layout.hocvien_layout_calender_school);
 
-        btnBack = findViewById(R.id.btnBack);
+        btnLui = findViewById(R.id.btnLui);
 
         // Xử lý sự kiện
-        if(btnBack != null){
-            btnBack.setOnClickListener(v -> {
+        if(btnLui != null){
+            btnLui.setOnClickListener(v -> {
                 finish();
                 overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
             });
