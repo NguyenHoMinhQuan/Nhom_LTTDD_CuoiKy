@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:id="@+id/ivItemImage"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:background="#4CAF50"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#B3424242"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage" />
+
+        <TextView
+            android:id="@+id/tvItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Tiếng Anh Level 2"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvItemSub"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="@+id/viewDummy"
+            app:layout_constraintEnd_toStartOf="@id/tvItemPrice"/>
+
+        <TextView
+            android:id="@+id/tvItemSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Thời lượng: 3 tháng"
+            android:textColor="#E0E0E0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvItemName"/>
+
+        <View android:id="@+id/viewDummy"
+            android:layout_width="1dp" android:layout_height="1dp"
+            android:layout_marginTop="110dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="2.449.000 đ"
+            android:textColor="#FFEB3B"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/viewDummy"/>
+
+        <LinearLayout
+            android:id="@+id/layoutDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:orientation="vertical"
+            android:background="#F5F5F5"
+            android:padding="8dp"
+            app:layout_constraintTop_toBottomOf="@id/ivItemImage">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mô tả ngắn:"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:id="@+id/tvItemDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Khoá học giúp bạn có được kĩ năng nghe tiếng anh, cấu trúc các dạng luyện đề..."
+                android:textSize="13sp"
+                android:textColor="#555555"
+                android:maxLines="3"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="#EF5350"
+            android:text="MUA NGAY"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutDesc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
