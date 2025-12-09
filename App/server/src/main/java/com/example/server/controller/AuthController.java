@@ -4,7 +4,6 @@ import com.example.server.dto.LoginRequest;
 import com.example.server.dto.LoginResponse;
 import com.example.server.dto.UserDTO;
 import com.example.server.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +16,6 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
 
-    @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;

@@ -37,25 +37,25 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseDTO> findAllCourseDTOs() {
+    public List<CourseDTO> findAllCourses() {
         List<Course> courses = courseRepository.findAll();
         return courses.stream().map(this::convertToDTO).toList();
     }
 
     @Override
-    public Optional<CourseDTO> findCourseDTOById(Integer id) {
+    public Optional<CourseDTO> findCourseById(Integer id) {
         return courseRepository.findById(id).map(this::convertToDTO);
     }
 
     @Override
-    public CourseDTO savCourseDTO(CourseDTO courseDTO) {
+    public CourseDTO saveCourse(CourseDTO courseDTO) {
         Course course = convertToEntity(courseDTO);
         course = courseRepository.save(course);
         return convertToDTO(course);
     }
 
     @Override
-    public void deleteCouseDTO(Integer id) {
+    public void deleteCourse(Integer id) {
         courseRepository.deleteById(id);
     }
 }

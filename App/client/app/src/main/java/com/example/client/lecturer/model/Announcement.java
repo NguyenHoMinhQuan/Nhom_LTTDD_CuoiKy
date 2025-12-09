@@ -1,19 +1,19 @@
-package com.example.client.lecturer;
+package com.example.client.lecturer.model;
 
 import java.io.Serializable;
 
 public class Announcement implements Serializable {
     private String title;
-    private String summary;
+    private String body;
     private String author;
-    private String date;
+    private String createdAt;
 
     // Constructor
-    public Announcement(String title, String summary, String author, String date) {
+    public Announcement(String title, String body, String author, String createdAt) {
         this.title = title;
-        this.summary = summary;
+        this.body = body;
         this.author = author;
-        this.date = date;
+        this.createdAt = createdAt;
     }
 
     // Getters
@@ -21,15 +21,15 @@ public class Announcement implements Serializable {
         return title;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getBody() {
+        return body;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreatedAt() {
+        return createdAt;
     }
 }

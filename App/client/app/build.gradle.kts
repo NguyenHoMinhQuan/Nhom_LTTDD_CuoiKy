@@ -32,6 +32,11 @@ android {
 }
 
 dependencies {
+    // 1. Thư viện Retrofit (Networking)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // 2. Gson Converter (Chuyển đổi JSON <-> Java Object)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     implementation("com.google.android.material:material:1.9.0")
 
     implementation(libs.appcompat)

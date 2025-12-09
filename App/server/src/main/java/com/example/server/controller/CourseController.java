@@ -19,20 +19,20 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<CourseDTO>> getAllCourses() {
-        List<CourseDTO> courses = courseService.findAllCourseDTOs();
+        List<CourseDTO> courses = courseService.findAllCourses();
         return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseDTO> getCourseById(@PathVariable Integer id) {
-        return courseService.findCourseDTOById(id)
+        return courseService.findCourseById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO courseDTO) {
-        CourseDTO savedCourse = courseService.savCourseDTO(courseDTO);
+        CourseDTO savedCourse = courseService.saveCourse(courseDTO);
         if(courseDTO.getCourseId() != null) {
             return ResponseEntity.ok(savedCourse);
         } else {
@@ -42,7 +42,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable Integer id) {
-        courseService.deleteCouseDTO(id);
+        courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
     }
 

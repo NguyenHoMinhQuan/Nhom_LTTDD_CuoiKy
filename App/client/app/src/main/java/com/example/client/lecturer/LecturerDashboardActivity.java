@@ -1,5 +1,11 @@
 package com.example.client.lecturer;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,9 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.client.R; // Đảm bảo import R từ gói gốc của bạn
+import com.example.client.R;
+import com.example.client.api.ApiService;
 import com.example.client.lecturer.adapter.AnnouncementAdapter;
 import com.example.client.lecturer.adapter.ScheduleAdapter;
+import com.example.client.lecturer.model.Announcement;
+import com.example.client.lecturer.model.ScheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +34,9 @@ public class LecturerDashboardActivity extends AppCompatActivity
     private RecyclerView announcementRecyclerView;
     private ImageView imgAnnouncement;
 
+    private static final String BASE_URL = "http://10.0.2.2:9000/";
+    private ApiService apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,22 +47,57 @@ public class LecturerDashboardActivity extends AppCompatActivity
         announcementRecyclerView = findViewById(R.id.recycler_announcements_recent);
         imgAnnouncement = findViewById(R.id.iv_notification);
 
-        // Thiết lập các Nút Hành động Nhanh
+        initRetrofit();
+
         setupQuickActions();
 
-        // Thiết lập RecyclerView cho Thời khóa biểu Hôm nay
-        setupTimetableRecycler();
+        fetchLecturerSchedule(2);
 
-        // Thiết lập RecyclerView cho Thông báo Gần đây
         setupAnnouncementRecycler();
 
-        // Thiết lập Header (Avatar, Tên, Notification)
         setupHeader();
 
         imgAnnouncement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LecturerDashboardActivity.this, AnnouncementActivity.class));
+            }
+        });
+    }
+
+    private void initRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        apiService = retrofit.create(ApiService.class);
+    }
+
+    private void fetchLecturerSchedule(Integer lecturerId) {
+        apiService.getScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
+            @Override
+            public void onResponse(Call<List<ScheduleItem>> call, Response<List<ScheduleItem>> response) {
+                if (response.isSuccessful() & response.body()!= null) {
+                    List<ScheduleItem> schedule = response.body();
+
+                    if(schedule.isEmpty()) {
+                        Toast.makeText(LecturerDashboardActivity.this,"Không tìm thấy lịch học", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    Toast.makeText(LecturerDashboardActivity.this,
+                            "Đã lấy" + schedule.size() + "buổi học thành công",
+                            Toast.LENGTH_LONG
+                    ).show();
+
+                    setupTimetableRecycler(schedule);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ScheduleItem>> call, Throwable t) {
+                Toast.makeText(LecturerDashboardActivity.this,"Lỗi kết nối Server: " + t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -104,18 +151,12 @@ public class LecturerDashboardActivity extends AppCompatActivity
     }
 
 
-    /** Thiết lập RecyclerView cho Thời khóa biểu Hôm nay (Horizontal) */
-    private void setupTimetableRecycler() {
-        // Dữ liệu mẫu (chỉ lấy 2-3 mục cho Today's Timetable)
-        List<ScheduleItem> todaySchedule = generateDummySchedule();
-
-        // 1. Cấu hình LayoutManager: cuộn ngang
+    private void setupTimetableRecycler(List<ScheduleItem> schedule) {
         timetableRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL,
                 false));
 
-        // 2. Cấu hình Adapter
-        ScheduleAdapter adapter = new ScheduleAdapter(todaySchedule, this);
+        ScheduleAdapter adapter = new ScheduleAdapter(schedule, this);
         timetableRecyclerView.setAdapter(adapter);
     }
 
@@ -154,15 +195,6 @@ public class LecturerDashboardActivity extends AppCompatActivity
     }
 
     // --- Phương thức tạo dữ liệu mẫu (Cần có trong Activity hoặc ViewModel) ---
-
-    private List<ScheduleItem> generateDummySchedule() {
-        List<ScheduleItem> list = new ArrayList<>();
-        // Đây là dữ liệu đầy đủ, chỉ lấy vài mục cho RecyclerView ngang
-        list.add(new ScheduleItem("Thứ Hai", "CS101: Intro to Programming", "10:00 AM", "11:30 AM", "Hall A, Room 203", "Dr. Smith"));
-        list.add(new ScheduleItem("Thứ Hai", "DS203: Advanced Data Science", "01:00 PM", "02:30 PM", "Science Library", "Dr. Smith"));
-        list.add(new ScheduleItem("Thứ Ba", "Trí tuệ Nhân tạo", "07:30 AM", "09:00 AM", "C102", "Dr. Smith"));
-        return list;
-    }
 
     private List<Announcement> generateDummyAnnouncements() {
         List<Announcement> list = new ArrayList<>();

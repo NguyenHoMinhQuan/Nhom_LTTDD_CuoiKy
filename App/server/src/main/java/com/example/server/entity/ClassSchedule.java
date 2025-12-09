@@ -15,72 +15,71 @@ public class ClassSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ScheduleId")
-    private Integer ScheduleId;
+    private Integer scheduleId;
 
     @Column(name = "ClassId")
-    private Integer ClassId;
+    private Integer classId;
 
     @Column(name = "DayOfWeek")
-    private Integer DayOfWeek;
+    private Integer dayOfWeek;
 
     @Column(name = "StartTime")
-    private LocalTime StartTime;
+    private LocalTime startTime;
 
     @Column(name = "EndTime")
-    private LocalTime EndTime;
-
+    private LocalTime endTime;
     @Column(name = "Room")
-    private String Room;
+    private String room;
 
     public ClassSchedule() {
     }
 
     public Integer getScheduleId() {
-        return ScheduleId;
+        return scheduleId;
     }
 
     public void setScheduleId(Integer scheduleId) {
-        this.ScheduleId = scheduleId;
+        this.scheduleId = scheduleId;
     }
 
     public Integer getClassId() {
-        return ClassId;
+        return classId;
     }
 
     public void setClassId(Integer classId) {
-        this.ClassId = classId;
+        this.classId = classId;
     }
 
     public Integer getDayOfWeek() {
-        return DayOfWeek;
+        return dayOfWeek;
     }
 
     public void setDayOfWeek(Integer dayOfWeek) {
-        this.DayOfWeek = dayOfWeek;
+        this.dayOfWeek = dayOfWeek;
     }
 
     public LocalTime getStartTime() {
-        return StartTime;
+        return startTime;
     }
 
     public void setStartTime(LocalTime startTime) {
-        this.StartTime = startTime;
+        this.startTime = startTime;
     }
 
     public LocalTime getEndTime() {
-        return EndTime;
+        return endTime;
     }
 
     public void setEndTime(LocalTime endTime) {
-        this.EndTime = endTime;
+        this.endTime = endTime;
     }
 
     public String getRoom() {
-        return Room;
+        return room;
     }
 
     public void setRoom(String room) {
-        this.Room = room;
+        this.room = room;
     }
 
 }

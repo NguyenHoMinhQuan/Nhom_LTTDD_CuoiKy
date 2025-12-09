@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.client.R;
+import com.example.client.lecturer.model.Announcement;
 
 public class AnnouncementDetailActivity extends AppCompatActivity {
 
@@ -30,8 +31,8 @@ public class AnnouncementDetailActivity extends AppCompatActivity {
             // Bạn có thể dùng Summary làm Body chi tiết, hoặc tạo thêm một thuộc tính Body đầy đủ.
             // Tạm thời hiển thị Author và Date từ model.
             authorTextView.setText("Tác giả: " + announcement.getAuthor());
-            dateTextView.setText("Ngày: " + announcement.getDate());
-            bodyTextView.setText(announcement.getSummary()); // Thay bằng getBody() nếu có
+            dateTextView.setText("Ngày: " + announcement.getCreatedAt());
+            bodyTextView.setText(announcement.getBody()); // Thay bằng getBody() nếu có
 
             // Đặt tiêu đề trên thanh ActionBar (nếu có)
             if (getSupportActionBar() != null) {

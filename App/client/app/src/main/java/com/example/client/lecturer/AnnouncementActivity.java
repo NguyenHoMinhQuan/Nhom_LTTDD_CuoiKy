@@ -10,6 +10,7 @@ import android.content.Intent;
 
 import com.example.client.R;
 import com.example.client.lecturer.adapter.AnnouncementAdapter;
+import com.example.client.lecturer.model.Announcement;
 
 public class AnnouncementActivity extends AppCompatActivity implements AnnouncementAdapter.OnItemClickListener {
 

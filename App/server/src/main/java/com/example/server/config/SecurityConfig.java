@@ -58,7 +58,7 @@ public class SecurityConfig {
                                 "/api/notifications"
                                 )
                         .permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authenticationProvider(authenticationProvider());
