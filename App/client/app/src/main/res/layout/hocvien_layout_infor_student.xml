@@ -130,7 +130,8 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/primary_brand"
-            app:endIconMode="password_toggle"> <com.google.android.material.textfield.TextInputEditText
+            app:endIconMode="password_toggle">
+            <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
