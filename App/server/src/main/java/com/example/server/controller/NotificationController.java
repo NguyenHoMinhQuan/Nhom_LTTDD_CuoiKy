@@ -45,21 +45,44 @@ public class NotificationController {
         return ResponseEntity.ok(convertToDTO(updated));
     }
 
-    // 🔹 MARK AS READ (thực tế rất hay dùng)
-    @PatchMapping("/{id}/read")
+    // 🔹 Lấy thông báo chưa đọc cho Dashboard
+    @GetMapping("/user/{userId}/unread")
+    public ResponseEntity<List<NotificationDTO>> getUnreadNotifications(@PathVariable Integer userId) {
+        // SỬA LỖI: Gọi đúng tên hàm trong Service của bạn
+        List<NotificationDTO> list = notificationService.getUnreadNotificationsByUserId(userId);
+        return ResponseEntity.ok(list);
+    }
+    
+    // Thêm endpoint đánh dấu đã đọc khi người dùng click
+    @PutMapping("/{id}/read")
     public ResponseEntity<Void> markAsRead(@PathVariable Integer id) {
         notificationService.markAsRead(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
+    }
+
+    // 🔹 Lấy TOÀN BỘ thông báo của một User (cả cũ và mới)
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<NotificationDTO>> getAllNotificationsByUserId(@PathVariable Integer userId) {
+        List<NotificationDTO> list = notificationService.getAllNotificationsByUserId(userId);
+        return ResponseEntity.ok(list);
     }
 
     // ===== Mapper =====
     private NotificationDTO convertToDTO(Notification n) {
         NotificationDTO dto = new NotificationDTO();
+        
+        // 1. Chỉ set những trường THỰC SỰ CÓ trong NotificationDTO.java của bạn
         dto.setNotificationId(n.getNotificationId());
-        dto.setUserId(n.getUserId());
-        dto.setAnnouncementId(n.getAnnouncementId());
         dto.setIsRead(n.getIsRead());
         dto.setCreatedAt(n.getCreatedAt());
+        
+        // 2. Lấy nội dung từ bảng Announcement liên kết
+        // Dùng kiểm tra null để tránh NullPointerException
+        if (n.getAnnouncement() != null) {
+            dto.setTitle(n.getAnnouncement().getTitle()); 
+            dto.setBody(n.getAnnouncement().getBody());
+        }
+        
         return dto;
     }
 }
