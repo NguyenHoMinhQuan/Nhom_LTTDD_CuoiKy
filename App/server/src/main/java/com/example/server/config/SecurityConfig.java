@@ -1,6 +1,5 @@
 package com.example.server.config;
 
-import com.example.server.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.example.server.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -49,7 +50,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").permitAll() // Cho phép tất cả API bắt đầu bằng /api/
                         .anyRequest().permitAll() // Hoặc cho phép TẤT CẢ mọi request
                 );
-
         return http.build();
     }
 }
