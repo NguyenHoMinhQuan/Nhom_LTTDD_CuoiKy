@@ -18,16 +18,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-
-    // Lấy Thời khóa biểu Hôm nay
-    @GET("/api/schedule-schedules/today")
-    Call<List<ScheduleItem>> getTodaySchedule();
-
-    // Lấy Thông báo Gần đây
-    @GET("/api/announcements/recent")
-    Call<List<Announcement>> getRecentAnnouncements();
-
-    // Lấy thời khóa biểu theo giảng viên
+    @GET("/api/class-schedules/lecturer/{lecturerId}/today")
+    Call<List<ScheduleItem>> getTodayScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
     @GET("/api/class-schedules/lecturer/{lecturerId}")
     Call<List<ScheduleItem>> getScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
     @POST("/api/auth/login")

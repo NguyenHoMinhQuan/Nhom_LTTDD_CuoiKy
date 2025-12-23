@@ -1,4 +1,4 @@
-package com.example.client.lecturer;
+package com.example.client.lecturer.activity;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -32,7 +32,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
 
     private RecyclerView timetableRecyclerView;
     private RecyclerView announcementRecyclerView;
-    private ImageView imgAnnouncement;
+    private ImageView ivMessenger;
 
     private static final String BASE_URL = "http://10.0.2.2:9000/";
     private ApiService apiService;
@@ -45,19 +45,19 @@ public class LecturerDashboardActivity extends AppCompatActivity
         // Khởi tạo các thành phần chính
         timetableRecyclerView = findViewById(R.id.recycler_timetable_today);
         announcementRecyclerView = findViewById(R.id.recycler_announcements_recent);
-        imgAnnouncement = findViewById(R.id.iv_notification);
+        ivMessenger = findViewById(R.id.iv_messenger);
 
         initRetrofit();
 
         setupQuickActions();
 
-        fetchLecturerSchedule(2);
+        fetchTodayLecturerSchedule(2);
 
         setupAnnouncementRecycler();
 
         setupHeader();
 
-        imgAnnouncement.setOnClickListener(new View.OnClickListener() {
+        ivMessenger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LecturerDashboardActivity.this, AnnouncementActivity.class));
@@ -74,8 +74,8 @@ public class LecturerDashboardActivity extends AppCompatActivity
         apiService = retrofit.create(ApiService.class);
     }
 
-    private void fetchLecturerSchedule(Integer lecturerId) {
-        apiService.getScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
+    private void fetchTodayLecturerSchedule(Integer lecturerId) {
+        apiService.getTodayScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
             @Override
             public void onResponse(Call<List<ScheduleItem>> call, Response<List<ScheduleItem>> response) {
                 if (response.isSuccessful() & response.body()!= null) {

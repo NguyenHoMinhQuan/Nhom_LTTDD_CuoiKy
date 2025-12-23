@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_gv"
-    tools:context=".lecturer.LecturerAssignmentActivity">
+    tools:context=".lecturer.activity.LecturerAssignmentActivity">
 
     <RelativeLayout
         android:id="@+id/header_container"
