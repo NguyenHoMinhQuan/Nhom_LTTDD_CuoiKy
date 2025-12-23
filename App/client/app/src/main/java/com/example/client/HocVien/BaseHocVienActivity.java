@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.client.LoginActivity;
+import com.example.client.Login.LoginActivity;
 import com.example.client.R;
 import com.example.client.StudyStatusActivity;
 

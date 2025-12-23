@@ -3,24 +3,29 @@ package com.example.server.config;
 import com.example.server.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
-    // Password encoder: không băm, dùng trực tiếp
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -40,29 +45,32 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager() {
         return new org.springframework.security.authentication.ProviderManager(authenticationProvider());
     }
-
-    // Security filter chain
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/api/auth/login",
-                                "/api/auth/register",
-                                "/api/users",
-                                "/api/users/show",
-                                "/api/students",
-                                "/api/registrations/**",
-                                "/api/lecturers",
-                                "/api/notifications"
-                                )
-                        .permitAll()
-                        .anyRequest().permitAll())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-                .authenticationProvider(authenticationProvider());
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .csrf(csrf -> csrf.disable()) // Tắt CSRF cho API
+                    // QUAN TRỌNG: Chuyển sang chế độ STATELESS (Không lưu Session trên Server)
+                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers("/api/auth/**").permitAll() // Cho phép Login/Register tự do
+                            .requestMatchers("/api/users/**").permitAll()
+                            .requestMatchers("/api/announcements/**").permitAll()
+                            .requestMatchers("/api/classes/**").permitAll()
+                            .requestMatchers("/api/students/**").permitAll()
+                            .requestMatchers("/api/lecturers/**").permitAll()
+                            .requestMatchers("/api/class-schedules/**").permitAll()
+                            .requestMatchers("/api/registrations/**").permitAll()
+                            .requestMatchers("/api/roles/**").permitAll()
+                            .requestMatchers("/api/courses/**").permitAll()
+                            .requestMatchers("/api/notifications/**").permitAll()
+                            
+                            .anyRequest().authenticated() // Mọi request khác đều phải có Token hợp lệ
+                    )
+                    .authenticationProvider(authenticationProvider());
 
-        return http.build();
-    }
+            // THÊM BỘ LỌC JWT TRƯỚC KHI XỬ LÝ ĐĂNG NHẬP MẶC ĐỊNH
+            http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+            return http.build();
+        }
 }

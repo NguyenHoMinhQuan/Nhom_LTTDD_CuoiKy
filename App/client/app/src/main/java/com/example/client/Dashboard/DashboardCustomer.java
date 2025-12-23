@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.client.LoginActivity;
+import com.example.client.Login.LoginActivity;
 import com.example.client.R;
 
 import java.util.ArrayList;

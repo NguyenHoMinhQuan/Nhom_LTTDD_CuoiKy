@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Client">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

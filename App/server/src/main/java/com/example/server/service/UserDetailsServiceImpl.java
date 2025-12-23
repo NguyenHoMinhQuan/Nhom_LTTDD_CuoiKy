@@ -43,7 +43,7 @@ public class UserDetailsServiceImpl implements UserService, UserDetailsService {
         // Dùng password trực tiếp từ PasswordHash, không băm
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
-                user.getPasswordHash(),
+                user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(roleName)));
     }
 

@@ -24,20 +24,4 @@ public class UserController {
         // Lấy danh sách user và trả về luôn
         return userService.findAllUserDTOs();
     }
-
-    // Tùy chọn: tạo endpoint HTML hiển thị danh sách trực tiếp
-    @GetMapping("/show")
-    public String showUsers() {
-        List<UserDTO> users = userService.findAllUserDTOs();
-        StringBuilder html = new StringBuilder("<h1>Danh sách Users</h1><ul>");
-        for (UserDTO u : users) {
-            html.append("<li>")
-                    .append(u.getUsername())
-                    .append(" - ").append(u.getEmail())
-                    .append(" - ").append(u.getRole())
-                    .append("</li>");
-        }
-        html.append("</ul>");
-        return html.toString();
-    }
 }

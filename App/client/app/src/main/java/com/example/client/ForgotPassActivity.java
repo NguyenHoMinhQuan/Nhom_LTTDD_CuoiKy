@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.client.Login.LoginActivity;
+
 public class ForgotPassActivity extends AppCompatActivity {
     TextView tv_back;
     Button btn_confirm;
