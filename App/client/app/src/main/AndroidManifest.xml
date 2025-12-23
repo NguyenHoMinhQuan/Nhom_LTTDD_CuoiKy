@@ -38,7 +38,7 @@
 
         <activity android:name=".ForgotPassActivity"/>
 
-        <activity android:name=".AdminDashboardActivity"/>
+        <activity android:name=".Admin.AdminDashboardActivity"/>
 
         <activity android:name=".MainActivity"/>
 
@@ -62,9 +62,9 @@
         <activity android:name=".HocVien.MyCoursesActivity" />
         <!-- end Hocvien-->
 
-        <activity android:name=".QuanLyKhoaHocActivity"/>
-        <activity android:name=".QuanLyLopHocActivity"/>
-        <activity android:name=".QuanLyUserActivity"/>
+        <activity android:name=".Admin.QuanLyKhoaHocActivity"/>
+        <activity android:name=".Admin.QuanLyLopHocActivity"/>
+        <activity android:name=".Admin.QuanLyUserActivity"/>
 
     </application>
 </manifest>

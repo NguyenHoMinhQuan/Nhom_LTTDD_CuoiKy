@@ -1,4 +1,4 @@
-package com.example.client;
+package com.example.client.Admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.client.R;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 

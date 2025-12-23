@@ -26,4 +26,13 @@ public interface ApiService {
     Call<List<ScheduleItem>> getScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
     @POST("/api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest request);
+    //ADMIN
+    @GET("api/admin/users")
+    Call<List<AdminResponse.User>> getUsers();
+
+    @GET("api/admin/courses")
+    Call<List<AdminResponse.Course>> getCourses();
+
+    @GET("api/admin/classes")
+    Call<List<AdminResponse.ClassItem>> getClasses();
 }

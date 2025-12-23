@@ -2,7 +2,6 @@ package com.example.client.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,8 +10,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.client.AdminDashboardActivity;
-import com.example.client.ForgotPassActivity;
+import com.example.client.Admin.AdminDashboardActivity;
 import com.example.client.HocVien.HomeActivity;
 import com.example.client.R;
 import com.example.client.api.ApiClient;
