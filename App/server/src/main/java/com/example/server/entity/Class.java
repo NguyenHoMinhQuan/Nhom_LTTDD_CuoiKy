@@ -14,93 +14,93 @@ public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ClassId")
-    private Integer ClassId;
+    private Integer classId;
 
     @Column(name = "CourseId")
-    private Integer CourseId;
+    private Integer courseId;
 
     @Column(name = "ClassCode")
-    private String ClassCode;
+    private String classCode;
 
     @Column(name = "Semester")
-    private String Semester;
+    private String semester;
 
     @Column(name = "Capacity")
-    private Integer Capacity;
+    private Integer capacity;
 
     @Column(name = "LecturerId")
-    private Integer LecturerId;
+    private Integer lecturerId;
 
     @Column(name = "CreatedBy")
-    private Integer CreatedBy;
+    private Integer createdBy;
 
     @Column(name = "CreatedAt")
-    private String CreatedAt;
+    private String createdAt;
 
     public Class() {
     }
 
     public Integer getClassId() {
-        return ClassId;
+        return classId;
     }
 
     public void setClassId(Integer classId) {
-        this.ClassId = classId;
+        this.classId = classId;
     }
 
     public Integer getCourseId() {
-        return CourseId;
+        return courseId;
     }
 
     public void setCourseId(Integer courseId) {
-        this.CourseId = courseId;
+        this.courseId = courseId;
     }
 
     public String getClassCode() {
-        return ClassCode;
+        return classCode;
     }
 
     public void setClassCode(String classCode) {
-        this.ClassCode = classCode;
+        this.classCode = classCode;
     }
 
     public String getSemester() {
-        return Semester;
+        return semester;
     }
 
     public void setSemester(String semester) {
-        this.Semester = semester;
+        this.semester = semester;
     }
 
     public Integer getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(Integer capacity) {
-        this.Capacity = capacity;
+        this.capacity = capacity;
     }
 
     public Integer getLecturerId() {
-        return LecturerId;
+        return lecturerId;
     }
 
     public void setLecturerId(Integer lecturerId) {
-        this.LecturerId = lecturerId;
+        this.lecturerId = lecturerId;
     }
 
     public Integer getCreatedBy() {
-        return CreatedBy;
+        return createdBy;
     }
 
     public void setCreatedBy(Integer createdBy) {
-        this.CreatedBy = createdBy;
+        this.createdBy = createdBy;
     }
 
     public String getCreatedAt() {
-        return CreatedAt;
+        return createdAt;
     }
 
     public void setCreatedAt(String createdAt) {
-        this.CreatedAt = createdAt;
+        this.createdAt = createdAt;
     }
 }

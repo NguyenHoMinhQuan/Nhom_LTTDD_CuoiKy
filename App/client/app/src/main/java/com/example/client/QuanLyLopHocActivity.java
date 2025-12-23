@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class QuanLyLopHocActivity extends AppCompatActivity {
-
-    // Khai báo các View (Nút bấm, Text hiển thị)
     private TextView tabNgay, tabTuan, tabThang, tabNam;
     private TextView btnLui, btnTiep, tvHienThiThoiGian;
 
@@ -32,9 +30,9 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_calendar);
+        setContentView(R.layout.admin_class_calendar);
 
-        // 1. Ánh xạ View (Kết nối Java với XML)
+        // 1. Ánh xạ View
         initViews();
 
         // 2. Khởi tạo thời gian mặc định là hôm nay
@@ -50,8 +48,6 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
         // 4. Xử lý sự kiện bấm nút Lùi / Tiếp
         btnLui.setOnClickListener(v -> changeTime(-1)); // -1 là lùi
         btnTiep.setOnClickListener(v -> changeTime(1));  // 1 là tiến
-
-        // 5. Các xử lý cũ (Menu 3 gạch & Popup chi tiết môn học) - GIỮ NGUYÊN
         setupOldLogic();
     }
 
@@ -133,10 +129,10 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
                 });
                 break;
 
-            case 3: // Chọn Năm (2020 - 2030)
+            case 3: // Chọn Năm
                 builder.setTitle("Chọn Năm");
                 List<String> years = new ArrayList<>();
-                for(int i=2020; i<=2030; i++) years.add("Năm " + i);
+                for(int i=1985; i<=2100; i++) years.add("Năm " + i);
                 items = years.toArray(new String[0]);
 
                 builder.setItems(items, (dialog, which) -> {
@@ -224,7 +220,7 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
     private void showDetailPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_class_detail, null);
+        View dialogView = inflater.inflate(R.layout.admin_class_detail, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {

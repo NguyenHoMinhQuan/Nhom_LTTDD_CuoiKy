@@ -54,10 +54,29 @@ public class ClassServiceImpl implements ClassService{
     };
 
     @Override
+    public List<ClassDTO> findAllClassesByLecturerId(Integer lecturerId) {
+        // Gọi Repository (Giả định đã có findAllByLecturerId)
+        List<Class> classes = classRepository.findAllByLecturerId(lecturerId);
+        
+        return classes.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<ClassDTO> findClassById(Integer id) {
         return classRepository.findById(id)
                 .map(this::convertToDTO);
     };
+
+    @Override
+    public List<ClassDTO> findAllByLecturerId(Integer lecturerId) {
+        List<Class> classes = classRepository.findAll();
+        return classes.stream()
+                .filter(c -> c.getLecturerId().equals(lecturerId))
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public ClassDTO saveClass(ClassDTO classDTO){

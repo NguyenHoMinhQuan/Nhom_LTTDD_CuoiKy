@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.client.lecturer.model.Announcement;
 import com.example.client.R;
-import com.example.client.lecturer.Announcement;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
         Announcement currentAnnouncement = announcementList.get(position);
 
         holder.titleTextView.setText(currentAnnouncement.getTitle());
-        holder.summaryTextView.setText(currentAnnouncement.getSummary());
+        holder.summaryTextView.setText(currentAnnouncement.getBody());
 
         // Gán sự kiện click cho toàn bộ View của item
         holder.itemView.setOnClickListener(new View.OnClickListener() {

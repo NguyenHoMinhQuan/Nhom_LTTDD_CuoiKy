@@ -20,8 +20,8 @@ public class User {
     @Column(name = "Email", unique = true)
     private String email;
 
-    @Column(name = "PasswordHash") // Chứa chuỗi BCrypt
-    private String passwordHash;
+    @Column(name = "Password") 
+    private String password;
 
     @Column(name = "RoleId")
     private Byte roleId;

@@ -1,15 +1,15 @@
 package com.example.server.controller;
 
 import com.example.server.dto.StudentDTO;
-import com.example.server.entity.Student;
 import com.example.server.service.StudentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/students")
+@CrossOrigin("*")
 public class StudentController {
 
     private final StudentService studentService;
@@ -18,27 +18,42 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    // 🔹 GET ALL
     @GetMapping
-    public List<StudentDTO> getAllStudents() {
-        return studentService.getAllStudents().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<StudentDTO>> getAllStudents() {
+        return ResponseEntity.ok(studentService.findAllStudents());
     }
 
-    @GetMapping("/{studentNumber}")
-    public StudentDTO getStudentByNumber(@PathVariable String studentNumber) {
-        Student student = studentService.getStudentByNumber(studentNumber);
-        return convertToDTO(student);
+    // 🔹 GET BY ID
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Integer id) {
+        return studentService.findStudentById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    private StudentDTO convertToDTO(Student student) {
-        if (student == null)
-            return null;
-        return new StudentDTO(
-                student.getStudentId(),
-                student.getStudentNumber(),
-                student.getFullName(),
-                student.getFaculty(),
-                student.getYear());
+    // 🔹 CREATE
+    @PostMapping
+    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
+        StudentDTO saved = studentService.createStudent(studentDTO);
+        return ResponseEntity.status(201).body(saved);
+    }
+
+    // 🔹 UPDATE BY ID
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDTO> updateStudent(
+            @PathVariable Integer id,
+            @RequestBody StudentDTO studentDTO) {
+
+        return studentService.updateStudent(id, studentDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // 🔹 DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Integer id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
     }
 }

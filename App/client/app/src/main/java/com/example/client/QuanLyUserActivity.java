@@ -11,7 +11,7 @@ public class QuanLyUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.admin_user);
 
         ImageView btnMenu = findViewById(R.id.btnMenu);
         if (btnMenu != null) {

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.client.R;
-import com.example.client.lecturer.ScheduleItem;
+import com.example.client.lecturer.model.ScheduleItem;
 
 import java.util.List;
 

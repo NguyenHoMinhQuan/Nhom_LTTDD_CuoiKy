@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.client.R;
 import com.example.client.lecturer.adapter.ScheduleAdapter;
+import com.example.client.lecturer.model.ScheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ public class TimetableActivity extends AppCompatActivity implements ScheduleAdap
         recyclerView = findViewById(R.id.recycler_schedule);
 
         // 1. Tạo dữ liệu mẫu
-        scheduleList = generateDummySchedule();
 
         // 2. Tạo Adapter, truyền dữ liệu và 'this' (Listener)
         ScheduleAdapter adapter = new ScheduleAdapter(scheduleList, this);
@@ -52,17 +52,5 @@ public class TimetableActivity extends AppCompatActivity implements ScheduleAdap
         // startActivity(detailIntent);
     }
 
-    private List<ScheduleItem> generateDummySchedule() {
-        List<ScheduleItem> list = new ArrayList<>();
-        list.add(new ScheduleItem(
-                "Thứ Hai", "Lập trình Di động Nâng cao", "07:30", "10:45", "A301", "PGS.TS Nguyễn Văn A"));
-        list.add(new ScheduleItem(
-                "Thứ Ba", "Cơ sở Dữ liệu Phân tán", "13:00", "16:15", "B205", "TS. Lê Thị B"));
-        list.add(new ScheduleItem(
-                "Thứ Tư", "Trí tuệ Nhân tạo", "07:30", "09:00", "C102", "PGS.TS Nguyễn Văn A"));
-        list.add(new ScheduleItem(
-                "Thứ Năm", "Mạng Máy tính", "14:45", "18:00", "D401", "ThS. Trần Đình C"));
-        // Thêm nhiều mục khác...
-        return list;
-    }
+
 }

@@ -3,7 +3,6 @@ package com.example.server.service;
 import com.example.server.entity.User;
 import com.example.server.dto.UserDTO;
 import com.example.server.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +19,6 @@ public class UserDetailsServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -45,7 +43,7 @@ public class UserDetailsServiceImpl implements UserService, UserDetailsService {
         // Dùng password trực tiếp từ PasswordHash, không băm
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
-                user.getPasswordHash(),
+                user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(roleName)));
     }
 
