@@ -98,4 +98,14 @@ public interface ApiService {
             @Path("submissionId") Integer submissionId,
             @Query("grade") Double grade
     );
+
+    @GET("api/admin/users")
+    Call<List<AdminResponse.User>> getUsers();
+
+    @GET("api/admin/courses")
+    Call<List<AdminResponse.Course>> getCourses();
+
+    @GET("api/admin/classes")
+    Call<List<AdminResponse.ClassItem>> getClasses();
+
 }
