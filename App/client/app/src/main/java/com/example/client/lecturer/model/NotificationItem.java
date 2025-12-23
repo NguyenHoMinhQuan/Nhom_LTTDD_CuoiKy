@@ -1,24 +1,13 @@
-package com.example.server.dto;
+package com.example.client.lecturer.model;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class NotificationDTO {
-
+public class NotificationItem implements Serializable {
     private Integer notificationId;
-    private String title;      // Lấy từ Announcement
-    private String body;       // Lấy từ Announcement
-    private LocalDateTime createdAt;  // Thời gian tạo
+    private String title;
+    private String body;
+    private String createdAt;
     private Integer isRead;
-
-    public NotificationDTO(Integer notificationId, String title, String body, LocalDateTime createdAt, Integer isRead) {
-        this.notificationId = notificationId;
-        this.title = title;
-        this.body = body;
-        this.createdAt = createdAt;
-        this.isRead = isRead;
-    }
-
-    public NotificationDTO() {}
 
     public Integer getNotificationId() {
         return notificationId;
@@ -44,17 +33,17 @@ public class NotificationDTO {
         this.body = body;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
     public Integer getIsRead() {
         return isRead;
-    }    
+    }
 
     public void setIsRead(Integer isRead) {
         this.isRead = isRead;

@@ -30,9 +30,9 @@
 
         <activity android:name=".lecturer.activity.LecturerAssignmentActivity"/>
 
-        <activity android:name=".lecturer.activity.AnnouncementActivity"/>
+        <activity android:name=".lecturer.activity.NotificationActivity"/>
 
-        <activity android:name=".lecturer.activity.AnnouncementDetailActivity"/>
+        <activity android:name=".lecturer.activity.NotificationDetailActivity"/>
 
         <!--end lecturer-->
 
