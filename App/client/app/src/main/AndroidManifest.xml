@@ -24,15 +24,15 @@
 
         <!--lecturer-->
 
-        <activity android:name=".lecturer.LecturerDashboardActivity"/>
+        <activity android:name=".lecturer.activity.LecturerDashboardActivity"/>
 
-        <activity android:name=".lecturer.TimetableActivity"/>
+        <activity android:name=".lecturer.activity.TimetableActivity"/>
 
-        <activity android:name=".lecturer.LecturerAssignmentActivity"/>
+        <activity android:name=".lecturer.activity.LecturerAssignmentActivity"/>
 
-        <activity android:name=".lecturer.AnnouncementActivity"/>
+        <activity android:name=".lecturer.activity.AnnouncementActivity"/>
 
-        <activity android:name=".lecturer.AnnouncementDetailActivity"/>
+        <activity android:name=".lecturer.activity.AnnouncementDetailActivity"/>
 
         <!--end lecturer-->
 

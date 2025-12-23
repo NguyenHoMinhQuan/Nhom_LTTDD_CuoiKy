@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".lecturer.LecturerDashboardActivity">
+    tools:context=".lecturer.activity.LecturerDashboardActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -53,10 +53,10 @@
                     android:text="@string/lecturer_dashboard_tv_gretting" />
 
                 <ImageView
-                    android:id="@+id/iv_notification"
+                    android:id="@+id/iv_messenger"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/notifi"
+                    android:src="@drawable/messenger"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_avatar"
                     app:layout_constraintBottom_toBottomOf="@id/iv_avatar"

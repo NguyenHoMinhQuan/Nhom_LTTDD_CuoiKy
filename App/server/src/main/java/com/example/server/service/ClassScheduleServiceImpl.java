@@ -1,5 +1,6 @@
 package com.example.server.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         
         // 1. Ánh xạ các trường trực tiếp (Đã điền đầy đủ)
         classScheduleDTO.setScheduleId(classSchedule.getScheduleId());
-        classScheduleDTO.setDayOfWeek(convertDayOfWeek(classSchedule.getDayOfWeek())); 
+        classScheduleDTO.setDayOfWeek(convertDayNumberToDayName(classSchedule.getDayOfWeek())); 
         classScheduleDTO.setStartTime(classSchedule.getStartTime());
         classScheduleDTO.setEndTime(classSchedule.getEndTime());
         classScheduleDTO.setRoom(classSchedule.getRoom());
@@ -97,6 +98,29 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         
         return classSchedules.stream()
                 .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClassScheduleDTO> findScheduleByLecturerIdForToday(Integer lecturerId) {
+        // Lấy thứ hiện tại (Hệ thống Java: 1=Thứ Hai ... 7=Chủ Nhật)
+        int todayValue = LocalDate.now().getDayOfWeek().getValue();
+        
+        // CHÚ Ý: Cần khớp với quy ước trong DB của bạn. 
+        // Nếu DB lưu Thứ Hai = 2, Chủ Nhật = 1, hãy dùng logic chuyển đổi:
+        Integer dbDayValue = (todayValue == 7) ? 1 : todayValue + 1;
+
+        // Tận dụng hàm findScheduleByLecturerId đã viết ở trên
+        List<ClassScheduleDTO> fullSchedule = findScheduleByLecturerId(lecturerId);
+
+        // Lọc danh sách theo ngày hiện tại
+        return fullSchedule.stream()
+                .filter(item -> {
+                    // Nếu convertToDTO đã chuyển số thành chữ (ví dụ: "Thứ Ba")
+                    // hãy so sánh chuỗi. Nếu vẫn để số, hãy so sánh số.
+                    String todayString = convertDayNumberToDayName(dbDayValue);
+                    return item.getDayOfWeek().equals(todayString);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -161,25 +185,16 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     // PHƯƠNG THỨC HỖ TRỢ CHUYỂN ĐỔI NGÀY
     // =================================================================
 
-    private String convertDayOfWeek(Integer day) {
-        if (day == null) return "N/A";
-        switch (day) {
-            case 1:
-                return "Chủ Nhật";
-            case 2:
-                return "Thứ Hai";
-            case 3:
-                return "Thứ Ba";
-            case 4:
-                return "Thứ Tư";
-            case 5:
-                return "Thứ Năm";
-            case 6:
-                return "Thứ Sáu";
-            case 7:
-                return "Thứ Bảy";
-            default:
-                return "N/A";
+    private String convertDayNumberToDayName(int dayNumber) {
+        switch (dayNumber) {
+            case 1: return "Chủ Nhật";
+            case 2: return "Thứ Hai";
+            case 3: return "Thứ Ba";
+            case 4: return "Thứ Tư";
+            case 5: return "Thứ Năm";
+            case 6: return "Thứ Sáu";
+            case 7: return "Thứ Bảy";
+            default: return "";
         }
     }
 }
