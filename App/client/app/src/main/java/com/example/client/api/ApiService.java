@@ -1,5 +1,7 @@
 package com.example.client.api;
 
+import com.example.client.HocVien.Models.LichHocSinhVienModel;
+import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
 import com.example.client.lecturer.model.ScheduleItem;
@@ -10,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -26,4 +29,10 @@ public interface ApiService {
     Call<List<ScheduleItem>> getScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
     @POST("/api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest request);
+
+    @GET("/api/hocvien/soyeulilich") // dành cho học viên - đụng t chặt tay
+    Call<SoYeuLyLichModel> LaySoYeuLyLich(@Query("Username") String username);
+
+    @GET("/api/lichhoc/view") // dành cho học viên - đụng t chặt tay
+    Call<List<LichHocSinhVienModel>> LayLichHocSinhVien(@Query("Username") String username);
 }

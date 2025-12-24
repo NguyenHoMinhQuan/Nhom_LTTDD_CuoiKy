@@ -8,13 +8,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.client.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.Nullable;
 
 
 public class ScheduleFragment extends Fragment {
+    private TextInputEditText edtTimKiemUsername ;
+    private Button btnXemLich;
+    private LinearLayout layoutLichHocContainer;
+
 
     @Nullable
     @Override

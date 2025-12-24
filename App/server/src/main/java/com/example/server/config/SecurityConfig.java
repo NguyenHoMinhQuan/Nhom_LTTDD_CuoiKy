@@ -63,7 +63,8 @@ public class SecurityConfig {
                             .requestMatchers("/api/roles/**").permitAll()
                             .requestMatchers("/api/courses/**").permitAll()
                             .requestMatchers("/api/notifications/**").permitAll()
-                            
+                            .requestMatchers("/api/lichhoc/**").permitAll()
+                            .requestMatchers("/api/hocvien/**").permitAll()
                             .anyRequest().authenticated() // Mọi request khác đều phải có Token hợp lệ
                     )
                     .authenticationProvider(authenticationProvider());

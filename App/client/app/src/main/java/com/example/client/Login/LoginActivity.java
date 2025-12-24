@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         getSharedPreferences("AUTH_PREFS", MODE_PRIVATE)
                                 .edit()
                                 .putString("JWT_TOKEN", data.getToken())
+                                .putString("USERNAME" , username) // Thuận - giữ lại giá trị student1 để lọc dữ liệu trong trang học viên
                                 .apply();
 
                         String role = data.getUserProfile().getRole();
