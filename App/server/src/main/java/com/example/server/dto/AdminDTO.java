@@ -1,60 +1,102 @@
 package com.example.server.dto;
 
-import java.time.LocalTime; // Nhớ import cái này
+import java.time.LocalTime;
 
 public class AdminDTO {
 
-    // 1. DTO cho User (Giữ nguyên)
+    // ================= USER =================
     public static class UserRow {
-        public Integer id;
+        public Integer userId;
+        public String username;
         public String fullName;
         public String email;
         public String department;
-        public String status;
+        public String role;      // <--- SỬA: Đổi byte -> String (để nhận RoleName từ Query)
+        public Boolean isActive;
 
-        public UserRow(Integer id, String fullName, String email, String department, Boolean isActive) {
-            this.id = id;
+        // Constructor phải khớp với thứ tự select trong Repository
+        public UserRow(Integer userId, String username, String fullName, String email,
+                       String department, String role, Boolean isActive) {
+            this.userId = userId;
+            this.username = username;
             this.fullName = fullName;
             this.email = email;
             this.department = department;
-            this.status = (isActive != null && isActive) ? "Hoạt động" : "Khóa";
+            this.role = role; 
+            this.isActive = isActive;
         }
     }
 
-    // 2. DTO cho Course (Giữ nguyên)
+    // ================= COURSE =================
     public static class CourseRow {
         public Integer id;
-        public String courseName;
-        public String lecturerName;
-        public Long studentCount;
+        public String maMon;
+        public String tenMon;
+        public Integer tinChi;
+        public String moTa;
 
-        public CourseRow(Integer id, String courseName, String lecturerName, Long studentCount) {
+        public CourseRow(Integer id, String maMon, String tenMon, Integer tinChi, String moTa) {
             this.id = id;
-            this.courseName = courseName;
-            this.lecturerName = lecturerName;
-            this.studentCount = studentCount;
+            this.maMon = maMon;
+            this.tenMon = tenMon;
+            this.tinChi = tinChi;
+            this.moTa = moTa;
         }
     }
 
-    // 3. DTO cho Class Schedule (CẬP NHẬT KIỂU GIỜ)
+    // ================= CLASS =================
     public static class ClassRow {
+        public Integer scheduleId;
+        public String courseCode;
         public String courseName;
         public String classCode;
+        public String lecturerName;
         public String room;
-        public String timeRange;
+        public Integer dayOfWeek;
+        public LocalTime startTime;
+        public LocalTime endTime;
 
-        // Lưu ý: Tham số start và end phải là LocalTime
-        public ClassRow(String courseName, String classCode, String room, LocalTime start, LocalTime end) {
+        public ClassRow(Integer scheduleId, String courseCode, String courseName,
+                        String classCode, String lecturerName, String room,
+                        Integer dayOfWeek, LocalTime startTime, LocalTime endTime) {
+            this.scheduleId = scheduleId;
+            this.courseCode = courseCode;
             this.courseName = courseName;
             this.classCode = classCode;
+            this.lecturerName = lecturerName;
             this.room = room;
-            // Xử lý chuỗi giờ: lấy 07:00 từ 07:00:00
-            String s = (start != null) ? start.toString() : "00:00";
-            String e = (end != null) ? end.toString() : "00:00";
-            if(s.length() > 5) s = s.substring(0, 5);
-            if(e.length() > 5) e = e.substring(0, 5);
-            
-            this.timeRange = s + " - " + e;
+            this.dayOfWeek = dayOfWeek;
+            this.startTime = startTime;
+            this.endTime = endTime;
         }
+    }
+
+    // ================= REQUEST =================
+    // Dùng để Thêm/Sửa: Nên dùng ID cho chính xác
+    public static class UserRequest {
+        public Integer id;
+        public String email;
+        public String username;
+        public String password;
+        public String fullName;
+        public String department;   // Khoa hoặc Bộ môn
+        public Integer roleId;      // <--- SỬA: Dùng Integer (2=SV, 3=GV) thay vì String
+        public Integer status;      // <--- SỬA: Dùng Integer (1=Active, 0=Lock) thay vì String
+    }
+    public static class CourseRequest {
+        public Integer id;
+        public String maMon;
+        public String tenMon;
+        public Integer tinChi;
+        public String moTa;
+    }
+    public static class ClassRequest {
+        public Integer scheduleId;   // Null nếu là Thêm mới
+        public String classCode;     // Mã lớp (để tìm ClassId)
+        public String lecturerName;  // Tên GV (để tìm LecturerId update vào bảng Class)
+        public String room;
+        public Integer dayOfWeek;
+        public String startTime;     // Nhận chuỗi "HH:mm" từ Client
+        public String endTime;       // Nhận chuỗi "HH:mm" từ Client
     }
 }
