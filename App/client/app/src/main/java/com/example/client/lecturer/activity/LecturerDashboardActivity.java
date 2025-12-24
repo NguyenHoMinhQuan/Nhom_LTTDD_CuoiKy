@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.client.Login.LoginActivity;
 import com.example.client.R;
+import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
 import com.example.client.lecturer.adapter.NotificationAdapter;
 import com.example.client.lecturer.adapter.ScheduleAdapter;
@@ -36,7 +37,6 @@ public class LecturerDashboardActivity extends AppCompatActivity
     private TextView tvViewAll;
     private NotificationAdapter notificationAdapter;
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
     private ApiService apiService;
     private  ImageView ivAvatar;
 
@@ -84,26 +84,25 @@ public class LecturerDashboardActivity extends AppCompatActivity
         fetchUnreadNotifications(2);
         setupHeader();
 
-        ivMessenger.setOnClickListener(v -> {
-            startActivity(new Intent(this, NotificationActivity.class));
+
+        ivMessenger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LecturerDashboardActivity.this, ChatListActivity.class));
+            }
         });
     }
 
 
     private void initRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        apiService = retrofit.create(ApiService.class);
+        apiService = ApiClient.getClient(this).create(ApiService.class);
     }
 
     private void fetchTodayLecturerSchedule(Integer lecturerId) {
         apiService.getTodayScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
             @Override
             public void onResponse(Call<List<ScheduleItem>> call, Response<List<ScheduleItem>> response) {
-                if (response.isSuccessful() & response.body()!= null) {
+                if (response.isSuccessful() && response.body()!= null) {
                     List<ScheduleItem> schedule = response.body();
 
                     if(schedule.isEmpty()) {
