@@ -8,7 +8,17 @@
         android:id="@+id/tvId"
         android:layout_width="70dp"
         android:minHeight="55dp"
-        android:text="1"
+        android:text="ID"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="150dp"
+        android:minHeight="55dp"
+        android:text="Username"
         android:gravity="center"
         android:padding="5dp"
         android:textColor="#000"
@@ -28,7 +38,17 @@
         android:id="@+id/tvEmail"
         android:layout_width="280dp"
         android:minHeight="55dp"
-        android:text="email@example.com"
+        android:text="Email"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvRole"
+        android:layout_width="120dp"
+        android:minHeight="55dp"
+        android:text="Vai trò"
         android:gravity="center"
         android:padding="5dp"
         android:textColor="#000"
@@ -38,7 +58,7 @@
         android:id="@+id/tvDept"
         android:layout_width="180dp"
         android:minHeight="55dp"
-        android:text="Bộ môn"
+        android:text="Khoa/Bộ môn"
         android:gravity="center"
         android:padding="5dp"
         android:textColor="#000"
