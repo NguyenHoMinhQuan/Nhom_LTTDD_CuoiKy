@@ -59,7 +59,7 @@ public class AnnouncementActivity extends AppCompatActivity {
 
     private void initRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:9000/") // Địa chỉ máy ảo kết nối localhost
+                .baseUrl("http://10.0.2.2:8080/") // Địa chỉ máy ảo kết nối localhost
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);

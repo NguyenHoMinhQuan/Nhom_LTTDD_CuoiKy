@@ -34,7 +34,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
     private ImageView ivMessenger;
     private TextView tvViewAll;
     private NotificationAdapter notificationAdapter;
-    private static final String BASE_URL = "http://10.0.2.2:9000/";
+    private static final String BASE_URL = "http://10.0.2.2:8080/";
     private ApiService apiService;
 
     @Override

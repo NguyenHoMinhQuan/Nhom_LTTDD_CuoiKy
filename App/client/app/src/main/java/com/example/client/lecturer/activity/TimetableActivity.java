@@ -25,7 +25,7 @@ public class TimetableActivity extends AppCompatActivity implements ScheduleAdap
     private RecyclerView recyclerView;
     private List<ScheduleItem> scheduleList;
     private ApiService apiService;
-    private static String BASE_URL ="http://10.0.2.2:9000/";
+    private static String BASE_URL ="http://10.0.2.2:8080/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

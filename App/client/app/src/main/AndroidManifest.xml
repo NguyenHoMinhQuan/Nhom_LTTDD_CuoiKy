@@ -35,6 +35,9 @@
         <activity android:name=".lecturer.activity.NotificationDetailActivity"/>
 
         <activity android:name=".lecturer.activity.AnnouncementActivity"/>
+        <activity android:name=".lecturer.activity.LecturerAssignmentActivity"
+            tools:ignore="DuplicateActivity" />
+        <activity android:name=".lecturer.activity.LecturerCreateAssignment" />
 
         <!--end lecturer-->
 
