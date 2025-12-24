@@ -20,6 +20,6 @@ public class ScoreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Liên kết với layout cũ: hocvien_layout_score
-        return inflater.inflate(R.layout.hocvien_layout_score, container, false);
+        return inflater.inflate(R.layout.hocvien_layout_calender_school, container, false);
     }
 }

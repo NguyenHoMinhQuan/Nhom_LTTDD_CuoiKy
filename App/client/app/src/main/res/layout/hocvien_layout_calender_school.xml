@@ -40,7 +40,7 @@
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                android:hint="Nhập Username (vd: student1)">
+                android:hint="Nhập Username ">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtSearchUsername"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:lines="1"
                     android:inputType="text"
-                    android:text="student1"
+                    android:hint=""
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,19 +78,94 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView android:id="@+id/tabT2" android:text="Thứ 2" style="@style/HocVien_TabDayStyle"/>
+            <TextView
+                android:id="@+id/tabT2"
+                android:text="Thứ 2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
 
-            <TextView android:id="@+id/tabT3" android:text="Thứ 3" style="@style/HocVien_TabDayStyle"/>
+            <TextView
+                android:id="@+id/tabT3"
+                android:text="Thứ 3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
 
-            <TextView android:id="@+id/tabT4" android:text="Thứ 4" style="@style/HocVien_TabDayStyle"/>
-
-            <TextView android:id="@+id/tabT5" android:text="Thứ 5" style="@style/HocVien_TabDayStyle"/>
-
-            <TextView android:id="@+id/tabT6" android:text="Thứ 6" style="@style/HocVien_TabDayStyle"/>
-
-            <TextView android:id="@+id/tabT7" android:text="Thứ 7" style="@style/HocVien_TabDayStyle"/>
-
-            <TextView android:id="@+id/tabCN" android:text="CN" style="@style/HocVien_TabDayStyle"/>
+            <TextView android:id="@+id/tabT4"
+                android:text="Thứ 4"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
+            <TextView android:id="@+id/tabT5"
+                android:text="Thứ 5"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
+            <TextView android:id="@+id/tabT6"
+                android:text="Thứ 6"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
+            <TextView android:id="@+id/tabT7"
+                android:text="Thứ 7"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
+            <TextView android:id="@+id/tabCN"
+                android:text="CN"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:background="@drawable/bg_btn_grey"
+                android:clickable="true"
+                android:focusable="true"/>
 
         </LinearLayout>
     </HorizontalScrollView>

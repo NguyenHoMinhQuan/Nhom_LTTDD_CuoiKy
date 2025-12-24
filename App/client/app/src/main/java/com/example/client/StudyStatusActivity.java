@@ -46,23 +46,7 @@ public class StudyStatusActivity extends BaseHocVienActivity {
                 case 2:
                     tab.setText("Nhiệm vụ");
                     break;
-
             }
         }).attach();
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
