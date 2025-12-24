@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="THÔNG TIN THÔNG BÁO"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#D32F2F"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"/>
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Nhập tiêu đề..."
+        android:background="#F5F5F5"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/etBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="3"
+        android:hint="Nhập nội dung..."
+        android:background="#F5F5F5"
+        android:padding="10dp"
+        android:gravity="top|start"
+        android:layout_marginBottom="10dp"/>
+
+    <CheckBox
+        android:id="@+id/cbIsGlobal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gửi toàn hệ thống"
+        android:checked="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Xóa"
+            android:backgroundTint="#BDBDBD"
+            android:visibility="gone"
+            android:layout_marginEnd="5dp"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lưu"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginStart="5dp"/>
+    </LinearLayout>
+</LinearLayout>
