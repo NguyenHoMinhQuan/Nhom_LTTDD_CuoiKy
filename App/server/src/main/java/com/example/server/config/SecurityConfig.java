@@ -40,7 +40,6 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    // AuthenticationManager
     @Bean
     public AuthenticationManager authenticationManager() {
         return new org.springframework.security.authentication.ProviderManager(authenticationProvider());
