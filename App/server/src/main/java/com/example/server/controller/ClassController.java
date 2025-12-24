@@ -29,11 +29,7 @@ public class ClassController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/lecturer/{lecturerId}")
-    public ResponseEntity<List<ClassDTO>> getClassesByLecturer(@PathVariable Integer lecturerId) {
-        List<ClassDTO> classes = classService.findAllByLecturerId(lecturerId);
-        return ResponseEntity.ok(classes);
-    }
+
     @PostMapping
     public ResponseEntity<ClassDTO> createClass(@RequestBody ClassDTO classDTO) {
         ClassDTO savedClass = classService.saveClass(classDTO);
