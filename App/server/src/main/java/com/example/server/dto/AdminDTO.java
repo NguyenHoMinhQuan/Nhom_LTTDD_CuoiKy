@@ -1,7 +1,7 @@
 package com.example.server.dto;
 
+import java.io.Serializable;
 import java.time.LocalTime;
-
 public class AdminDTO {
 
     // ================= USER =================
@@ -98,5 +98,20 @@ public class AdminDTO {
         public Integer dayOfWeek;
         public String startTime;     // Nhận chuỗi "HH:mm" từ Client
         public String endTime;       // Nhận chuỗi "HH:mm" từ Client
+    }
+    // ==========================================
+    // DTO CHO QUẢN LÝ THÔNG BÁO (ANNOUNCEMENT)
+    // ==========================================
+    public static class AnnouncementRequest implements Serializable {
+        public Integer announcementId; // Dùng cho Sửa/Xóa
+        public String title;
+        public String body;
+        public String authorId;     // Mặc định là ADMIN
+        public Boolean isGlobal;    // true = Toàn hệ thống
+        public String targetClassId;// Nếu gửi riêng cho lớp nào (lưu chuỗi "ALL" hoặc Mã lớp)
+        
+        // Các trường này Server tự tạo, Client không cần gửi lên
+        public String createdAt;
+        public String updatedAt;
     }
 }

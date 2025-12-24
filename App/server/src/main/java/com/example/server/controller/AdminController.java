@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.dto.AdminDTO;
+import com.example.server.entity.Announcement;
 import com.example.server.repository.AdminRepository;
 
 @RestController
@@ -241,6 +242,72 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(Map.of("error", "Lỗi khi xóa: " + e.getMessage()));
+        }
+    }
+    // =======================================================
+    // API QUẢN LÝ THÔNG BÁO
+    // =======================================================
+
+    // 1. Xem danh sách
+    // GET: /api/admin/announcement/all
+    @GetMapping("/announcement/all")
+    public List<Announcement> getAnnouncements() {
+        return adminRepository.getAllAnnouncements();
+    }
+// 2. Thêm thông báo
+    @PostMapping("/announcement/add")
+    public ResponseEntity<?> addAnnouncement(@RequestBody AdminDTO.AnnouncementRequest req) {
+        try {
+            if (req.title == null || req.title.isEmpty() || req.body == null) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Tiêu đề và nội dung không được để trống"));
+            }
+
+            String author = (req.authorId != null) ? req.authorId : "1"; // Mặc định ID admin là 1 nếu null
+            Boolean isGlobal = (req.isGlobal != null) ? req.isGlobal : true;
+
+            // --- SỬA LỖI TẠI ĐÂY ---
+            // Nếu là Global -> targetClass là null
+            // Nếu không -> Lấy targetClassId từ request
+            String targetClass = (isGlobal) ? null : req.targetClassId;
+
+            adminRepository.insertAnnouncement(req.title, req.body, author, isGlobal, targetClass);
+
+            return ResponseEntity.ok(Map.of("message", "Thêm thông báo thành công"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(Map.of("error", "Lỗi Server: " + e.getMessage()));
+        }
+    }
+
+    // 3. Cập nhật thông báo
+    @PutMapping("/announcement/update")
+    public ResponseEntity<?> updateAnnouncement(@RequestBody AdminDTO.AnnouncementRequest req) {
+        try {
+            if (req.announcementId == null) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Thiếu ID thông báo"));
+            }
+
+            Boolean isGlobal = (req.isGlobal != null) ? req.isGlobal : true;
+            
+            // --- SỬA LỖI TẠI ĐÂY ---
+            String targetClass = (isGlobal) ? null : req.targetClassId;
+
+            adminRepository.updateAnnouncement(req.announcementId, req.title, req.body, isGlobal, targetClass);
+
+            return ResponseEntity.ok(Map.of("message", "Cập nhật thành công"));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", e.getMessage()));
+        }
+    }
+    // 4. Xóa thông báo
+    // DELETE: /api/admin/announcement/delete/{id}
+    @DeleteMapping("/announcement/delete/{id}")
+    public ResponseEntity<?> deleteAnnouncement(@PathVariable Integer id) {
+        try {
+            adminRepository.deleteAnnouncement(id);
+            return ResponseEntity.ok(Map.of("message", "Xóa thành công"));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", e.getMessage()));
         }
     }
 }
