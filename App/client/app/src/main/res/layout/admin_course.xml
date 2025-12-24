@@ -9,185 +9,76 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:padding="16dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp">
-
             <ImageView
                 android:id="@+id/btnMenu"
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 android:layout_centerVertical="true"
-                android:clickable="true"
-                android:focusable="true"
                 android:padding="5dp"
                 android:layout_width="35dp"
-                android:layout_height="35dp"/>
-
+                android:layout_height="35dp" />
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="80dp"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo" />
-
             <ImageView
+                android:id="@+id/btnSearch"
                 android:src="@android:drawable/ic_menu_search"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="5dp"
                 android:layout_width="35dp"
-                android:layout_height="35dp"/>
+                android:layout_height="35dp" />
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tvFormTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="QUẢN LÝ KHÓA HỌC"
             android:layout_gravity="center"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/text_brown"
-            android:shadowColor="#888"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="1"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp" />
 
-        <ScrollView
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="329dp"
+            android:layout_height="300dp"
             android:layout_marginBottom="15dp"
-            android:padding="2dp"
-            android:scrollbars="vertical">
+            android:background="#FFF"
+            android:elevation="2dp">
 
-            <HorizontalScrollView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TableLayout
-                    android:id="@+id/tableCourseLayout"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="#DFDFDF"
+                    android:orientation="horizontal">
 
-                    <TableRow>
-                        <TextView
-                            android:layout_width="70dp"
-                            android:background="@drawable/bg_table_cell"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:minHeight="50dp"
-                            android:padding="5dp"
-                            android:text="ID"
-                            android:textColor="#000"
-                            android:textStyle="bold" />
+                    <TextView android:text="ID" android:layout_width="60dp" style="@style/HeaderStyle" />
+                    <TextView android:text="Mã Môn" android:layout_width="100dp" style="@style/HeaderStyle" />
+                    <TextView android:text="Tên Môn Học" android:layout_width="200dp" style="@style/HeaderStyle" />
+                    <TextView android:text="Tín Chỉ" android:layout_width="80dp" style="@style/HeaderStyle" />
+                    <TextView android:text="Mô Tả" android:layout_width="300dp" style="@style/HeaderStyle" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="250dp"
-                            android:background="@drawable/bg_table_cell"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:minHeight="50dp"
-                            android:padding="5dp"
-                            android:text="Tên Khóa Học"
-                            android:textColor="#000"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:background="@drawable/bg_table_cell"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:minHeight="50dp"
-                            android:padding="5dp"
-                            android:text="Giảng Viên"
-                            android:textColor="#000"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="90dp"
-                            android:background="@drawable/bg_table_cell"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:minHeight="50dp"
-                            android:padding="5dp"
-                            android:text="Học Viên"
-                            android:textColor="#000"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="70dp"
-                            android:background="@drawable/bg_table_cell"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:minHeight="50dp"
-                            android:padding="5dp"
-                            android:text="TT"
-                            android:textColor="#000"
-                            android:textStyle="bold" />
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-
-                        <TextView android:layout_width="250dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-
-                        <TextView android:layout_width="200dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-
-                        <TextView android:layout_width="90dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <FrameLayout android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp">
-                            <View android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_green" />
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="250dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="200dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="90dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <FrameLayout android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp">
-                            <View android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_red" />
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="250dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="200dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="90dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <FrameLayout android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp">
-                            <View android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_yellow" />
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="250dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="200dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="90dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <FrameLayout android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp">
-                            <View android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_green" />
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="250dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="200dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <TextView android:layout_width="90dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp" />
-                        <FrameLayout android:layout_width="70dp" android:background="@drawable/bg_table_cell" android:minHeight="50dp">
-                            <View android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_red" />
-                        </FrameLayout>
-                    </TableRow>
-
-                </TableLayout>
-            </HorizontalScrollView>
-        </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvCourses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_marginBottom="10dp"
@@ -196,110 +87,82 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:text="+ Thêm khóa học mới"
+                android:id="@+id/btnClear"
+                android:text="Tạo mới / Hủy"
                 android:textAllCaps="false"
-                android:textSize="11sp"
                 android:background="@drawable/bg_btn_pink"
-                android:textColor="#000"
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="40dp"/> <androidx.appcompat.widget.AppCompatButton
-            android:text="Xóa"
-            android:textAllCaps="false"
-            android:textSize="11sp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bg_btn_green"
-            android:textColor="#000"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="40dp"/> </LinearLayout>
-
-        <EditText
-            android:hint="Tên khóa học"
-            android:textSize="13sp"
-            android:background="@drawable/bg_input_field"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/> <EditText
-        android:hint="Giảng viên phụ trách"
-        android:textSize="13sp"
-        android:background="@drawable/bg_input_field"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:background="@drawable/bg_input_field"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="40dp"> <Spinner android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="10dp"/>
-                <TextView android:text="Trạng thái" android:textSize="13sp"
-                    android:textColor="#888"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <ImageView android:src="@android:drawable/arrow_down_float" android:layout_gravity="center_vertical|end" android:layout_marginRight="10dp" android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.3"/>
-            </FrameLayout>
+                android:layout_height="40dp" />
 
-            <EditText
-                android:hint="Số lượng HV"
-                android:textSize="13sp"
-                android:background="@drawable/bg_input_field"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDelete"
+                android:text="Xóa khóa học"
+                android:textAllCaps="false"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1.5"
+                android:background="@drawable/bg_btn_green"
+                android:textColor="#FFF"
+                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:visibility="gone" />
         </LinearLayout>
 
+        <TextView android:text="Mã môn học (*)" android:textSize="12sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
         <EditText
-            android:hint="Mô tả khóa học"
+            android:id="@+id/edtMaMon"
+            android:hint="VD: CT101"
             android:textSize="13sp"
             android:background="@drawable/bg_input_field"
             android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView android:text="Tên môn học (*)" android:textSize="12sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edtTenMon"
+            android:hint="VD: Lập trình Java"
+            android:textSize="13sp"
+            android:background="@drawable/bg_input_field"
+            android:paddingStart="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView android:text="Số tín chỉ" android:textSize="12sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edtTinChi"
+            android:hint="3"
+            android:inputType="number"
+            android:textSize="13sp"
+            android:background="@drawable/bg_input_field"
+            android:paddingStart="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView android:text="Mô tả khóa học" android:textSize="12sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edtMoTa"
+            android:hint="Nhập mô tả môn học..."
+            android:textSize="13sp"
+            android:background="@drawable/bg_input_field"
+            android:padding="10dp"
+            android:gravity="top"
             android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="80dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSave"
+            android:text="LƯU DỮ LIỆU"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_green"
+            android:textColor="#FFF"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:text="Lưu thay đổi"
-                android:textAllCaps="false"
-                android:textSize="11sp"
-                android:background="@drawable/bg_btn_green"
-                android:textColor="#000"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="40dp"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:text="Hủy bỏ"
-                android:textAllCaps="false"
-                android:textSize="11sp"
-                android:background="@drawable/bg_btn_grey"
-                android:textColor="#000"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="40dp"/>
-        </LinearLayout>
+            android:layout_height="45dp" />
 
     </LinearLayout>
 </ScrollView>

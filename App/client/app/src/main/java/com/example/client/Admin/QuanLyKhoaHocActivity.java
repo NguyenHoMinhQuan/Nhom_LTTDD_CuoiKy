@@ -1,145 +1,219 @@
 package com.example.client.Admin;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.client.R;
+import com.example.client.Admin.adapter.CourseAdapter;
 import com.example.client.api.AdminResponse;
 import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class QuanLyKhoaHocActivity extends AppCompatActivity {
 
-    private TableLayout tableLayout;
+    private RecyclerView rcvCourses;
+    private CourseAdapter courseAdapter;
+    private EditText edtMaMon, edtTenMon, edtTinChi, edtMoTa;
+    private AppCompatButton btnSave, btnClear, btnDelete;
+    private TextView tvFormTitle;
+
+    private Integer selectedCourseId = null;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_course);
 
-        // 1. Ánh xạ
-        tableLayout = findViewById(R.id.tableCourseLayout);
-        ImageView btnMenu = findViewById(R.id.btnMenu);
+        apiService = ApiClient.getClient(this).create(ApiService.class);
 
-        // 2. Menu
-        if (btnMenu != null) {
-            btnMenu.setOnClickListener(this::showMenu);
-        }
-
-        // 3. Load API
+        initViews();
+        setupRecyclerView();
         loadCourseData();
     }
 
-    private void loadCourseData() {
-        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+    private void initViews() {
+        rcvCourses = findViewById(R.id.rcvCourses);
+        edtMaMon = findViewById(R.id.edtMaMon);
+        edtTenMon = findViewById(R.id.edtTenMon);
+        edtTinChi = findViewById(R.id.edtTinChi);
+        edtMoTa = findViewById(R.id.edtMoTa);
 
-        apiService.getCourses().enqueue(new Callback<List<AdminResponse.Course>>() {
+        btnSave = findViewById(R.id.btnSave);
+        btnClear = findViewById(R.id.btnClear);
+        btnDelete = findViewById(R.id.btnDelete);
+        tvFormTitle = findViewById(R.id.tvFormTitle);
+
+        btnClear.setOnClickListener(v -> resetForm());
+        btnSave.setOnClickListener(v -> handleSave());
+        btnDelete.setOnClickListener(v -> handleDelete());
+
+        ImageView btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) btnMenu.setOnClickListener(this::showMenu);
+    }
+
+    private void setupRecyclerView() {
+        courseAdapter = new CourseAdapter(new ArrayList<>(), this::fillFormFromCourse);
+        rcvCourses.setLayoutManager(new LinearLayoutManager(this));
+        rcvCourses.setAdapter(courseAdapter);
+    }
+    private void loadCourseData() {
+        apiService.getCourses().enqueue(new Callback<List<AdminResponse.CourseRow>>() {
             @Override
-            public void onResponse(Call<List<AdminResponse.Course>> call, Response<List<AdminResponse.Course>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    renderTable(response.body());
-                } else {
-                    Toast.makeText(QuanLyKhoaHocActivity.this, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<AdminResponse.CourseRow>> call,
+                                   Response<List<AdminResponse.CourseRow>> response) {
+                if (!isFinishing() && !isDestroyed()
+                        && response.isSuccessful()
+                        && response.body() != null) {
+
+                    List<AdminResponse.CourseRow> list = response.body();
+                    Collections.sort(list, (a, b) -> b.id.compareTo(a.id));
+                    courseAdapter.setData(list);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<AdminResponse.Course>> call, Throwable t) {
-                Toast.makeText(QuanLyKhoaHocActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<AdminResponse.CourseRow>> call, Throwable t) {
+                if (!isFinishing() && !isDestroyed()) {
+                    Toast.makeText(QuanLyKhoaHocActivity.this,
+                            "Không tải được dữ liệu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void renderTable(List<AdminResponse.Course> courseList) {
-        // 1. Xóa dữ liệu cũ (Giữ lại dòng tiêu đề ở index 0)
-        if (tableLayout.getChildCount() > 1) {
-            tableLayout.removeViews(1, tableLayout.getChildCount() - 1);
+    private void handleSave() {
+        String maMon = edtMaMon.getText().toString().trim();
+        String tenMon = edtTenMon.getText().toString().trim();
+
+        if (maMon.isEmpty() || tenMon.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập Mã và Tên môn học!", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        android.view.LayoutInflater inflater = android.view.LayoutInflater.from(this);
+        AdminResponse.CourseRequest req = new AdminResponse.CourseRequest();
+        req.id = selectedCourseId;
+        req.maMon = maMon;
+        req.tenMon = tenMon;
+        req.tinChi = Integer.parseInt(edtTinChi.getText().toString().isEmpty() ? "0" : edtTinChi.getText().toString());
+        req.moTa = edtMoTa.getText().toString().trim();
 
-        for (AdminResponse.Course c : courseList) {
-            // 2. Nạp giao diện từ item_row_course.xml
-            View rowView = inflater.inflate(R.layout.item_row_course, tableLayout, false);
-            TableRow row = (TableRow) rowView;
-
-            // 3. Ánh xạ View
-            TextView tvId = row.findViewById(R.id.tvCourseId);
-            TextView tvName = row.findViewById(R.id.tvCourseName);
-            TextView tvLecturer = row.findViewById(R.id.tvLecturer);
-            TextView tvCount = row.findViewById(R.id.tvStudentCount);
-            View viewStatus = row.findViewById(R.id.viewStatusColor);
-
-            // 4. Đổ dữ liệu
-            tvId.setText(String.valueOf(c.id));
-            tvName.setText(c.courseName);
-            tvLecturer.setText(c.lecturerName);
-            tvCount.setText(String.valueOf(c.studentCount));
-
-            // 5. Xử lý trạng thái: Có học viên (>0) thì Xanh, ngược lại Đỏ
-            boolean isOpen = c.studentCount > 0;
-            int color = isOpen ? android.graphics.Color.parseColor("#4CAF50") : android.graphics.Color.RED;
-            viewStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
-
-            // 6. Sự kiện click (Hiệu ứng chọn dòng)
-            row.setOnClickListener(v -> {
-                for(int i = 1; i < tableLayout.getChildCount(); i++) {
-                    tableLayout.getChildAt(i).setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        if (selectedCourseId == null) {
+            executeApiCall(apiService.addCourse(req), "Thêm khóa học thành công!");
+        } else {
+            executeApiCall(apiService.updateCourse(req), "Cập nhật thành công!");
+        }
+    }
+    private void executeApiCall(Call<ResponseBody> call, String successMsg) {
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(QuanLyKhoaHocActivity.this, successMsg, Toast.LENGTH_SHORT).show();
+                    resetForm();
+                    loadCourseData();
+                } else {
+                    Toast.makeText(
+                            QuanLyKhoaHocActivity.this,
+                            "Lỗi server (" + response.code() + ")",
+                            Toast.LENGTH_SHORT
+                    ).show();
                 }
-                row.setBackgroundColor(android.graphics.Color.parseColor("#E1F5FE"));
+            }
 
-                // Toast để test
-                // Toast.makeText(QuanLyKhoaHocActivity.this, "Chọn: " + c.courseName, Toast.LENGTH_SHORT).show();
-            });
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(
+                        QuanLyKhoaHocActivity.this,
+                        "Lỗi mạng / server chưa chạy",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
 
-            // 7. Thêm vào bảng
-            tableLayout.addView(row);
+    private void handleDelete() {
+        if (selectedCourseId == null) return;
+
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận")
+                .setMessage("Bạn có chắc chắn muốn xóa khóa học này?")
+                .setPositiveButton("Xóa", (dialog, which) -> {
+                    executeApiCall(apiService.deleteCourse(selectedCourseId), "Đã xóa khóa học!");
+                })
+                .setNegativeButton("Hủy", null).show();
+    }
+    // Trong QuanLyKhoaHocActivity.java
+
+    private void fillFormFromCourse(AdminResponse.CourseRow course) {
+        // 1. Kiểm tra dữ liệu đầu vào
+        if (course == null) return;
+
+        try {
+            selectedCourseId = course.id;
+
+            // 2. Gán dữ liệu (Dùng String.valueOf cho số để KHÔNG BỊ VĂNG)
+            if (edtMaMon != null) edtMaMon.setText(course.maMon);
+            if (edtTenMon != null) edtTenMon.setText(course.tenMon);
+
+            // --- QUAN TRỌNG: Sửa dòng này ---
+            if (edtTinChi != null) {
+                // Nếu tinChi là null thì hiện số 0, ngược lại hiện giá trị thực
+                String strTinChi = String.valueOf(course.tinChi != null ? course.tinChi : 0);
+                edtTinChi.setText(strTinChi);
+            }
+
+            if (edtMoTa != null) {
+                edtMoTa.setText(course.moTa != null ? course.moTa : "");
+            }
+
+            // 3. Cập nhật trạng thái nút bấm
+            if (btnDelete != null) btnDelete.setVisibility(View.VISIBLE);
+            if (btnSave != null) btnSave.setText("CẬP NHẬT");
+            if (tvFormTitle != null) tvFormTitle.setText("SỬA KHÓA HỌC: " + course.maMon);
+
+        } catch (Exception e) {
+            // Nếu vẫn lỗi, in ra log để biết chính xác tại sao
+            e.printStackTrace();
+            android.util.Log.e("LOI_APP", "Lỗi fillForm: " + e.getMessage());
+            Toast.makeText(this, "Lỗi hiển thị: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-    // --- Helper (Copy giống User) ---
-    private TextView createCell(String text, int widthDp) {
-        TextView tv = new TextView(this);
-        tv.setText(text);
-        tv.setGravity(Gravity.CENTER);
-        tv.setBackgroundResource(R.drawable.bg_table_cell);
-        tv.setPadding(10, 10, 10, 10);
-        tv.setTextColor(Color.BLACK);
-        int widthPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthDp, getResources().getDisplayMetrics());
-        tv.setLayoutParams(new TableRow.LayoutParams(widthPx, TableRow.LayoutParams.MATCH_PARENT));
-        return tv;
-    }
+    private void resetForm() {
+        selectedCourseId = null;
 
-    private FrameLayout createStatusCell(boolean active) {
-        FrameLayout fl = new FrameLayout(this);
-        fl.setBackgroundResource(R.drawable.bg_table_cell);
-        View circle = new View(this);
-        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size);
-        params.gravity = Gravity.CENTER;
-        circle.setLayoutParams(params);
-        circle.setBackgroundResource(R.drawable.bg_btn_pink);
-        circle.setBackgroundTintList(android.content.res.ColorStateList.valueOf(active ? Color.parseColor("#4CAF50") : Color.parseColor("#FFC107")));
-        fl.addView(circle);
-        return fl;
+        if (edtMaMon != null) edtMaMon.setText("");
+        if (edtTenMon != null) edtTenMon.setText("");
+        if (edtTinChi != null) edtTinChi.setText("3");
+        if (edtMoTa != null) edtMoTa.setText("");
+
+        if (btnDelete != null) btnDelete.setVisibility(View.GONE);
+        if (btnSave != null) btnSave.setText("LƯU THAY ĐỔI");
+
+        if (tvFormTitle != null) {
+            tvFormTitle.setText("THÔNG TIN KHÓA HỌC");
+        }
     }
 
     private void showMenu(View v) {
