@@ -40,6 +40,10 @@
         <activity android:name=".lecturer.activity.LecturerCreateAssignment" />
         <activity android:name=".lecturer.activity.LecturerAssignmentDetailActivity" />
 
+        <activity android:name=".lecturer.activity.ChatActivity"/>
+
+        <activity android:name=".lecturer.activity.ChatListActivity"/>
+
         <!--end lecturer-->
 
         <activity android:name=".ForgotPassActivity"/>

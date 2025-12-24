@@ -3,7 +3,6 @@ package com.example.server.service;
 import com.example.server.dto.AssignmentDTO;
 import com.example.server.entity.Assignment;
 import com.example.server.repository.AssignmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,7 +23,6 @@ public class AssignmentServiceImpl implements AssignmentService {
     // Định dạng ngày tháng chuẩn ISO (Ví dụ: 2024-12-24T15:00:00)
     private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-    @Autowired
     public AssignmentServiceImpl(AssignmentRepository assignmentRepository) {
         this.assignmentRepository = assignmentRepository;
     }

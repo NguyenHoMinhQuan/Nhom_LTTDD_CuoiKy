@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.client.R;
+import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
 import com.example.client.lecturer.adapter.ScheduleAdapter;
 import com.example.client.lecturer.model.ScheduleItem;
@@ -25,7 +26,7 @@ public class TimetableActivity extends AppCompatActivity implements ScheduleAdap
     private RecyclerView recyclerView;
     private List<ScheduleItem> scheduleList;
     private ApiService apiService;
-    private static String BASE_URL ="http://10.0.2.2:8080/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,7 @@ public class TimetableActivity extends AppCompatActivity implements ScheduleAdap
     }
 
     private void InitRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
+        apiService = ApiClient.getClient(this).create(ApiService.class);
     }
 
     private void fetchLecturerSchedule(Integer lecturerId) {

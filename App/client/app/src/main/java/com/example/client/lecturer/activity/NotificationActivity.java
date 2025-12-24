@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.client.R;
+import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
 import com.example.client.lecturer.adapter.NotificationAdapter;
 import com.example.client.lecturer.model.NotificationItem; // Dùng model mới
@@ -25,7 +26,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private RecyclerView recyclerView;
     private NotificationAdapter adapter;
     private ApiService apiService;
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     }
 
     private void initRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
+        apiService = ApiClient.getClient(this).create(ApiService.class);
     }
 
     private void fetchAllNotifications(Integer userId) {
