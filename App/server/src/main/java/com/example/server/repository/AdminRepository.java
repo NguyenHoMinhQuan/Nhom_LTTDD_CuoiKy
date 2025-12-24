@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.server.dto.AdminDTO;
+import com.example.server.entity.Announcement;
 import com.example.server.entity.User;
 // Không cần import Class vì ta sẽ dùng đường dẫn đầy đủ trong Query
 
@@ -222,4 +223,40 @@ List<AdminDTO.CourseRow> getAdminCourses();
     @Transactional
     @Query(value = "DELETE FROM ClassSchedule WHERE ScheduleId = ?1", nativeQuery = true)
     void deleteClass(Integer scheduleId);
+    // =======================================================
+    // QUẢN LÝ THÔNG BÁO (ANNOUNCEMENT)
+    // =======================================================
+
+    // 1. LẤY TẤT CẢ (Sắp xếp mới nhất lên đầu)
+    @Query(value = "SELECT * FROM [Announcement] ORDER BY CreatedAt DESC", nativeQuery = true)
+    List<Announcement> getAllAnnouncements();
+
+    // 2. THÊM MỚI
+    @Modifying
+    @Transactional
+    @Query(value = """
+        INSERT INTO [Announcement] (Title, Body, AuthorId, IsGlobal, TargetClassId, CreatedAt, UpdatedAt)
+        VALUES (?1, ?2, ?3, ?4, ?5, FORMAT(GETDATE(), 'yyyy-MM-dd HH:mm:ss'), FORMAT(GETDATE(), 'yyyy-MM-dd HH:mm:ss'))
+    """, nativeQuery = true)
+    void insertAnnouncement(String title, String body, String authorId, Boolean isGlobal, String targetClassId);
+
+    // 3. CẬP NHẬT
+    @Modifying
+    @Transactional
+    @Query(value = """
+        UPDATE [Announcement] 
+        SET Title = ?2, 
+            Body = ?3, 
+            IsGlobal = ?4, 
+            TargetClassId = ?5,
+            UpdatedAt = FORMAT(GETDATE(), 'yyyy-MM-dd HH:mm:ss')
+        WHERE AnnouncementId = ?1
+    """, nativeQuery = true)
+    void updateAnnouncement(Integer id, String title, String body, Boolean isGlobal, String targetClassId);
+
+    // 4. XÓA
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM [Announcement] WHERE AnnouncementId = ?1", nativeQuery = true)
+    void deleteAnnouncement(Integer id);
 }
