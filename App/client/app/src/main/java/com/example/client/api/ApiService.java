@@ -35,4 +35,8 @@ public interface ApiService {
 
     @GET("/api/lichhoc/view") // dành cho học viên - đụng t chặt tay
     Call<List<LichHocSinhVienModel>> LayLichHocSinhVien(@Query("Username") String username);
+
+    // Lấy danh sách thông báo từ bảng Announcement
+    @GET("/api/announcements")
+    Call<List<ThongBaoModel>> getListAnnouncements();
 }

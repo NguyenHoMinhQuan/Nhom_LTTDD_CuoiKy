@@ -25,7 +25,7 @@ public class BuyCoursesAdapter extends RecyclerView.Adapter<BuyCoursesAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Ánh xạ layout item bạn đã gửi: hocvien_item_buy_course.xml
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hocvien_item_buy_course, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hocvien_item_thongbao, parent, false);
         return new ViewHolder(view);
     }
 
