@@ -6,6 +6,7 @@ import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
 import com.example.client.lecturer.model.ScheduleItem;
 import com.example.client.lecturer.model.Announcement;
+import com.example.client.HocVien.Models.ThongBaoModel;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
