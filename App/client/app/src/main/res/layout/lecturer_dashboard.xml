@@ -37,6 +37,8 @@
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:contentDescription="@string/lecturer_dashboard_iv_avatar" />
 
                 <TextView
