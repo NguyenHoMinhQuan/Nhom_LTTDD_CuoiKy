@@ -163,5 +163,21 @@ public interface ApiService {
     @GET("api/admin/metadata/coursenames")
     Call<List<String>> getCourseNames();
 
-}
 
+
+    // 1. Lấy danh sách (GET)
+    @GET("api/admin/announcement/all")
+    Call<List<AdminResponse.Announcement>> getAnnouncements();
+
+    // 2. Thêm mới (POST) - Body là AdminResponse.Announcement
+    @POST("api/admin/announcement/add")
+    Call<Map<String, Object>> addAnnouncement(@Body AdminResponse.Announcement req);
+
+    // 3. Cập nhật (PUT) - Body là AdminResponse.Announcement
+    @PUT("api/admin/announcement/update")
+    Call<Map<String, Object>> updateAnnouncement(@Body AdminResponse.Announcement req);
+
+    // 4. Xóa (DELETE)
+    @DELETE("api/admin/announcement/delete/{id}")
+    Call<Map<String, Object>> deleteAnnouncement(@Path("id") Integer id);
+}

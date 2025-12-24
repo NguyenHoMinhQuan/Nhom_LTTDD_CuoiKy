@@ -77,6 +77,6 @@
         <activity android:name=".Admin.QuanLyKhoaHocActivity"/>
         <activity android:name=".Admin.QuanLyLopHocActivity"/>
         <activity android:name=".Admin.QuanLyUserActivity"/>
-
+        <activity android:name=".Admin.QuanLyThongBaoActivity"/>
     </application>
 </manifest>
