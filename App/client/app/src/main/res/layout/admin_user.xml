@@ -19,13 +19,12 @@
 
             <ImageView
                 android:id="@+id/btnMenu"
-                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="5dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"/>
+                android:src="@android:drawable/ic_menu_sort_by_size" />
 
             <ImageView
                 android:layout_width="80dp"

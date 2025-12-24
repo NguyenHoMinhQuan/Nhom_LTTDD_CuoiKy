@@ -215,17 +215,22 @@ public class QuanLyKhoaHocActivity extends AppCompatActivity {
             tvFormTitle.setText("THÔNG TIN KHÓA HỌC");
         }
     }
-
     private void showMenu(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.getMenuInflater().inflate(R.menu.nav_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.menu_user) {
+            if (id == R.id.menu_user) { // Sửa ID đúng để sang trang Lớp học
                 startActivity(new Intent(this, QuanLyUserActivity.class));
                 return true;
             } else if (id == R.id.menu_lop_hoc) {
                 startActivity(new Intent(this, QuanLyLopHocActivity.class));
+                return true;
+            }else if (id == R.id.menu_thong_bao) {
+                startActivity(new Intent(this, QuanLyThongBaoActivity.class));
+                return true;
+            }else if (id == R.id.menu_dashboard) {
+                startActivity(new Intent(this, AdminDashboardActivity.class));
                 return true;
             }
             return false;

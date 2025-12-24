@@ -106,7 +106,7 @@ public class AdminResponse {
         public CourseRequest() {}
     }
     // ==================================================
-    // 2. LỊCH HỌC (CLASS SCHEDULE) - ĐÃ CẬP NHẬT THEO API MỚI
+    // 3. LỊCH HỌC (CLASS SCHEDULE) - ĐÃ CẬP NHẬT THEO API MỚI
     // ==================================================
     public static class ClassRow implements Serializable {
 
@@ -145,7 +145,7 @@ public class AdminResponse {
     }
 
     // ==================================================
-    // 2. CLASS REQUEST - Dùng để GỬI dữ liệu (POST/PUT)
+    // 4. CLASS REQUEST - Dùng để GỬI dữ liệu (POST/PUT)
     // ==================================================
     public static class ClassRequest {
         public Integer scheduleId;   // Null nếu Thêm mới, có giá trị nếu Sửa
@@ -156,5 +156,22 @@ public class AdminResponse {
         public Integer dayOfWeek;    // Thứ (2-8)
         public String startTime;     // Giờ bắt đầu ("HH:mm")
         public String endTime;       // Giờ kết thúc ("HH:mm")
+    }
+    // ==================================================
+    // 5. THÔNG BÁO (ANNOUNCEMENT) - ĐÃ TÍCH HỢP
+    // ==================================================
+    public static class Announcement implements Serializable {
+        @SerializedName("announcementId") public Integer id;
+        @SerializedName("title") public String title;
+        @SerializedName("body") public String body;
+        @SerializedName("authorId") public String authorId;
+        @SerializedName("isGlobal") public Boolean isGlobal;
+
+        @SerializedName("targetClassId") // <-- THÊM DÒNG NÀY
+        public String targetClassId;
+
+        @SerializedName("createdAt") public String createdAt;
+
+        public Announcement() {}
     }
 }

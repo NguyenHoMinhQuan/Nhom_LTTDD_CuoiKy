@@ -3,4 +3,6 @@
     <item android:id="@+id/menu_user" android:title="Quản lý Người dùng" />
     <item android:id="@+id/menu_khoa_hoc" android:title="Quản lý Khóa học" />
     <item android:id="@+id/menu_lop_hoc" android:title="Quản lý Lớp học" />
+    <item android:id="@+id/menu_thong_bao" android:title="Quản lý Thông báo" />
+    <item android:id="@+id/menu_dashboard" android:title="Về trang Dashboard" />
 </menu>
