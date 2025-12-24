@@ -10,12 +10,18 @@ import com.example.client.R;
 import com.example.client.lecturer.model.AssignmentDTO;
 import java.util.List;
 
-
 public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAdapter.ViewHolder> {
     private List<AssignmentDTO> assignmentList;
 
-    public AssignmentListAdapter(List<AssignmentDTO> list) {
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(AssignmentDTO assignment);
+    }
+
+    public AssignmentListAdapter(List<AssignmentDTO> list, OnItemClickListener listener) {
         this.assignmentList = list;
+        this.listener = listener;
     }
 
     public void updateData(List<AssignmentDTO> newList) {
@@ -39,9 +45,16 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
 
         String dueDate = item.getDueDate();
         if (dueDate != null && dueDate.contains("T")) {
-            dueDate = dueDate.replace("T", " "); // Chuyển 2025-12-24T23:59:00 thành 2025-12-24 23:59:00
+            // Chuyển đổi định dạng ISO từ server (2025-12-24T23:59:00) thành dạng dễ đọc hơn
+            dueDate = dueDate.replace("T", " ");
         }
         holder.tvDueDate.setText("Hạn nộp: " + (dueDate != null ? dueDate : "Không có hạn"));
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(item);
+            }
+        });
     }
 
     @Override
@@ -54,7 +67,7 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
 
         public ViewHolder(View itemView) {
             super(itemView);
-            // Ánh xạ đúng các ID trong file item_assignment_lecturer.xml
+            // Ánh xạ đúng các ID trong file lecturer_item_assignment.xml
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvClassName = itemView.findViewById(R.id.tv_class_name);
             tvDueDate = itemView.findViewById(R.id.tv_due_date);

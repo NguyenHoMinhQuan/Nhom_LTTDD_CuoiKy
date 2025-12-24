@@ -154,7 +154,12 @@ public class LecturerAssignmentActivity extends AppCompatActivity {
 
 
     private void updateRecyclerView(List<AssignmentDTO> list) {
-        adapter = new AssignmentListAdapter(list);
+        adapter = new AssignmentListAdapter(list, assignment -> {
+            // Khi nhấn vào item, mở màn hình Chi tiết và truyền dữ liệu đi
+            Intent intent = new Intent(LecturerAssignmentActivity.this, LecturerAssignmentDetailActivity.class);
+            intent.putExtra("ASSIGNMENT_DATA", assignment);
+            startActivity(intent);
+        });
         rvAssignments.setAdapter(adapter);
     }
 

@@ -38,6 +38,7 @@
         <activity android:name=".lecturer.activity.LecturerAssignmentActivity"
             tools:ignore="DuplicateActivity" />
         <activity android:name=".lecturer.activity.LecturerCreateAssignment" />
+        <activity android:name=".lecturer.activity.LecturerAssignmentDetailActivity" />
 
         <!--end lecturer-->
 
