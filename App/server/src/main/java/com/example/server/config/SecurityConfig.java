@@ -45,7 +45,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager() {
         return new org.springframework.security.authentication.ProviderManager(authenticationProvider());
     }
-
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // Tắt CSRF cho API

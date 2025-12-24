@@ -3,7 +3,7 @@ package com.example.client.lecturer.model;
 import java.io.Serializable;
 
 public class AssignmentDTO implements Serializable {
-    private Integer assigmentId;
+    private Integer assignmentId;
     private Integer classId;
     private String title;
     private String description;
@@ -17,15 +17,15 @@ public class AssignmentDTO implements Serializable {
         this.dueDate=dueDate;
         this.createdAt=createdAt;
     }
-    public Integer getAssigmentId(){return assigmentId;}
+    public Integer getAssignmentId(){return assignmentId;}
     public Integer getClassId(){return classId;}
     public String getTitle(){return title;}
     public String getDescription(){return description;}
     public String getDueDate(){return dueDate;}
     public String getCreatedAt(){return createdAt;}
 
-    public void setAssigmentId(Integer assigmentId) {
-        this.assigmentId = assigmentId;
+    public void setAssignmentId(Integer assigmentId) {
+        this.assignmentId = assigmentId;
     }
     public  void setClassId(Integer classId){
         this.classId=classId;

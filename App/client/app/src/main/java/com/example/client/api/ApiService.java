@@ -17,6 +17,7 @@ import com.example.client.lecturer.model.ScheduleItem;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -70,8 +71,7 @@ public interface ApiService {
 
     @POST("api/assignments")
     Call<AssignmentDTO> saveAssignment(@Body AssignmentDTO assignmentDTO);
-
-    @POST("api/assignments/delete/{id}")
+    @DELETE("api/assignments/{id}")
     Call<Void> deleteAssignment(@Path("id") Integer id);
 
     @GET("api/assignments/lecturer/{lecturerId}")
