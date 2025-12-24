@@ -7,7 +7,9 @@ import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
+
 import com.example.client.lecturer.model.Announcement;
+import com.example.client.lecturer.model.AssignmentDTO;
 import com.example.client.lecturer.model.ClassDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
@@ -22,8 +24,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
+
     @GET("/api/class-schedules/lecturer/{lecturerId}/today")
     Call<List<ScheduleItem>> getTodayScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
+
     @GET("/api/class-schedules/lecturer/{lecturerId}")
     Call<List<ScheduleItem>> getScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
 
@@ -57,4 +61,21 @@ public interface ApiService {
 
     @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
     Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
+
+    @GET("api/assignments/{id}")
+    Call<AssignmentDTO> getAssignmentById(@Path("id") Integer id);
+
+    @GET("api/assignments/byClass/{classId}")
+    Call<List<AssignmentDTO>> getAssignmentsByClassId(@Path("classId") Integer classId);
+
+    @POST("api/assignments")
+    Call<AssignmentDTO> saveAssignment(@Body AssignmentDTO assignmentDTO);
+
+    @POST("api/assignments/delete/{id}")
+    Call<Void> deleteAssignment(@Path("id") Integer id);
+
+    @GET("api/assignments/lecturer/{lecturerId}")
+    Call<List<AssignmentDTO>> getAssignmentsByLecturer(@Path("lecturerId") Integer lecturerId);
+
+
 }

@@ -46,7 +46,7 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public List<ClassDTO> findAllClasss() {
+    public List<ClassDTO> findAllClasses() {
         List<Class> classes = classRepository.findAll();
         return classes.stream()
                 .map(this::convertToDTO)
