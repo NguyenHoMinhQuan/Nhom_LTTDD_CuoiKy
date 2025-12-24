@@ -46,6 +46,18 @@ public class SecurityConfig {
         return new org.springframework.security.authentication.ProviderManager(authenticationProvider());
     }
     @Bean
+<<<<<<< HEAD
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable()) // Vô hiệu hóa CSRF (bắt buộc để gọi POST/PUT/DELETE)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**").permitAll() // Cho phép tất cả API bắt đầu bằng /api/
+                .anyRequest().permitAll() // Hoặc cho phép TẤT CẢ mọi request
+            );
+        
+        return http.build();
+    }
+=======
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                     .csrf(csrf -> csrf.disable()) // Tắt CSRF cho API
@@ -63,8 +75,8 @@ public class SecurityConfig {
                             .requestMatchers("/api/roles/**").permitAll()
                             .requestMatchers("/api/courses/**").permitAll()
                             .requestMatchers("/api/notifications/**").permitAll()
-                            .requestMatchers("/api/lichhoc/**").permitAll()
-                            .requestMatchers("/api/hocvien/**").permitAll()
+                            .requestMatchers("/api/assignments/**").permitAll()
+                            
                             .anyRequest().authenticated() // Mọi request khác đều phải có Token hợp lệ
                     )
                     .authenticationProvider(authenticationProvider());
@@ -74,4 +86,5 @@ public class SecurityConfig {
 
             return http.build();
         }
+>>>>>>> bca9d89 (thêm assignment cho be)
 }

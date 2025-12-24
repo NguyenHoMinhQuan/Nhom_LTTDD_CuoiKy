@@ -40,6 +40,19 @@ public class ClassScheduleController {
         return ResponseEntity.ok(schedule);
     }
 
+    @GetMapping("/lecturer/{lecturerId}/today")
+    public ResponseEntity<List<ClassScheduleDTO>> getScheduleForToday(
+            @PathVariable("lecturerId") Integer lecturerId) {
+        
+        // Gọi Service mới có logic lọc theo ngày hiện tại
+        List<ClassScheduleDTO> schedule = classScheduleService.findScheduleByLecturerIdForToday(lecturerId); 
+        
+        if (schedule.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(schedule);
+    }
+
     // GET BY ID: Lấy TKB theo ID
     @GetMapping("/{id}")
     public ResponseEntity<ClassScheduleDTO> getClassScheduleById(@PathVariable Integer id) {

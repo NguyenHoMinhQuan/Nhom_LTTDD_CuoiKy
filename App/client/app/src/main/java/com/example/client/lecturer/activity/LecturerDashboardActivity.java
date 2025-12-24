@@ -1,4 +1,4 @@
-package com.example.client.lecturer;
+package com.example.client.lecturer.activity;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,21 +19,21 @@ import android.widget.Toast;
 
 import com.example.client.R;
 import com.example.client.api.ApiService;
-import com.example.client.lecturer.adapter.AnnouncementAdapter;
+import com.example.client.lecturer.adapter.NotificationAdapter;
 import com.example.client.lecturer.adapter.ScheduleAdapter;
-import com.example.client.lecturer.model.Announcement;
+import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LecturerDashboardActivity extends AppCompatActivity
-        implements ScheduleAdapter.OnItemClickListener, AnnouncementAdapter.OnItemClickListener {
+        implements ScheduleAdapter.OnItemClickListener, NotificationAdapter.OnItemClickListener {
 
     private RecyclerView timetableRecyclerView;
     private RecyclerView announcementRecyclerView;
-    private ImageView imgAnnouncement;
-
+    private ImageView ivMessenger;
+    private TextView tvViewAll;
+    private NotificationAdapter notificationAdapter;
     private static final String BASE_URL = "http://10.0.2.2:9000/";
     private ApiService apiService;
 
@@ -45,22 +45,32 @@ public class LecturerDashboardActivity extends AppCompatActivity
         // Khởi tạo các thành phần chính
         timetableRecyclerView = findViewById(R.id.recycler_timetable_today);
         announcementRecyclerView = findViewById(R.id.recycler_announcements_recent);
-        imgAnnouncement = findViewById(R.id.iv_notification);
+        ivMessenger = findViewById(R.id.iv_messenger);
+        tvViewAll = findViewById(R.id.tv_view_all);
+
+        tvViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển sang NotificationActivity (Nơi hiển thị tất cả thông báo)
+                Intent intent = new Intent(LecturerDashboardActivity.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         initRetrofit();
 
         setupQuickActions();
 
-        fetchLecturerSchedule(2);
+        fetchTodayLecturerSchedule(2);
 
-        setupAnnouncementRecycler();
+        fetchUnreadNotifications(2);
 
         setupHeader();
 
-        imgAnnouncement.setOnClickListener(new View.OnClickListener() {
+        ivMessenger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LecturerDashboardActivity.this, AnnouncementActivity.class));
+                startActivity(new Intent(LecturerDashboardActivity.this, NotificationActivity.class));
             }
         });
     }
@@ -74,8 +84,8 @@ public class LecturerDashboardActivity extends AppCompatActivity
         apiService = retrofit.create(ApiService.class);
     }
 
-    private void fetchLecturerSchedule(Integer lecturerId) {
-        apiService.getScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
+    private void fetchTodayLecturerSchedule(Integer lecturerId) {
+        apiService.getTodayScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
             @Override
             public void onResponse(Call<List<ScheduleItem>> call, Response<List<ScheduleItem>> response) {
                 if (response.isSuccessful() & response.body()!= null) {
@@ -118,7 +128,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
         TextView anncText = anncAction.findViewById(R.id.tv_action_text);
 
         anncIcon.setImageResource(R.drawable.announcement);
-        anncText.setText("Announcements");
+        anncText.setText("Notification");
         anncAction.setOnClickListener(v -> {
             // Mở màn hình danh sách thông báo
             startActivity(new Intent(this, AnnouncementActivity.class));
@@ -160,18 +170,51 @@ public class LecturerDashboardActivity extends AppCompatActivity
         timetableRecyclerView.setAdapter(adapter);
     }
 
-    /** Thiết lập RecyclerView cho Thông báo Gần đây (Vertical) */
-    private void setupAnnouncementRecycler() {
-        // Dữ liệu mẫu (chỉ lấy 3 mục gần đây nhất)
-        List<Announcement> recentAnnouncements = generateDummyAnnouncements();
+    private void fetchUnreadNotifications(Integer userId) {
+        // Gọi API lấy thông báo chưa đọc từ ApiService mà chúng ta đã thêm trước đó
+        apiService.getUnreadNotifications(userId).enqueue(new Callback<List<NotificationItem>>() {
+            @Override
+            public void onResponse(Call<List<NotificationItem>> call, Response<List<NotificationItem>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<NotificationItem> notifications = response.body();
 
-        // 1. Cấu hình LayoutManager: cuộn dọc
-        // Lưu ý: Cần đảm bảo RecyclerView có height là wrap_content và nằm trong ScrollView
-        announcementRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    // Hiển thị danh sách lên RecyclerView
+                    announcementRecyclerView.setLayoutManager(new LinearLayoutManager(LecturerDashboardActivity.this));
 
-        // 2. Cấu hình Adapter
-        AnnouncementAdapter adapter = new AnnouncementAdapter(recentAnnouncements, this);
-        announcementRecyclerView.setAdapter(adapter);
+                    // Adapter mới nhận NotificationItem và xử lý click
+                    notificationAdapter = new NotificationAdapter(notifications, item -> {
+                        // 1. Đánh dấu đã đọc trên Backend
+                        markAsReadOnServer(item.getNotificationId());
+
+                        // 2. Mở màn hình chi tiết (tùy chọn)
+                        Intent intent = new Intent(LecturerDashboardActivity.this, NotificationDetailActivity.class);
+                        intent.putExtra("NOTIFICATION_DATA", item);
+                        startActivity(intent);
+                    });
+
+                    announcementRecyclerView.setAdapter(notificationAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NotificationItem>> call, Throwable t) {
+                Toast.makeText(LecturerDashboardActivity.this, "Lỗi tải thông báo", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Hàm phụ để gọi API Mark as Read
+    private void markAsReadOnServer(Integer notificationId) {
+        apiService.markAsRead(notificationId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                // Sau khi đánh dấu thành công, có thể gọi lại fetchUnreadNotifications để refresh dashboard
+                fetchUnreadNotifications(2);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {}
+        });
     }
 
     // --- Xử lý Click ---
@@ -187,21 +230,14 @@ public class LecturerDashboardActivity extends AppCompatActivity
 
     // Click vào một thông báo trong Recent Announcements
     @Override
-    public void onItemClick(Announcement announcement) {
-        // Mở màn hình chi tiết thông báo
-        Intent detailIntent = new Intent(this, AnnouncementDetailActivity.class);
-        detailIntent.putExtra(AnnouncementActivity.EXTRA_ANNOUNCEMENT, announcement); // Sử dụng lại hằng số đã định nghĩa
-        startActivity(detailIntent);
-    }
+    public void onItemClick(NotificationItem item) {
+        // 1. Đánh dấu đã đọc trên Server
+        markAsReadOnServer(item.getNotificationId());
 
-    // --- Phương thức tạo dữ liệu mẫu (Cần có trong Activity hoặc ViewModel) ---
-
-    private List<Announcement> generateDummyAnnouncements() {
-        List<Announcement> list = new ArrayList<>();
-        list.add(new Announcement("Mid-term Exam Schedule", "Lịch thi giữa kỳ đã được cập nhật.", "Phòng Đào tạo", "Posted yesterday"));
-        list.add(new Announcement("Project Submission Deadline", "Hạn nộp dự án là ngày 15/12.", "Khoa CNTT", "Posted 3 days ago"));
-        list.add(new Announcement("Guest Lecture on AI Ethics", "Buổi thuyết giảng về Đạo đức AI vào ngày 15/11.", "Hội Sinh viên", "Posted on Nov 15"));
-        list.add(new Announcement("Thông báo khác...", "Nội dung cũ hơn...", "Admin", "Posted last week"));
-        return list;
+        // 2. Mở chi tiết (Nếu cần)
+        Toast.makeText(this, "Đang đọc: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        // Intent intent = new Intent(this, AnnouncementDetailActivity.class);
+        // intent.putExtra("NOTIFICATION_DATA", item);
+        // startActivity(intent);
     }
 }

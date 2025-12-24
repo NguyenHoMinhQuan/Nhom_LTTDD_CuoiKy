@@ -7,10 +7,7 @@ import com.example.server.dto.ClassDTO;
 
 public interface ClassService {
     
-    List<ClassDTO> findAllClasss();
-
-    // Phương thức cần thiết để lấy danh sách Lớp theo ID giảng viên
-    List<ClassDTO> findAllClassesByLecturerId(Integer lecturerId);
+    List<ClassDTO> findAllClasses();
 
     Optional<ClassDTO> findClassById(Integer id);
 

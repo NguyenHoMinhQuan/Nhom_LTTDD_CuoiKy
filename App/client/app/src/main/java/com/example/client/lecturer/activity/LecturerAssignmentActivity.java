@@ -1,4 +1,4 @@
-package com.example.client.lecturer;
+package com.example.client.lecturer.activity;
 
 import android.os.Bundle;
 

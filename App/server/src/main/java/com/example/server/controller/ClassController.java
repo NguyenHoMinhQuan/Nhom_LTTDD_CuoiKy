@@ -18,7 +18,7 @@ public class ClassController {
 
     @GetMapping
     public ResponseEntity<List<ClassDTO>> getAllClasss() {
-        List<ClassDTO> classs = classService.findAllClasss();
+        List<ClassDTO> classs = classService.findAllClasses();
         return ResponseEntity.ok(classs);
     }
 
@@ -29,6 +29,11 @@ public class ClassController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/lecturer/{lecturerId}")
+    public ResponseEntity<List<ClassDTO>> getClassesByLecturer(@PathVariable Integer lecturerId) {
+        List<ClassDTO> classes = classService.findAllByLecturerId(lecturerId);
+        return ResponseEntity.ok(classes);
+    }
     @PostMapping
     public ResponseEntity<ClassDTO> createClass(@RequestBody ClassDTO classDTO) {
         ClassDTO savedClass = classService.saveClass(classDTO);
@@ -41,4 +46,12 @@ public class ClassController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/lecturer/{lecturerId}")
+    public ResponseEntity<List<ClassDTO>> getClassesByLecturer(@PathVariable Integer lecturerId) {
+        List<ClassDTO> classes = classService.findAllByLecturerId(lecturerId);
+        if (classes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(classes);
+    }
 }
