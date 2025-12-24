@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,7 @@ public class AssignmentController {
         return ResponseEntity.ok(assignments);
     
     }
+    
     @PostMapping
     public ResponseEntity<AssignmentDTO> createOrUpdateAssignment(@RequestBody AssignmentDTO assignmentDTO) {
         AssignmentDTO savedAssignment = assignmentService.saveAssignment(assignmentDTO);
@@ -48,12 +50,16 @@ public class AssignmentController {
         }
         return ResponseEntity.ok(savedAssignment);
     }
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable Integer id) {
         assignmentService.deleteAssignment(id);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/lecturer/{lecturerId}")
+    public ResponseEntity<List<AssignmentDTO>> getAssignmentsByLecturer(@PathVariable Integer lecturerId) {
+        List<AssignmentDTO> assignments = assignmentService.findAssignmentsByLecturerId(lecturerId);
+        return ResponseEntity.ok(assignments);
+    }
 
     
 }

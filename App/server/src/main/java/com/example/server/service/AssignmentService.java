@@ -12,4 +12,5 @@ public interface AssignmentService {
     Optional<AssignmentDTO> findAssignmentById(Integer id);
     AssignmentDTO saveAssignment(AssignmentDTO assignmentDTO);
     void deleteAssignment(Integer id);
+    List<AssignmentDTO> findAssignmentsByLecturerId(Integer lecturerId);
 }
