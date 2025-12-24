@@ -40,6 +40,7 @@ public class AssignmentController {
         return ResponseEntity.ok(assignments);
     
     }
+    
     @PostMapping
     public ResponseEntity<AssignmentDTO> createOrUpdateAssignment(@RequestBody AssignmentDTO assignmentDTO) {
         AssignmentDTO savedAssignment = assignmentService.saveAssignment(assignmentDTO);
@@ -48,12 +49,16 @@ public class AssignmentController {
         }
         return ResponseEntity.ok(savedAssignment);
     }
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable Integer id) {
         assignmentService.deleteAssignment(id);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/lecturer/{lecturerId}")
+    public ResponseEntity<List<AssignmentDTO>> getAssignmentsByLecturer(@PathVariable Integer lecturerId) {
+        List<AssignmentDTO> assignments = assignmentService.findAssignmentsByLecturerId(lecturerId);
+        return ResponseEntity.ok(assignments);
+    }
 
     
 }

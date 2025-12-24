@@ -108,4 +108,11 @@ public class AssignmentServiceImpl implements AssignmentService {
             assignmentRepository.deleteById(id);
         }
     }
+    @Override
+    public List<AssignmentDTO> findAssignmentsByLecturerId(Integer lecturerId) {
+        return assignmentRepository.findByLecturerId(lecturerId)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
 }
