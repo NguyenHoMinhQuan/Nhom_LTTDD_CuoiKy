@@ -41,4 +41,12 @@ public class ClassController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/lecturer/{lecturerId}")
+    public ResponseEntity<List<ClassDTO>> getClassesByLecturer(@PathVariable Integer lecturerId) {
+        List<ClassDTO> classes = classService.findAllByLecturerId(lecturerId);
+        if (classes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(classes);
+    }
 }

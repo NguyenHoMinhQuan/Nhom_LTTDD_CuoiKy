@@ -7,6 +7,8 @@ import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
+import com.example.client.lecturer.model.Announcement;
+import com.example.client.lecturer.model.ClassDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
 
@@ -37,6 +39,12 @@ public interface ApiService {
     // 3. Đánh dấu đã đọc khi click vào thông báo
     @PUT("/api/notifications/{id}/read")
     Call<Void> markAsRead(@Path("id") Integer notificationId);
+
+    @POST("/api/announcements")
+    Call<Announcement> postAnnouncement(@Body Announcement announcement);
+
+    @GET("/api/classes/lecturer/{lecturerId}")
+    Call<List<ClassDTO>> getClassesByLecturer(@Path("lecturerId") Integer lecturerId);
 
     @POST("/api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest request);

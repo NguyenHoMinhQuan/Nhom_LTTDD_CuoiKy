@@ -131,7 +131,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
         anncText.setText("Notification");
         anncAction.setOnClickListener(v -> {
             // Mở màn hình danh sách thông báo
-            startActivity(new Intent(this, NotificationActivity.class));
+            startActivity(new Intent(this, AnnouncementActivity.class));
         });
 
         // --- 2. Timetable ---

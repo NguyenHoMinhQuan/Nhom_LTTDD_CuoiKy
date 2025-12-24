@@ -128,7 +128,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     public List<ClassScheduleDTO> findScheduleByLecturerId(Integer lecturerId) {
         
         // 1. Lấy tất cả các lớp (Class) mà giảng viên này dạy
-        List<ClassDTO> classesTaught = classService.findAllClassesByLecturerId(lecturerId);
+        List<ClassDTO> classesTaught = classService.findAllByLecturerId(lecturerId);
         
         // Nếu giảng viên không dạy lớp nào, trả về danh sách trống
         if (classesTaught.isEmpty()) {
