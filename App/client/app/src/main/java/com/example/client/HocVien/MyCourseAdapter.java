@@ -5,57 +5,67 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.R;
 
 import java.util.List;
 
-public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.MyCourseViewHolder> {
+public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.CourseViewHolder> {
 
-    private List<MyCourses> courseList;
+    private List<HocVien_NhomLopDto> courseList;
 
-    public MyCourseAdapter(List<MyCourses> courseList) {
+    public MyCourseAdapter(List<HocVien_NhomLopDto> courseList) {
         this.courseList = courseList;
     }
 
     @NonNull
     @Override
-    public MyCourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Ánh xạ layout item_my_course_hv của bạn
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hocvien_item_mycourse, parent, false);
-        return new MyCourseViewHolder(view);
+    public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.hocvien_item_mycourse, parent, false);
+        return new CourseViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyCourseViewHolder holder, int position) {
-        MyCourses course = courseList.get(position);
+    public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
+        HocVien_NhomLopDto course = courseList.get(position);
 
-        // Gán dữ liệu vào View
-        holder.tvName.setText(course.getName());
-        holder.tvDetail.setText(course.getDescription());
+        // Gán dữ liệu
+        holder.tvCourseName.setText(course.getCourseName());
+        holder.tvCourseCode.setText("Mã môn: " + course.getCourseCode());
 
-        // Gán ảnh (Nếu bạn chưa có ảnh 'mon3', hãy đổi thành R.drawable.ic_launcher_background để test)
-        holder.imgCourse.setImageResource(course.getImageResId());
+        if (course.getLecturerName() != null) {
+            holder.tvLecturer.setText("GV: " + course.getLecturerName());
+        } else {
+            holder.tvLecturer.setText("GV: Chưa phân công");
+        }
+
+        holder.tvClassCode.setText("Lớp: " + course.getClassCode() + " (" + course.getSemester() + ")");
+
+        // Set ảnh (Nếu bạn muốn mỗi môn 1 ảnh khác nhau thì xử lý ở đây, tạm thời để mặc định trong XML)
+        // holder.imgCourse.setImageResource(...);
     }
 
     @Override
     public int getItemCount() {
-        return courseList.size(); // Trả về số lượng phần tử
+        return courseList != null ? courseList.size() : 0;
     }
 
-    // ViewHolder để ánh xạ các view trong item layout
-    public static class MyCourseViewHolder extends RecyclerView.ViewHolder {
+    public static class CourseViewHolder extends RecyclerView.ViewHolder {
+        TextView tvCourseName, tvCourseCode, tvLecturer, tvClassCode;
         ImageView imgCourse;
-        TextView tvName, tvDetail;
 
-        public MyCourseViewHolder(@NonNull View itemView) {
+        public CourseViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Ánh xạ đúng ID trong file item_my_course_hv.xml
-            imgCourse = itemView.findViewById(R.id.courseImageView);
-            tvName = itemView.findViewById(R.id.courseNameTextView);
-            tvDetail = itemView.findViewById(R.id.courseDetailTextView);
+            tvCourseName = itemView.findViewById(R.id.tvCourseName);
+            tvCourseCode = itemView.findViewById(R.id.tvCourseCode);
+            tvLecturer = itemView.findViewById(R.id.tvLecturer);
+            tvClassCode = itemView.findViewById(R.id.tvClassCode);
+            imgCourse = itemView.findViewById(R.id.imgCourse);
         }
     }
 }

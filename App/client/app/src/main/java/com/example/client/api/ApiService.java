@@ -1,5 +1,8 @@
 package com.example.client.api;
 
+import android.app.DownloadManager;
+
+import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
@@ -35,4 +38,7 @@ public interface ApiService {
 
     @GET("/api/lichhoc/view") // dành cho học viên - đụng t chặt tay
     Call<List<LichHocSinhVienModel>> LayLichHocSinhVien(@Query("Username") String username);
+
+    @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
+    Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
 }
