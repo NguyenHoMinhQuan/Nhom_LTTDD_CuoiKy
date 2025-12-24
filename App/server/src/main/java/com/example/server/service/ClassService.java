@@ -7,7 +7,7 @@ import com.example.server.dto.ClassDTO;
 
 public interface ClassService {
     
-    List<ClassDTO> findAllClasss();
+    List<ClassDTO> findAllClasses();
 
     Optional<ClassDTO> findClassById(Integer id);
 
