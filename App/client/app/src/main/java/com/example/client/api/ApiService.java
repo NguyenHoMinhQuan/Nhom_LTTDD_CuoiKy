@@ -24,8 +24,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
+
     @GET("/api/class-schedules/lecturer/{lecturerId}/today")
     Call<List<ScheduleItem>> getTodayScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
+
     @GET("/api/class-schedules/lecturer/{lecturerId}")
     Call<List<ScheduleItem>> getScheduleByLecturerId(@Path("lecturerId") Integer lecturerId);
 
@@ -60,9 +62,6 @@ public interface ApiService {
     @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
     Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
 
-    @GET("api/assignments")
-    Call<List<AssignmentDTO>> getAllAssignments();
-
     @GET("api/assignments/{id}")
     Call<AssignmentDTO> getAssignmentById(@Path("id") Integer id);
 
@@ -74,5 +73,9 @@ public interface ApiService {
 
     @POST("api/assignments/delete/{id}")
     Call<Void> deleteAssignment(@Path("id") Integer id);
+
+    @GET("api/assignments/lecturer/{lecturerId}")
+    Call<List<AssignmentDTO>> getAssignmentsByLecturer(@Path("lecturerId") Integer lecturerId);
+
 
 }
