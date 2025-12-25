@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_brand"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgAvatarMenu"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/avata"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircleImage"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Hữu Thuận"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Sinh viên IT"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/menu_btn_my_course"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="24dp"
+                android:text="Danh sách lớp học của tôi"
+                android:textColor="@color/text_title"
+                android:textSize="16sp"
+                app:icon="@android:drawable/ic_menu_agenda"
+                app:iconTint="@color/primary_brand"
+                app:iconPadding="16dp"
+                app:iconSize="24dp"/>
+
+            <Button
+                android:id="@+id/menu_btn_status"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="24dp"
+                android:text="Trạng thái học tập"
+                android:textColor="@color/text_title"
+                android:textSize="16sp"
+                app:icon="@android:drawable/ic_menu_my_calendar"
+                app:iconTint="@color/primary_brand"
+                app:iconPadding="16dp"
+                app:iconSize="24dp"/>
+
+            <Button
+                android:id="@+id/menu_btn_info"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="24dp"
+                android:text="Thông tin cá nhân"
+                android:textColor="@color/text_title"
+                android:textSize="16sp"
+                app:icon="@android:drawable/ic_menu_info_details"
+                app:iconTint="@color/primary_brand"
+                app:iconPadding="16dp"
+                app:iconSize="24dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="8dp"
+                android:background="#E5E7EB"/>
+
+            <Button
+                android:id="@+id/menu_btn_logout"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="24dp"
+                android:text="Đăng xuất"
+                android:textColor="#EF4444"
+                android:textSize="16sp"
+                app:icon="@android:drawable/ic_lock_power_off"
+                app:iconTint="#EF4444"
+                app:iconPadding="16dp"
+                app:iconSize="24dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

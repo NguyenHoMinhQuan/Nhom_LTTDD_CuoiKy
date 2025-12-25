@@ -7,12 +7,12 @@ import com.example.server.dto.CourseDTO;
 
 public interface CourseService {
     
-    List<CourseDTO> findAllCourseDTOs();
+    List<CourseDTO> findAllCourses();
 
-    Optional<CourseDTO> findCourseDTOById(Integer id);
+    Optional<CourseDTO> findCourseById(Integer id);
 
-    CourseDTO savCourseDTO(CourseDTO courseDTO);
-
-    void deleteCouseDTO(Integer id);
+    CourseDTO saveCourse(CourseDTO courseDTO);
+        
+    void deleteCourse(Integer id);
 
 }

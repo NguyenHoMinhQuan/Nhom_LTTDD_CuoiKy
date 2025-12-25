@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@android:drawable/ic_menu_sort_by_size" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/btnSearch"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:src="@android:drawable/ic_menu_search" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="QUẢN LÝ NGƯỜI DÙNG"
+            android:textColor="#5D4037"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EEE">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#DFDFDF"
+                android:orientation="horizontal">
+
+                <TextView android:text="ID" android:layout_width="70dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Username" android:layout_width="150dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Họ tên" android:layout_width="250dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Email" android:layout_width="280dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Vai trò" android:layout_width="120dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Khoa/Bộ môn" android:layout_width="180dp" style="@style/HeaderStyle"/>
+                <TextView android:text="TT" android:layout_width="70dp" style="@style/HeaderStyle"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvUsers"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#FFF" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:elevation="10dp"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFormTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="THÔNG TIN CHI TIẾT"
+                android:textColor="#D32F2F"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnClear"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_pink"
+                    android:text="Tạo Mới / Hủy"
+                    android:textAllCaps="false"
+                    android:textColor="#000" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_green"
+                    android:text="Xóa User này"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <EditText android:id="@+id/edtUsername" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Username (*)" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+            <EditText android:id="@+id/edtFullName" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Họ tên" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+            <EditText android:id="@+id/edtEmail" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Email" android:inputType="textEmailAddress" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <FrameLayout android:background="@drawable/bg_input_field" android:layout_weight="0.8" android:layout_width="0dp" android:layout_height="45dp">
+                    <Spinner android:id="@+id/spnRole" android:layout_width="match_parent" android:layout_height="match_parent" />
+                </FrameLayout>
+
+                <FrameLayout android:layout_marginLeft="10dp" android:background="@drawable/bg_input_field" android:layout_weight="1.2" android:layout_width="0dp" android:layout_height="45dp">
+                    <Spinner android:id="@+id/spnDepartment" android:layout_width="match_parent" android:layout_height="match_parent" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <FrameLayout android:background="@drawable/bg_input_field" android:layout_marginBottom="10dp" android:layout_width="match_parent" android:layout_height="45dp">
+                <Spinner android:id="@+id/spnStatus" android:layout_width="match_parent" android:layout_height="match_parent" />
+            </FrameLayout>
+
+            <EditText android:id="@+id/edtPassword" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Mật khẩu" android:inputType="textPassword" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_btn_green"
+                android:text="LƯU DỮ LIỆU"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

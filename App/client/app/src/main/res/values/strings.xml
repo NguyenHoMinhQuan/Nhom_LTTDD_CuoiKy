@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">client</string>
+    <string name="greeting_format">Good Morning, %1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lecturer_dashboard_iv_avatar">Avatar giảng viên</string>
+    <string name="lecturer_dashboard_tv_gretting">Good Morning, Dr. Smith</string>
+    <string name="lecturer_dashboard_iv_notification">Thông báo</string>
+    <string name="TodaysTimetable">Today\'s Timetable</string>
+    <string name="RecentAnnouncements">Recent Announcements</string>
+    <string name="ViewAll">View All</string>
 </resources>

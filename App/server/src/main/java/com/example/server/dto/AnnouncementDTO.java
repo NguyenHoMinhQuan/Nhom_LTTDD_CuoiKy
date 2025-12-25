@@ -1,20 +1,22 @@
 package com.example.server.dto;
 
+import java.time.LocalDateTime;
+
 public class AnnouncementDTO {
     
     private Integer announcementId;
     private String title;
     private String body;
-    private String authorId;
+    private Integer authorId;
     private Boolean isGlobal;
-    private String targetClassId;
-    private String createdAt;
+    private Integer targetClassId;
+    private LocalDateTime createdAt;
     private String updatedAt;
 
     public AnnouncementDTO() {
     }
 
-    public AnnouncementDTO(Integer announcementId, String title, String body, String authorId, Boolean isGlobal, String targetClassId, String createdAt, String updatedAt) {
+    public AnnouncementDTO(Integer announcementId, String title, String body, Integer authorId, Boolean isGlobal, Integer targetClassId, LocalDateTime createdAt, String updatedAt) {
         this.announcementId = announcementId;
         this.title = title;
         this.body = body;
@@ -49,11 +51,11 @@ public class AnnouncementDTO {
         this.body = body;
     }
 
-    public String getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 
@@ -65,19 +67,19 @@ public class AnnouncementDTO {
         this.isGlobal = isGlobal;
     }
 
-    public String getTargetClassId() {
+    public Integer getTargetClassId() {
         return targetClassId;
     }
 
-    public void setTargetClassId(String targetClassId) {
+    public void setTargetClassId(Integer targetClassId) {
         this.targetClassId = targetClassId;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

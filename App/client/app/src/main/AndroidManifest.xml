@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Client">
-<<<<<<< HEAD
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-=======
-
-        <activity android:name=".MainActivity" />
 
         <activity
-            android:name=".QuanLyUserActivity"
+            android:name=".Login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,29 +22,72 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".QuanLyLopHocActivity" />
-        <activity android:name=".QuanLyKhoaHocActivity" />
-    </application>
->>>>>>> feature/Quan-03_UIUX_Admin
+        <!--lecturer-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+        <activity android:name=".lecturer.activity.LecturerDashboardActivity"/>
 
+        <activity android:name=".lecturer.activity.TimetableActivity"/>
+
+        <activity android:name=".lecturer.activity.LecturerAssignmentActivity"/>
+
+        <activity android:name=".lecturer.activity.NotificationActivity"/>
+
+        <activity android:name=".lecturer.activity.NotificationDetailActivity"/>
+
+        <activity android:name=".lecturer.activity.AnnouncementActivity"/>
+        <activity android:name=".lecturer.activity.LecturerAssignmentActivity"
+            tools:ignore="DuplicateActivity" />
+        <activity android:name=".lecturer.activity.LecturerCreateAssignment" />
+        <activity android:name=".lecturer.activity.LecturerAssignmentDetailActivity" />
+
+        <activity android:name=".lecturer.activity.ChatActivity"/>
+
+        <activity android:name=".lecturer.activity.ChatListActivity"/>
+
+        <activity android:name=".lecturer.activity.ProfileActivity" />
+
+        <!--end lecturer-->
+
+        <activity android:name=".ForgotPassActivity"/>
+
+        <activity android:name=".Admin.AdminDashboardActivity"/>
+
+        <activity android:name=".MainActivity"/>
+
+        <activity android:name=".HocVien.SearchActivity" />
+
+
+
+
+        <activity android:name=".HocVien.ProfileActivity" />
+
+        <activity android:name=".StudyStatusActivity" />
+
+
+
+
+        <!--Hocvien-->
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".Dashboard.DashboardCustomer"
+            android:exported="true" >  </activity>
+        <activity android:name=".HocVien.HomeActivity" />
+        <activity android:name=".HocVien.MyCoursesActivity" />
+        <activity android:name=".HocVien.HocVien_NopBaiTapActivity" />
+        <!-- end Hocvien-->
 
-        <!-- Nếu có ForgotPassActivity -->
-        <!-- <activity android:name=".ForgotPassActivity" android:exported="false" /> -->
-        <activity android:name=".ForgotPassActivity" android:exported="false"
-            tools:ignore="Instantiatable" />
+
+        <activity android:name=".Admin.QuanLyKhoaHocActivity"/>
+        <activity android:name=".Admin.QuanLyLopHocActivity"/>
+        <activity android:name=".Admin.QuanLyUserActivity"/>
+        <activity android:name=".Admin.QuanLyThongBaoActivity"/>
+
+        <activity android:name=".QuanLyKhoaHocActivity"/>
+        <activity android:name=".QuanLyLopHocActivity"/>
+        <activity android:name=".QuanLyUserActivity"/>
+
+        <activity android:name=".HocVien.ChatActivity" />
+        <activity android:name=".HocVien.FeedbackActivity" />
+
+
     </application>
-
 </manifest>

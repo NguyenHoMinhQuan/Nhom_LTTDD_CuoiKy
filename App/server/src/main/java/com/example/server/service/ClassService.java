@@ -7,9 +7,11 @@ import com.example.server.dto.ClassDTO;
 
 public interface ClassService {
     
-    List<ClassDTO> findAllClasss();
+    List<ClassDTO> findAllClasses();
 
     Optional<ClassDTO> findClassById(Integer id);
+
+    List<ClassDTO> findAllByLecturerId(Integer lecturerId);
 
     ClassDTO saveClass(ClassDTO classDTO);
 

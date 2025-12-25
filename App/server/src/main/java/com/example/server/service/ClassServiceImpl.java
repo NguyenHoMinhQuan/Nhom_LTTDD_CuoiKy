@@ -46,7 +46,7 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public List<ClassDTO> findAllClasss() {
+    public List<ClassDTO> findAllClasses() {
         List<Class> classes = classRepository.findAll();
         return classes.stream()
                 .map(this::convertToDTO)
@@ -58,6 +58,13 @@ public class ClassServiceImpl implements ClassService{
         return classRepository.findById(id)
                 .map(this::convertToDTO);
     };
+
+    @Override
+    public List<ClassDTO> findAllByLecturerId(Integer lecturerId) {
+        return classRepository.findAllByLecturerId(lecturerId).stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
 
     @Override
     public ClassDTO saveClass(ClassDTO classDTO){

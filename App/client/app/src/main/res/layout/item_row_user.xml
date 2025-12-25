@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tvId"
+        android:layout_width="70dp"
+        android:minHeight="55dp"
+        android:text="ID"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="150dp"
+        android:minHeight="55dp"
+        android:text="Username"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="250dp"
+        android:minHeight="55dp"
+        android:text="Tên Người Dùng"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="280dp"
+        android:minHeight="55dp"
+        android:text="Email"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvRole"
+        android:layout_width="120dp"
+        android:minHeight="55dp"
+        android:text="Vai trò"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <TextView
+        android:id="@+id/tvDept"
+        android:layout_width="180dp"
+        android:minHeight="55dp"
+        android:text="Khoa/Bộ môn"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:background="@drawable/bg_table_cell"/>
+
+    <FrameLayout
+        android:layout_width="70dp"
+        android:minHeight="55dp"
+        android:background="@drawable/bg_table_cell">
+
+        <View
+            android:id="@+id/viewStatusColor"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_btn_pink"/>
+    </FrameLayout>
+
+</TableRow>

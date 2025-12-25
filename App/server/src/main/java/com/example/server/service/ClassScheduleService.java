@@ -7,12 +7,18 @@ import com.example.server.dto.ClassScheduleDTO;
 
 public interface ClassScheduleService {
     
+    List<ClassScheduleDTO> findScheduleByLecturerIdForToday(Integer lecturerId);
+
     List<ClassScheduleDTO> findAllClassSchedules();
+
+    List<ClassScheduleDTO> findScheduleByLecturerId(Integer lecturerId);
 
     Optional<ClassScheduleDTO> findClassScheduleById(Integer id);
 
-    ClassScheduleDTO savClassScheduleDTO(ClassScheduleDTO classScheduleDTO);
+    List<ClassScheduleDTO> findAllByClassId(Integer classId);
 
-    void deleteClassScheduleDTO(Integer id);
+    ClassScheduleDTO saveClassSchedule(ClassScheduleDTO classScheduleDTO);
+
+    void deleteClassSchedule(Integer id);
 
 }

@@ -4,63 +4,74 @@ import java.time.LocalTime;
 
 public class ClassScheduleDTO {
     
-    private Integer ScheduleId;
-    private Integer ClassId;
-    private Integer DayOfWeek;
-    private LocalTime StartTime;
-    private LocalTime EndTime;
-    private String Room;
+    // Sử dụng camelCase cho tất cả các trường
+    private Integer scheduleId; 
+    private String courseName;
+    private String dayOfWeek;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String room;
+    private Integer classId; 
+
     
     public ClassScheduleDTO() {
     }
 
+    // --- Getters và Setters (Đã sửa để khớp với camelCase) ---
+    
     public Integer getScheduleId() {
-        return ScheduleId;
+        return scheduleId;
     }
 
     public void setScheduleId(Integer scheduleId) {
-        ScheduleId = scheduleId;
+        this.scheduleId = scheduleId;
     }
 
-    public Integer getClassId() {
-        return ClassId;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setClassId(Integer classId) {
-        ClassId = classId;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public Integer getDayOfWeek() {
-        return DayOfWeek;
+    public String getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDayOfWeek(Integer dayOfWeek) {
-        DayOfWeek = dayOfWeek;
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public LocalTime getStartTime() {
-        return StartTime;
+        return startTime;
     }
 
     public void setStartTime(LocalTime startTime) {
-        StartTime = startTime;
+        this.startTime = startTime;
     }
 
     public LocalTime getEndTime() {
-        return EndTime;
+        return endTime;
     }
 
     public void setEndTime(LocalTime endTime) {
-        EndTime = endTime;
+        this.endTime = endTime;
     }
 
     public String getRoom() {
-        return Room;
+        return room;
     }
 
     public void setRoom(String room) {
-        Room = room;
+        this.room = room;
     }
-    
-    
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
 }

@@ -1,26 +1,29 @@
 package com.example.server.config;
 
-import com.example.server.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.server.service.UserDetailsServiceImpl;
+
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
-    // Password encoder: không băm, dùng trực tiếp
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -35,34 +38,18 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    // AuthenticationManager
     @Bean
     public AuthenticationManager authenticationManager() {
         return new org.springframework.security.authentication.ProviderManager(authenticationProvider());
     }
-
-    // Security filter chain
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // Vô hiệu hóa CSRF (bắt buộc để gọi POST/PUT/DELETE)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/api/auth/login",
-                                "/api/auth/register",
-                                "/api/users",
-                                "/api/users/show",
-                                "/api/students",
-                                "/api/registrations/**",
-                                "/api/lecturers",
-                                "/api/notifications"
-                                )
-                        .permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-                .authenticationProvider(authenticationProvider());
-
+                        .requestMatchers("/api/**").permitAll() // Cho phép tất cả API bắt đầu bằng /api/
+                        .anyRequest().permitAll() // Hoặc cho phép TẤT CẢ mọi request
+                );
         return http.build();
     }
 }

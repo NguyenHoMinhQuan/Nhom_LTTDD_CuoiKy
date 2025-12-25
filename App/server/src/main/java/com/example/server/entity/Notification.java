@@ -1,6 +1,7 @@
 package com.example.server.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,10 +20,14 @@ public class Notification {
     private Integer announcementId;
 
     @Column(name = "IsRead")
-    private Boolean isRead = false;
+    private Integer isRead = 0;
 
     @Column(name = "CreatedAt")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AnnouncementId", insertable = false, updatable = false)
+    private Announcement announcement;
 
     public Notification() {
     }
@@ -52,11 +57,11 @@ public class Notification {
         this.announcementId = announcementId;
     }
 
-    public Boolean getIsRead() {
+    public Integer getIsRead() {
         return isRead;
     }
 
-    public void setIsRead(Boolean isRead) {
+    public void setIsRead(Integer isRead) {
         this.isRead = isRead;
     }
 
@@ -66,5 +71,13 @@ public class Notification {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Announcement getAnnouncement() {
+        return announcement;
+    }
+
+    public void setAnnouncement(Announcement announcement) {
+        this.announcement = announcement;
     }
 }

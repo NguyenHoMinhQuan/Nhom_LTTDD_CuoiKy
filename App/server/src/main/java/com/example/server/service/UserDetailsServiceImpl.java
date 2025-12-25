@@ -1,26 +1,25 @@
 package com.example.server.service;
 
-import com.example.server.entity.User;
-import com.example.server.dto.UserDTO;
-import com.example.server.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Service;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.example.server.dto.UserDTO;
+import com.example.server.entity.User;
+import com.example.server.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -45,7 +44,7 @@ public class UserDetailsServiceImpl implements UserService, UserDetailsService {
         // Dùng password trực tiếp từ PasswordHash, không băm
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
-                user.getPasswordHash(),
+                user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(roleName)));
     }
 

@@ -5,13 +5,20 @@ import java.time.LocalDateTime;
 public class NotificationDTO {
 
     private Integer notificationId;
-    private Integer userId;
-    private Integer announcementId;
-    private Boolean isRead;
-    private LocalDateTime createdAt;
+    private String title;      // Lấy từ Announcement
+    private String body;       // Lấy từ Announcement
+    private LocalDateTime createdAt;  // Thời gian tạo
+    private Integer isRead;
 
-    public NotificationDTO() {
+    public NotificationDTO(Integer notificationId, String title, String body, LocalDateTime createdAt, Integer isRead) {
+        this.notificationId = notificationId;
+        this.title = title;
+        this.body = body;
+        this.createdAt = createdAt;
+        this.isRead = isRead;
     }
+
+    public NotificationDTO() {}
 
     public Integer getNotificationId() {
         return notificationId;
@@ -21,28 +28,20 @@ public class NotificationDTO {
         this.notificationId = notificationId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getAnnouncementId() {
-        return announcementId;
+    public String getBody() {
+        return body;
     }
 
-    public void setAnnouncementId(Integer announcementId) {
-        this.announcementId = announcementId;
-    }
-
-    public Boolean getIsRead() {
-        return isRead;
-    }
-
-    public void setIsRead(Boolean isRead) {
-        this.isRead = isRead;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -51,5 +50,13 @@ public class NotificationDTO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }    
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 }

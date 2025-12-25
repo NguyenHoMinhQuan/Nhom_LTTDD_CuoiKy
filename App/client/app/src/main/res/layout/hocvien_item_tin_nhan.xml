@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutMsg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <TextView
+        android:id="@+id/tvNguoiGui"
+        android:text="Người gửi"
+        android:textStyle="bold"
+        android:textColor="#555"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/tvNoiDung"
+        android:text="Nội dung đến ..."
+        android:background="@drawable/bg_search_box"
+        android:padding="11dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:maxWidth="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
