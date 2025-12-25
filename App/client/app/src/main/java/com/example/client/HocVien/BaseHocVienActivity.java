@@ -79,10 +79,7 @@ public class BaseHocVienActivity extends AppCompatActivity {
             navigate(StudyStatusActivity.class); // Trang chứa 3 Tab
         });
 
-        btnLogout.setOnClickListener(v -> {
-            dialog.dismiss();
-            navigate(LoginActivity.class);// trang đăng nhập
-        });
+        btnLogout.setOnClickListener(v -> performLogout());
 
         dialog.show();
     }
@@ -95,5 +92,18 @@ public class BaseHocVienActivity extends AppCompatActivity {
         Intent intent = new Intent(this, targetActivity);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+    private void performLogout() {
+        // Xóa Token và thông tin lưu trữ
+        getSharedPreferences("AUTH_PREFS", MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
+
+        // Chuyển về màn hình Login
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

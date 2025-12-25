@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class HocVien_NhomLopDto {
 
     // --- THÊM DÒNG NÀY ---
-    @SerializedName("classId") // Tên này phải khớp với JSON từ server trả về
+    @SerializedName(value = "classId", alternate = {"ClassId", "id", "ID"}) // Tên này phải khớp với JSON từ server trả về
     private int classId;
     // ---------------------
     @SerializedName("courseName")

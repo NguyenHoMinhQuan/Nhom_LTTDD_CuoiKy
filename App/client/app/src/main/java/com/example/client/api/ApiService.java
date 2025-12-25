@@ -71,11 +71,7 @@ public interface ApiService {
 
     @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
     Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
-    @GET("api/xemdiem/view") // api cho học viên - xem điểm
-    Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
-            @Query("Username") String username,
-            @Query("MaLop") String classCode
-    );
+
     @POST("api/assignment/submit")
     Call<Void> nopBaiTap(@Body HocVien_NopBaiDto request);
     @GET("api/assignments/{id}")
@@ -130,4 +126,9 @@ public interface ApiService {
     // --- FEEDBACK ---
     @POST("/api/feedback/gui")
     Call<Void> guiDanhGia(@Body DanhGiaModel danhGia);
+    @GET("api/student/chat")
+    Call<List<TinNhanModel>> layTinNhan(
+            @Query("username") String username,
+            @Query("classCode") String classCode
+    );
 }
