@@ -17,8 +17,12 @@ import com.example.client.lecturer.model.ClassDTO;
 import com.example.client.lecturer.model.LecturerProfileDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
+
 import com.example.client.lecturer.model.SubmissionDTO;
 
+import com.example.client.HocVien.Models.ThongBaoModel;
+import com.example.client.HocVien.Models.TinNhanModel;
+import com.example.client.HocVien.Models.DanhGiaModel;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -108,4 +112,22 @@ public interface ApiService {
             @Query("grade") Double grade
     );
 
+    @GET("api/xemdiem/view") // api cho học viên - xem điểm
+    Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
+            @Query("Username") String username,
+            @Query("MaLop") String classCode
+    );
+    @GET("/api/announcements")
+    Call<List<ThongBaoModel>> getListAnnouncements();
+
+    // --- CHAT ---
+    @GET("/api/chat/lop/{id}")
+    Call<List<TinNhanModel>> layTinNhan(@Path("id") int idLop);
+
+    @POST("/api/chat/gui")
+    Call<TinNhanModel> guiTinNhan(@Body TinNhanModel tinNhan);
+
+    // --- FEEDBACK ---
+    @POST("/api/feedback/gui")
+    Call<Void> guiDanhGia(@Body DanhGiaModel danhGia);
 }
