@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+
     <TextView
         android:id="@+id/tvNguoiGui"
         android:text="Người gửi"
@@ -18,9 +19,9 @@
 
     <TextView
         android:id="@+id/tvNoiDung"
-        android:text="Nội dung tin nhắn..."
+        android:text="Nội dung đến ..."
         android:background="@drawable/bg_search_box"
-        android:padding="10dp"
+        android:padding="11dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:maxWidth="300dp"

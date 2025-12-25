@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#2196F3"
+        app:cardBackgroundColor="#3E9AE2"
         app:cardCornerRadius="16dp"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false">
@@ -19,7 +19,7 @@
             android:id="@+id/tv_message_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="11dp"
             android:text="Nội dung tin nhắn của tôi"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
