@@ -17,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.client.lecturer.activity.ProfileActivity;
 import com.example.client.R;
+import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
 import com.example.client.lecturer.adapter.NotificationAdapter;
 import com.example.client.lecturer.adapter.ScheduleAdapter;
@@ -34,61 +36,57 @@ public class LecturerDashboardActivity extends AppCompatActivity
     private ImageView ivMessenger;
     private TextView tvViewAll;
     private NotificationAdapter notificationAdapter;
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+
     private ApiService apiService;
+    private  ImageView ivAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecturer_dashboard);
 
-        // Khởi tạo các thành phần chính
         timetableRecyclerView = findViewById(R.id.recycler_timetable_today);
         announcementRecyclerView = findViewById(R.id.recycler_announcements_recent);
         ivMessenger = findViewById(R.id.iv_messenger);
         tvViewAll = findViewById(R.id.tv_view_all);
 
-        tvViewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển sang NotificationActivity (Nơi hiển thị tất cả thông báo)
-                Intent intent = new Intent(LecturerDashboardActivity.this, NotificationActivity.class);
-                startActivity(intent);
-            }
+        ivAvatar = findViewById(R.id.iv_avatar);
+
+        ivAvatar.setOnClickListener(v -> {
+            Intent intent = new Intent(LecturerDashboardActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+
+        tvViewAll.setOnClickListener(v -> {
+            startActivity(new Intent(this, NotificationActivity.class));
         });
 
         initRetrofit();
-
         setupQuickActions();
-
         fetchTodayLecturerSchedule(2);
-
         fetchUnreadNotifications(2);
-
         setupHeader();
+
 
         ivMessenger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LecturerDashboardActivity.this, NotificationActivity.class));
+                startActivity(new Intent(LecturerDashboardActivity.this, ChatListActivity.class));
             }
         });
     }
 
-    private void initRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        apiService = retrofit.create(ApiService.class);
+    private void initRetrofit() {
+        apiService = ApiClient.getClient(this).create(ApiService.class);
     }
 
     private void fetchTodayLecturerSchedule(Integer lecturerId) {
         apiService.getTodayScheduleByLecturerId(lecturerId).enqueue(new Callback<List<ScheduleItem>>() {
             @Override
             public void onResponse(Call<List<ScheduleItem>> call, Response<List<ScheduleItem>> response) {
-                if (response.isSuccessful() & response.body()!= null) {
+                if (response.isSuccessful() && response.body()!= null) {
                     List<ScheduleItem> schedule = response.body();
 
                     if(schedule.isEmpty()) {

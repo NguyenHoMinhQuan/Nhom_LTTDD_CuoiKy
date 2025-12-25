@@ -1,8 +1,6 @@
 package com.example.server.controller;
 
-import com.example.server.dto.HocVien_LichHoc;
 import com.example.server.dto.HocVien_XemDiemDto;
-import com.example.server.service.HocVien_LichHocService;
 import com.example.server.service.HocVien_XemDiemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

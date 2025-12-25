@@ -1,8 +1,14 @@
 package com.example.server.service;
 
 import com.example.server.dto.LecturerDTO;
+import com.example.server.dto.LecturerProfileDTO;
 import com.example.server.entity.Lecturer;
+import com.example.server.entity.User;
 import com.example.server.repository.LecturerRepository;
+import com.example.server.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +19,11 @@ public class LecturerServiceImpl implements LecturerService {
 
     private final LecturerRepository lecturerRepository;
 
-    public LecturerServiceImpl(LecturerRepository lecturerRepository) {
+    private final UserRepository userRepository;
+
+    public LecturerServiceImpl(LecturerRepository lecturerRepository, UserRepository userRepository) {
         this.lecturerRepository = lecturerRepository;
+        this.userRepository = userRepository;
     }
 
     // ===== convert =====
@@ -72,5 +81,56 @@ public class LecturerServiceImpl implements LecturerService {
     @Override
     public void deleteLecturer(Integer id) {
         lecturerRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<LecturerProfileDTO> getLecturerProfile(Integer id) {
+        return lecturerRepository.findById(id).map(lecturer -> {
+            LecturerProfileDTO dto = new LecturerProfileDTO();
+            // Map thông tin giảng viên
+            dto.setLecturerId(lecturer.getLecturerId());
+            dto.setFullName(lecturer.getFullName());
+            dto.setStaffNumber(lecturer.getStaffNumber());
+            dto.setDepartment(lecturer.getDepartment());
+
+            // Map thông tin tài khoản User đi kèm
+            if (lecturer.getUser() != null) {
+                dto.setUsername(lecturer.getUser().getUsername());
+                dto.setEmail(lecturer.getUser().getEmail());
+                // Không nên trả về password, hoặc để trống
+            }
+            return dto;
+        });
+    }
+
+    @Override
+    @Transactional // Quan trọng: Để update cả 2 bảng, nếu lỗi thì rollback hết
+    public LecturerProfileDTO updateLecturerProfile(Integer id, LecturerProfileDTO dto) {
+        Lecturer lecturer = lecturerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy giảng viên với ID: " + id));
+
+        // 1. Cập nhật bảng Lecturer
+        lecturer.setFullName(dto.getFullName());
+        lecturer.setDepartment(dto.getDepartment());
+        lecturer.setStaffNumber(dto.getStaffNumber());
+
+        // 2. Cập nhật bảng User liên kết
+        User user = lecturer.getUser();
+        if (user != null) {
+            user.setEmail(dto.getEmail());
+            
+            // Logic đổi mật khẩu: Chỉ đổi nếu người dùng nhập pass mới
+            if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+                user.setPassword(dto.getPassword()); 
+                // Lưu ý: Thực tế bạn nên mã hóa pass ở đây, ví dụ: passwordEncoder.encode(dto.getPassword())
+            }
+            userRepository.save(user); // Lưu User
+        }
+
+        Lecturer savedLecturer = lecturerRepository.save(lecturer); // Lưu Lecturer
+        
+        // Trả về DTO đã cập nhật
+        dto.setLecturerId(savedLecturer.getLecturerId());
+        return dto;
     }
 }
