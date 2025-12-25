@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.client.Login.LoginActivity;
 import com.example.client.lecturer.activity.ProfileActivity;
 import com.example.client.R;
 import com.example.client.api.ApiClient;
@@ -36,14 +38,28 @@ public class LecturerDashboardActivity extends AppCompatActivity
     private ImageView ivMessenger;
     private TextView tvViewAll;
     private NotificationAdapter notificationAdapter;
-
     private ApiService apiService;
     private  ImageView ivAvatar;
+    private int currentUserId;
+    private String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecturer_dashboard);
+
+        // 🟢 BƯỚC 1: LẤY DỮ LIỆU TỪ SHAREDPREFERENCES
+        SharedPreferences prefs = getSharedPreferences("AUTH_PREFS", MODE_PRIVATE);
+        currentUserId = prefs.getInt("USER_ID", -1); // Lấy ID, mặc định là -1 nếu không có
+        currentUsername = prefs.getString("USERNAME", "Giảng viên");
+
+        // Kiểm tra nếu chưa đăng nhập (ID = -1) thì đá về Login ngay
+        if (currentUserId == -1) {
+            Toast.makeText(this, "Phiên đăng nhập hết hạn", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         timetableRecyclerView = findViewById(R.id.recycler_timetable_today);
         announcementRecyclerView = findViewById(R.id.recycler_announcements_recent);
@@ -64,8 +80,9 @@ public class LecturerDashboardActivity extends AppCompatActivity
 
         initRetrofit();
         setupQuickActions();
-        fetchTodayLecturerSchedule(2);
-        fetchUnreadNotifications(2);
+        // 🟢 BƯỚC 2: GỌI API VỚI ID THỰC TẾ
+        fetchTodayLecturerSchedule(currentUserId);
+        fetchUnreadNotifications(currentUserId);
         setupHeader();
 
 
@@ -113,9 +130,16 @@ public class LecturerDashboardActivity extends AppCompatActivity
     /** Thiết lập Header: Hiển thị tên giảng viên */
     private void setupHeader() {
         TextView greetingTv = findViewById(R.id.tv_greeting);
-        // Giả sử tên giảng viên được lấy từ dữ liệu đăng nhập
-        String lecturerName = "Dr. Smith";
-        greetingTv.setText(getString(R.string.greeting_format, lecturerName)); // Cần tạo string resource
+
+        // 🟢 BƯỚC 3: HIỂN THỊ TÊN LẤY TỪ LOGIN
+        // Lưu ý: Đảm bảo trong strings.xml có dòng: <string name="greeting_format">Xin chào, %s</string>
+        // Nếu không có resource thì dùng: greetingTv.setText("Xin chào, " + currentUsername);
+
+        try {
+            greetingTv.setText(getString(R.string.greeting_format, currentUsername));
+        } catch (Exception e) {
+            greetingTv.setText("Hello, " + currentUsername);
+        }
     }
 
     /** Thiết lập Nút Hành động Nhanh */
@@ -126,7 +150,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
         TextView anncText = anncAction.findViewById(R.id.tv_action_text);
 
         anncIcon.setImageResource(R.drawable.announcement);
-        anncText.setText("Notification");
+        anncText.setText("Đăng thông báo");
         anncAction.setOnClickListener(v -> {
             // Mở màn hình danh sách thông báo
             startActivity(new Intent(this, AnnouncementActivity.class));
@@ -138,7 +162,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
         TextView ttText = ttAction.findViewById(R.id.tv_action_text);
 
         ttIcon.setImageResource(R.drawable.timetable); // Thay bằng icon thực tế
-        ttText.setText("Timetable");
+        ttText.setText("Thời khóa biểu");
         ttAction.setOnClickListener(v -> {
             // Mở màn hình thời khóa biểu đầy đủ
             startActivity(new Intent(this, TimetableActivity.class));
@@ -150,7 +174,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
         TextView hwText = hwAction.findViewById(R.id.tv_action_text);
 
         hwIcon.setImageResource(R.drawable.assign); // Thay bằng icon thực tế
-        hwText.setText("Assign Homework");
+        hwText.setText("Giao bài tập");
         hwAction.setOnClickListener(v -> {
             Toast.makeText(this, "Chức năng Giao bài tập", Toast.LENGTH_SHORT).show();
             Intent intentAssignment = new Intent(this, LecturerAssignmentActivity.class);
@@ -207,7 +231,7 @@ public class LecturerDashboardActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 // Sau khi đánh dấu thành công, có thể gọi lại fetchUnreadNotifications để refresh dashboard
-                fetchUnreadNotifications(2);
+                fetchUnreadNotifications(currentUserId);
             }
 
             @Override
