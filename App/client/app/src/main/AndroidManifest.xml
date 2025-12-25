@@ -72,5 +72,8 @@
         <activity android:name=".QuanLyLopHocActivity"/>
         <activity android:name=".QuanLyUserActivity"/>
 
+        <activity android:name=".HocVien.ChatActivity" />
+        <activity android:name=".HocVien.FeedbackActivity" />
+
     </application>
 </manifest>

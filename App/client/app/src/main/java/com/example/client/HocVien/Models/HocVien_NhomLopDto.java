@@ -3,6 +3,11 @@ package com.example.client.HocVien.Models;
 import com.google.gson.annotations.SerializedName;
 
 public class HocVien_NhomLopDto {
+
+    // --- THÊM DÒNG NÀY ---
+    @SerializedName("classId") // Tên này phải khớp với JSON từ server trả về
+    private int classId;
+    // ---------------------
     @SerializedName("courseName")
     private String courseName;
 
@@ -24,4 +29,15 @@ public class HocVien_NhomLopDto {
     public String getLecturerName() { return lecturerName; }
     public String getClassCode() { return classCode; }
     public String getSemester() { return semester; }
+
+    // --- THÊM HÀM GETTER NÀY ---
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
+
 }
