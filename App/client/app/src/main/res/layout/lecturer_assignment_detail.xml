@@ -91,6 +91,15 @@
                 android:padding="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp" />
+            <TextView
+                android:id="@+id/tv_submission_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số sinh viên đã nộp: 0"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

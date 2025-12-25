@@ -45,10 +45,32 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
 
         String dueDate = item.getDueDate();
         if (dueDate != null && dueDate.contains("T")) {
-            // Chuyển đổi định dạng ISO từ server (2025-12-24T23:59:00) thành dạng dễ đọc hơn
             dueDate = dueDate.replace("T", " ");
         }
         holder.tvDueDate.setText("Hạn nộp: " + (dueDate != null ? dueDate : "Không có hạn"));
+
+        // --- Trạng thái ---
+        if (dueDate != null) {
+            try {
+                java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                java.util.Date due = format.parse(dueDate);
+                java.util.Date now = new java.util.Date();
+
+                if (now.after(due)) {
+                    holder.tvStatus.setText("Đã đóng");
+                    holder.tvStatus.setTextColor(android.graphics.Color.RED);
+                } else {
+                    holder.tvStatus.setText("Đang mở");
+                    holder.tvStatus.setTextColor(android.graphics.Color.GREEN);
+                }
+            } catch (Exception e) {
+                holder.tvStatus.setText("Không xác định");
+                holder.tvStatus.setTextColor(android.graphics.Color.GRAY);
+            }
+        } else {
+            holder.tvStatus.setText("Không xác định");
+            holder.tvStatus.setTextColor(android.graphics.Color.GRAY);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -57,13 +79,14 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
         });
     }
 
+
     @Override
     public int getItemCount() {
         return assignmentList != null ? assignmentList.size() : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvClassName, tvDueDate;
+        TextView tvTitle, tvClassName, tvDueDate, tvStatus;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,6 +94,7 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvClassName = itemView.findViewById(R.id.tv_class_name);
             tvDueDate = itemView.findViewById(R.id.tv_due_date);
+            tvStatus= itemView.findViewById(R.id.tv_status);
         }
     }
 }

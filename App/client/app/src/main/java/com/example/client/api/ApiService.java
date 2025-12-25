@@ -15,6 +15,7 @@ import com.example.client.lecturer.model.ClassDTO;
 import com.example.client.lecturer.model.LecturerProfileDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
+import com.example.client.lecturer.model.SubmissionDTO;
 
 import java.util.List;
 import retrofit2.Call;
@@ -87,4 +88,14 @@ public interface ApiService {
 
     @PUT("api/lecturers/profile/{id}")
     Call<LecturerProfileDTO> updateLecturerProfile(@Path("id") Integer id, @Body LecturerProfileDTO dto);
+    @GET("/api/assignments/{id}/submissionCount")
+    Call<Long> getSubmissionCount(@Path("id") Integer assignmentId);
+
+    @GET("/api/assignments/{id}/submissions")
+    Call<List<SubmissionDTO>> getSubmissions(@Path("id") Integer assignmentId);
+    @POST("/api/assignments/grade/{submissionId}")
+    Call<SubmissionDTO> gradeSubmission(
+            @Path("submissionId") Integer submissionId,
+            @Query("grade") Double grade
+    );
 }
