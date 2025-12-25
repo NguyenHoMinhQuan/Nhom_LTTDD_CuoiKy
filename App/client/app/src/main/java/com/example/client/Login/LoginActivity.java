@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Nhập đủ tài khoản & mật khẩu", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             LoginRequest request = new LoginRequest(username, password);
 
             ApiService apiService = ApiClient

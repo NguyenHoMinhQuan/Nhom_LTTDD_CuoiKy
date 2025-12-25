@@ -41,7 +41,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager() {
         return new org.springframework.security.authentication.ProviderManager(authenticationProvider());
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -54,4 +53,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
