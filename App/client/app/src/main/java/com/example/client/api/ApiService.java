@@ -102,4 +102,10 @@ public interface ApiService {
     // --- FEEDBACK ---
     @POST("/api/feedback/gui")
     Call<Void> guiDanhGia(@Body DanhGiaModel danhGia);
+
+    @GET("api/student/chat")
+    Call<List<TinNhanModel>> layTinNhan(
+            @Query("username") String username,
+            @Query("classCode") String classCode
+    );
 }
