@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+<<<<<<< HEAD
     }
 
     // Hàm phụ để điều hướng, tránh lặp lại code
@@ -122,3 +123,6 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 }
+=======
+    }}
+>>>>>>> 24bc66f (Đã xong cn thông báo home)

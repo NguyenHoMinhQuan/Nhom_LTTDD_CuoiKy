@@ -48,12 +48,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Vô hiệu hóa CSRF (bắt buộc để gọi POST/PUT/DELETE)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**").permitAll() // Cho phép tất cả API bắt đầu bằng /api/
-                        .anyRequest().permitAll() // Hoặc cho phép TẤT CẢ mọi request
-                );
-
+            .csrf(csrf -> csrf.disable()) // Vô hiệu hóa CSRF (bắt buộc để gọi POST/PUT/DELETE)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**").permitAll() // Cho phép tất cả API bắt đầu bằng /api/
+                .anyRequest().permitAll() // Hoặc cho phép TẤT CẢ mọi request
+            );
+        
         return http.build();
     }
 }

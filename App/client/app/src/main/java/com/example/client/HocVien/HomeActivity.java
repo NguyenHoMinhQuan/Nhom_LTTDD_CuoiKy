@@ -43,9 +43,54 @@ public class HomeActivity extends BaseHocVienActivity {
         setupCourseList();
     }
 
+<<<<<<< HEAD
     private void setupNavigation() {
         tvSearch.setOnClickListener(v -> {
             navigate(SearchActivity.class);
+=======
+    private void setupAnnouncementList() {
+        // Khởi tạo list rỗng
+        listAnnouncements = new ArrayList<>();
+
+        // Gắn Adapter
+        announcementAdapter = new ThongBaoAdapter(listAnnouncements);
+        rvAnnouncement.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvAnnouncement.setAdapter(announcementAdapter);
+
+        // Gọi API lấy dữ liệu thật
+        getAnnouncementsFromApi();
+    }
+
+    private void getAnnouncementsFromApi() {
+
+        //Toast.makeText(this, "Đang gọi API...", Toast.LENGTH_SHORT).show(); //////
+
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+
+        // Gọi API /api/announcements
+        apiService.getListAnnouncements().enqueue(new Callback<List<ThongBaoModel>>() {
+            @Override
+            public void onResponse(Call<List<ThongBaoModel>> call, Response<List<ThongBaoModel>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ThongBaoModel> data = response.body();
+
+                    // Xóa dữ liệu cũ và thêm dữ liệu mới
+                    listAnnouncements.clear();
+                    listAnnouncements.addAll(data);
+
+                    // Cập nhật giao diện
+                    announcementAdapter.notifyDataSetChanged();
+                } else {
+                    // Nếu API trả về rỗng hoặc lỗi
+                    Toast.makeText(HomeActivity.this, "Không có thông báo mới", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ThongBaoModel>> call, Throwable t) {
+                Toast.makeText(HomeActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+>>>>>>> 24bc66f (Đã xong cn thông báo home)
         });
     }
 
