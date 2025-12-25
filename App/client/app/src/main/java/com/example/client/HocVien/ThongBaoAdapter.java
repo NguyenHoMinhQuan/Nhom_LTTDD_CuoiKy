@@ -51,7 +51,7 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHo
         }
 
         // 4. Random ảnh cho sinh động
-        holder.imgIcon.setImageResource(getRandomImage());
+        holder.imgIcon.setImageResource(R.drawable.ute);
     }
 
     @Override
@@ -59,15 +59,8 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHo
         return mList != null ? mList.size() : 0;
     }
 
-    // Hàm chọn ảnh ngẫu nhiên
-    private int getRandomImage() {
-        int[] images = {
-                R.drawable.ic_launcher_background, // Thay bằng tên ảnh icon của bạn (vd: mon1, mon2)
-                R.drawable.ic_launcher_foreground
-        };
-        Random rand = new Random();
-        return images[rand.nextInt(images.length)];
-    }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgIcon;

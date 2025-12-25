@@ -67,6 +67,9 @@ public class HomeActivity extends BaseHocVienActivity {
     }
 
     private void getAnnouncementsFromApi() {
+
+        //Toast.makeText(this, "Đang gọi API...", Toast.LENGTH_SHORT).show(); //////
+
         ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
         // Gọi API /api/announcements
