@@ -4,12 +4,14 @@ import android.app.DownloadManager;
 import retrofit2.http.DELETE;
 import retrofit2.http.PUT;
 
+import com.example.client.HocVien.Models.HocVien_BaiTapDto;
 import com.example.client.HocVien.Models.HocVien_NhomLopDto;
+import com.example.client.HocVien.Models.HocVien_XemDiemDto;
 import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
-
+import com.example.client.Models.HocVien_NopBaiDto;
 import com.example.client.lecturer.model.Announcement;
 import com.example.client.lecturer.model.AssignmentDTO;
 import com.example.client.lecturer.model.ChatMessageDTO;
@@ -17,8 +19,12 @@ import com.example.client.lecturer.model.ClassDTO;
 import com.example.client.lecturer.model.LecturerProfileDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
+
 import com.example.client.lecturer.model.SubmissionDTO;
 
+import com.example.client.HocVien.Models.ThongBaoModel;
+import com.example.client.HocVien.Models.TinNhanModel;
+import com.example.client.HocVien.Models.DanhGiaModel;
 import java.util.List;
 import java.util.Map;
 import okhttp3.ResponseBody;
@@ -70,6 +76,8 @@ public interface ApiService {
     @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
     Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
 
+    @POST("api/assignment/submit")
+    Call<Void> nopBaiTap(@Body HocVien_NopBaiDto request);
     @GET("api/assignments/{id}")
     Call<AssignmentDTO> getAssignmentById(@Path("id") Integer id);
 
@@ -87,6 +95,7 @@ public interface ApiService {
     @GET("/api/messages/history/{classId}")
     Call<List<ChatMessageDTO>> getChatHistory(@Path("classId") Integer classId);
 
+
     @GET("api/lecturers/profile/{id}")
     Call<LecturerProfileDTO> getLecturerProfile(@Path("id") Integer id);
 
@@ -102,6 +111,7 @@ public interface ApiService {
             @Path("submissionId") Integer submissionId,
             @Query("grade") Double grade
     );
+
 
 
     @GET("/api/schedule-schedules/today")
@@ -178,4 +188,29 @@ public interface ApiService {
     // 4. Xóa (DELETE)
     @DELETE("api/admin/announcement/delete/{id}")
     Call<Map<String, Object>> deleteAnnouncement(@Path("id") Integer id);
+
+    @GET("api/xemdiem/view") // api cho học viên - xem điểm
+    Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
+            @Query("Username") String username,
+            @Query("MaLop") String classCode
+    );
+    @GET("/api/announcements")
+    Call<List<ThongBaoModel>> getListAnnouncements();
+
+    // --- CHAT ---
+    @GET("/api/chat/lop/{id}")
+    Call<List<TinNhanModel>> layTinNhan(@Path("id") int idLop);
+
+    @POST("/api/chat/gui")
+    Call<TinNhanModel> guiTinNhan(@Body TinNhanModel tinNhan);
+
+    // --- FEEDBACK ---
+    @POST("/api/feedback/gui")
+    Call<Void> guiDanhGia(@Body DanhGiaModel danhGia);
+    @GET("api/student/chat")
+    Call<List<TinNhanModel>> layTinNhan(
+            @Query("username") String username,
+            @Query("classCode") String classCode
+    );
+
 }

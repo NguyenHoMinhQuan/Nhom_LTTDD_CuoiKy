@@ -11,6 +11,7 @@ import java.util.List;
 public interface HocVien_NhomLopReposity extends JpaRepository<Registration, Integer> {
     @Query(value = """
         SELECT
+            c.ClassId,
             u.UserId,
             u.Username,
             st.StudentNumber,
