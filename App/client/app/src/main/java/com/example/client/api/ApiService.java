@@ -2,13 +2,14 @@ package com.example.client.api;
 
 import android.app.DownloadManager;
 
+import com.example.client.HocVien.Models.HocVien_BaiTapDto;
 import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.HocVien.Models.HocVien_XemDiemDto;
 import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
-
+import com.example.client.Models.HocVien_NopBaiDto;
 import com.example.client.lecturer.model.Announcement;
 import com.example.client.lecturer.model.AssignmentDTO;
 import com.example.client.lecturer.model.ClassDTO;
@@ -63,7 +64,13 @@ public interface ApiService {
 
     @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
     Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
-
+    @GET("api/xemdiem/view") // api cho học viên - xem điểm
+    Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
+            @Query("Username") String username,
+            @Query("MaLop") String classCode
+    );
+    @POST("api/assignment/submit")
+    Call<Void> nopBaiTap(@Body HocVien_NopBaiDto request);
     @GET("api/assignments/{id}")
     Call<AssignmentDTO> getAssignmentById(@Path("id") Integer id);
 
@@ -79,9 +86,5 @@ public interface ApiService {
     Call<List<AssignmentDTO>> getAssignmentsByLecturer(@Path("lecturerId") Integer lecturerId);
 
 
-    @GET("api/xemdiem/view") // api cho học viên - xem điểm
-    Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
-            @Query("Username") String username,
-            @Query("MaLop") String classCode
-    );
+
 }
