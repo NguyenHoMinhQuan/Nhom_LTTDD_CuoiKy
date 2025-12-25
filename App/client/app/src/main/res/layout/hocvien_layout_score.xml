@@ -7,167 +7,174 @@
     android:background="#E0F7FA"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/tvLabelScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Điểm"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvStudentName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Nguyễn Lê Hữu Thuận"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvLabelScore"/>
-
-        <TextView
-            android:id="@+id/tvStudentId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Mã sv : 23115053122142"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStudentName"/>
-
-        <TextView
-            android:id="@+id/tvSubjectName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Lập trình java"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStudentId"/>
-
-        <TableLayout
-            android:id="@+id/tableScores"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:stretchColumns="0"
-            app:layout_constraintTop_toBottomOf="@id/tvSubjectName">
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_white_card"
+            android:elevation="8dp"
+            android:padding="20dp">
 
-            <TableRow>
-                <TextView
-                    android:text="Các cột điểm"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text="Điểm"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"
-                    android:gravity="center"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:text="Bài tập 1"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text=""
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"
-                    android:minWidth="60dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:text="Bài tập 2"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text=""
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:padding="10dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:text="Bài tập 3"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text=""
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:padding="10dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:text="Bài tập giữa kì"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text=""
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:padding="10dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:text="Bài tập cuối kì"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text=""
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:padding="10dp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:text="Tổng điểm"
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:textColor="#000000"
-                    android:padding="10dp"/>
-                <TextView
-                    android:text=""
-                    android:background="@drawable/hocvien_row_table_score_gray"
-                    android:padding="10dp"/>
-            </TableRow>
-        </TableLayout>
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRA CỨU KẾT QUẢ"
+                android:textColor="#2196F3"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/tvProgressLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Mức độ hoàn thành : 45 %"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tableScores"/>
+            <EditText
+                android:id="@+id/edtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="Tên đăng nhập (vd: student1)"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:singleLine="true"
+                app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            <EditText
+                android:id="@+id/edtClassCode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="Mã lớp (vd: CT101_B)"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:inputType="textCapCharacters"
+                android:singleLine="true"
+                app:layout_constraintTop_toBottomOf="@id/edtUsername"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnViewScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button_rounded"
+                android:backgroundTint="#2196F3"
+                android:text="Xem Điểm Ngay"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/edtClassCode"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutResultContainer"
             android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_marginTop="8dp"
-            android:progress="45"
-            android:progressDrawable="@drawable/hocvien_custom_progress_bar"
-            app:layout_constraintTop_toBottomOf="@id/tvProgressLabel"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tvLabelScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="BẢNG ĐIỂM CHI TIẾT"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvStudentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Tên sinh viên..."
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLabelScore"/>
+
+            <TextView
+                android:id="@+id/tvStudentId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Mã sv..."
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStudentName"/>
+
+            <TextView
+                android:id="@+id/tvSubjectName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Tên môn học..."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStudentId"/>
+
+            <TableLayout
+                android:id="@+id/tableScores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:stretchColumns="0"
+                app:layout_constraintTop_toBottomOf="@id/tvSubjectName">
+
+                <TableRow>
+                    <TextView
+                        android:text="Các cột điểm"
+                        android:background="@drawable/hocvien_row_table_score_gray"
+                        android:textColor="#000000"
+                        android:padding="10dp"/>
+                    <TextView
+                        android:text="Điểm"
+                        android:background="@drawable/hocvien_row_table_score_gray"
+                        android:textColor="#000000"
+                        android:padding="10dp"
+                        android:gravity="center"/>
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/tvProgressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Mức độ hoàn thành : 0 %"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tableScores"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="8dp"
+                android:progress="0"
+                android:max="100"
+                android:progressDrawable="@drawable/hocvien_custom_progress_bar"
+                app:layout_constraintTop_toBottomOf="@id/tvProgressLabel"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </ScrollView>
