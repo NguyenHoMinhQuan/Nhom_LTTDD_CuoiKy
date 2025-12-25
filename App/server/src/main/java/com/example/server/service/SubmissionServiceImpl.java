@@ -2,6 +2,7 @@ package com.example.server.service;
 
 import com.example.server.dto.SubmissionDTO;
 import com.example.server.entity.Submission;
+import com.example.server.repository.StudentRepository;
 import com.example.server.repository.SubmissionRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public class SubmissionServiceImpl implements SubmissionService {
 
     private final SubmissionRepository submissionRepository;
+    private final StudentRepository studentRepository;
     private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-    public SubmissionServiceImpl(SubmissionRepository submissionRepository) {
+    public SubmissionServiceImpl(SubmissionRepository submissionRepository, StudentRepository studentRepository) {
         this.submissionRepository = submissionRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -30,6 +33,10 @@ public class SubmissionServiceImpl implements SubmissionService {
                     dto.setFileUrl(sub.getFileUrl());
                     dto.setGrade(sub.getGrade());
                     dto.setSubmittedAt(sub.getSubmittedAt() != null ? sub.getSubmittedAt().format(formatter) : null);
+                    String studentName = studentRepository.findById(sub.getStudentId())
+                            .map(st -> st.getFullName())
+                            .orElse("Unknown");
+                    dto.setStudentName(studentName);
                     return dto;
                 })
                 .toList();
