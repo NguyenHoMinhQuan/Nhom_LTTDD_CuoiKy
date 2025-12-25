@@ -6,7 +6,7 @@ public class ThongBaoModel {
 
     // Server trả về "announcementId" -> Mình hứng vào "id"
     @SerializedName("announcementId")
-    private Integer id;//////
+    private Integer id;
 
     // Server trả về "title" -> Mình hứng vào "tieuDe"
     @SerializedName("title")
