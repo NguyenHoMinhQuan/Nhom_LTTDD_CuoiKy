@@ -12,6 +12,7 @@ import com.example.client.lecturer.model.Announcement;
 import com.example.client.lecturer.model.AssignmentDTO;
 import com.example.client.lecturer.model.ChatMessageDTO;
 import com.example.client.lecturer.model.ClassDTO;
+import com.example.client.lecturer.model.LecturerProfileDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
 
@@ -80,4 +81,10 @@ public interface ApiService {
 
     @GET("/api/messages/history/{classId}")
     Call<List<ChatMessageDTO>> getChatHistory(@Path("classId") Integer classId);
+
+    @GET("api/lecturers/profile/{id}")
+    Call<LecturerProfileDTO> getLecturerProfile(@Path("id") Integer id);
+
+    @PUT("api/lecturers/profile/{id}")
+    Call<LecturerProfileDTO> updateLecturerProfile(@Path("id") Integer id, @Body LecturerProfileDTO dto);
 }

@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.client.Login.LoginActivity;
+import com.example.client.lecturer.activity.ProfileActivity;
 import com.example.client.R;
 import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
@@ -50,27 +50,11 @@ public class LecturerDashboardActivity extends AppCompatActivity
         ivMessenger = findViewById(R.id.iv_messenger);
         tvViewAll = findViewById(R.id.tv_view_all);
 
-        // ✅ GÁN ĐÚNG BIẾN THÀNH VIÊN
         ivAvatar = findViewById(R.id.iv_avatar);
 
-        // ✅ DEMO CLICK AVATAR
         ivAvatar.setOnClickListener(v -> {
-            // 1. Xóa phiên đăng nhập
-            getSharedPreferences("AUTH_PREFS", MODE_PRIVATE)
-                    .edit()
-                    .clear()
-                    .apply();
-
-            // 2. Chuyển về LoginActivity
-            Intent intent = new Intent(LecturerDashboardActivity.this, LoginActivity.class);
-
-            // 3. Xóa toàn bộ stack (không back lại được)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+            Intent intent = new Intent(LecturerDashboardActivity.this, ProfileActivity.class);
             startActivity(intent);
-
-            // 4. Kết thúc màn hiện tại
-            finish();
         });
 
 
