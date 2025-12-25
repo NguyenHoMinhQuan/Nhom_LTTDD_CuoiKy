@@ -14,6 +14,8 @@ import com.example.client.lecturer.model.AssignmentDTO;
 import com.example.client.lecturer.model.ClassDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
+import com.example.client.HocVien.Models.ThongBaoModel;
+
 
 import java.util.List;
 import retrofit2.Call;
@@ -84,4 +86,6 @@ public interface ApiService {
             @Query("Username") String username,
             @Query("MaLop") String classCode
     );
+    @GET("/api/announcements")
+    Call<List<ThongBaoModel>> getListAnnouncements();
 }
