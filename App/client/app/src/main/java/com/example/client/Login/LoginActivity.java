@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+
     }
 
     // Hàm phụ để điều hướng, tránh lặp lại code
@@ -121,5 +122,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

@@ -1,10 +1,13 @@
 package com.example.client.HocVien;
 
+import android.content.Context; // Nhớ import cái này
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,11 +33,12 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.Course
         return new CourseViewHolder(view);
     }
 
+    // === SỬA Ở ĐÂY ===
     @Override
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
         HocVien_NhomLopDto course = courseList.get(position);
 
-        // Gán dữ liệu
+        // 1. Gán dữ liệu hiển thị (Code cũ của bạn)
         holder.tvCourseName.setText(course.getCourseName());
         holder.tvCourseCode.setText("Mã môn: " + course.getCourseCode());
 
@@ -46,8 +50,17 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.Course
 
         holder.tvClassCode.setText("Lớp: " + course.getClassCode() + " (" + course.getSemester() + ")");
 
-        // Set ảnh (Nếu bạn muốn mỗi môn 1 ảnh khác nhau thì xử lý ở đây, tạm thời để mặc định trong XML)
-        // holder.imgCourse.setImageResource(...);
+        // 2. Thêm sự kiện Click (MỚI THÊM)
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, ChatActivity.class);
+
+            intent.putExtra("ID_LOP", course.getClassId()); // Để dùng khi gửi tin nhắn (Insert)
+            intent.putExtra("MA_LOP", course.getClassCode()); // QUAN TRỌNG: Để dùng khi Load tin nhắn (Select)
+            intent.putExtra("TEN_LOP", course.getCourseName());
+
+            context.startActivity(intent);
+        });
     }
 
     @Override
