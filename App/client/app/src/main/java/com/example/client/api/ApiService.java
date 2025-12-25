@@ -3,6 +3,7 @@ package com.example.client.api;
 import android.app.DownloadManager;
 
 import com.example.client.HocVien.Models.HocVien_NhomLopDto;
+import com.example.client.HocVien.Models.HocVien_XemDiemDto;
 import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
@@ -78,4 +79,9 @@ public interface ApiService {
     Call<List<AssignmentDTO>> getAssignmentsByLecturer(@Path("lecturerId") Integer lecturerId);
 
 
+    @GET("api/xemdiem/view") // api cho học viên - xem điểm
+    Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
+            @Query("Username") String username,
+            @Query("MaLop") String classCode
+    );
 }

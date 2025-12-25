@@ -19,4 +19,4 @@ public class HocVien_XemDiemService {
         return hocVien_xemDiemRepository.xemDiemHocVienTheoLop(username, classCode);
     }
 }
-//http://localhost:9000/api/hocvien/xemdiem?username=student1&classCode=CT101_B
+//http://localhost:8080/api/hocvien/xemdiem?username=student1&classCode=CT101_B
