@@ -144,8 +144,6 @@ public interface ApiService {
     // 4. ADMIN - QUẢN LÝ LỚP HỌC (CLASS)
     // ==================================================
     @GET("api/admin/classes")
-    Call<List<AdminResponse.ClassItem>> getClasses();
-
     Call<List<AdminResponse.ClassRow>> getAdminClasses();
     @POST("api/admin/class/add")
     Call<Map<String, Object>> addClass(@Body AdminResponse.ClassRequest request);

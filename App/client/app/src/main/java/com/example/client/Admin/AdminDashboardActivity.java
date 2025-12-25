@@ -7,8 +7,9 @@ import android.widget.LinearLayout;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.client.ForgotPassActivity;
+import com.example.client.Login.LoginActivity;
 import com.example.client.R;
+import com.example.client.lecturer.activity.ProfileActivity;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         btnGoToUser = findViewById(R.id.btnGoToUser);
         btnGoToCourse = findViewById(R.id.btnGoToCourse);
         btnGoToClass = findViewById(R.id.btnGoToClass);
-        // btnLogout = findViewById(R.id.btnLogout);
+         btnLogout = findViewById(R.id.btnLogout);
         btnGoToAnnouncement = findViewById(R.id.btnGoToAnnouncement);
 
         // --- Nút Quản lý Người dùng ---
@@ -69,21 +70,21 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
             // --- 5. Nút Đăng Xuất (MỚI) ---
             if (btnLogout != null) {
-                btnLogout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Chuyển về trang Login
-                        Intent intent = new Intent(AdminDashboardActivity.this, ForgotPassActivity.class);
-
-                        // Cờ (Flag) này để xóa hết các Activity cũ,
-                        // giúp người dùng không thể bấm nút Back để quay lại Dashboard
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        startActivity(intent);
-                        finish(); // Đóng Activity hiện tại
-                    }
-                });
+                btnLogout.setOnClickListener(v -> performLogout());
             }
         }
+    }
+    private void performLogout() {
+        // Xóa Token và thông tin lưu trữ
+        getSharedPreferences("AUTH_PREFS", MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
+
+        // Chuyển về màn hình Login
+        Intent intent = new Intent(AdminDashboardActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

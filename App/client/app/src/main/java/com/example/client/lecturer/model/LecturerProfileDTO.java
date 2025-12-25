@@ -6,13 +6,14 @@ public class LecturerProfileDTO {
     private String email;
     private String password;
     private String fullName;
+
+    // 🟢 THÊM 2 TRƯỜNG NÀY VÀO (để đồng bộ với Server)
     private String department;
     private String staffNumber;
 
-    // Constructor rỗng
     public LecturerProfileDTO() {}
 
-    // Getter và Setter (Bạn tự generate hoặc dùng Lombok nếu có cấu hình)
+    // Getter và Setter
     public Integer getLecturerId() { return lecturerId; }
     public void setLecturerId(Integer lecturerId) { this.lecturerId = lecturerId; }
 
@@ -28,5 +29,10 @@ public class LecturerProfileDTO {
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
 
-    // ... Các getter/setter khác
+    // 🟢 THÊM GETTER/SETTER CHO 2 TRƯỜNG MỚI
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+
+    public String getStaffNumber() { return staffNumber; }
+    public void setStaffNumber(String staffNumber) { this.staffNumber = staffNumber; }
 }
