@@ -2,7 +2,6 @@ package com.example.server.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,12 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.dto.AssignmentDTO;
+import com.example.server.dto.SubmissionDTO;
 import com.example.server.service.AssignmentService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.server.service.SubmissionService;
 
 
 @RestController
@@ -59,6 +59,29 @@ public class AssignmentController {
     public ResponseEntity<List<AssignmentDTO>> getAssignmentsByLecturer(@PathVariable Integer lecturerId) {
         List<AssignmentDTO> assignments = assignmentService.findAssignmentsByLecturerId(lecturerId);
         return ResponseEntity.ok(assignments);
+    }
+    @Autowired
+    private SubmissionService submissionService;
+
+
+    @GetMapping("/{id}/submissionCount")
+    public ResponseEntity<Long> getSubmissionCount(@PathVariable Integer id) {
+        long count = submissionService.countSubmissions(id);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/{id}/submissions")
+    public ResponseEntity<List<SubmissionDTO>> getSubmissions(@PathVariable Integer id) {
+        List<SubmissionDTO> submissions = submissionService.getSubmissionsByAssignment(id);
+        return ResponseEntity.ok(submissions);
+    }
+
+    @PostMapping("/grade/{submissionId}")
+    public ResponseEntity<SubmissionDTO> gradeSubmission(
+            @PathVariable Integer submissionId,
+            @RequestParam Double grade) {
+        SubmissionDTO dto = submissionService.gradeSubmission(submissionId, grade);
+        return ResponseEntity.ok(dto);
     }
 
     

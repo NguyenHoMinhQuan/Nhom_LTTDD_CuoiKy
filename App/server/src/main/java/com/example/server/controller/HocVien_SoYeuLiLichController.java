@@ -1,7 +1,6 @@
 package com.example.server.controller;
 
 import com.example.server.dto.HocVien_SoYeuLiLich;
-import com.example.server.entity.Student;
 import com.example.server.service.HocVien_SoYeuLiLichService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

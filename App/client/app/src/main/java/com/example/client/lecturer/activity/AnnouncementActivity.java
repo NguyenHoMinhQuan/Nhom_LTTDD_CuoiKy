@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.client.R;
+import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
 import com.example.client.lecturer.model.Announcement;
 import com.example.client.lecturer.model.ClassDTO;
@@ -58,11 +59,8 @@ public class AnnouncementActivity extends AppCompatActivity {
     }
 
     private void initRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/") // Địa chỉ máy ảo kết nối localhost
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
+
+        apiService = ApiClient.getClient(this).create(ApiService.class);
     }
 
     private void fetchLecturerClasses(Integer lecturerId) {
