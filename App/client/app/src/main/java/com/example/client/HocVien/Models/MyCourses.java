@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Models;
 
 public class MyCourses {
     private String name;        // Tên khóa học

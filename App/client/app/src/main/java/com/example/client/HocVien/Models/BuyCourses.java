@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Models;
 
 public class BuyCourses {
     private String name;

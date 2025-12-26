@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Adapter;
 
 import android.content.Context; // Nhớ import cái này
 import android.content.Intent;
@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.client.HocVien.ChatActivity;
 import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.R;
 
@@ -38,7 +38,7 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.Course
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
         HocVien_NhomLopDto course = courseList.get(position);
 
-        // 1. Gán dữ liệu hiển thị (Code cũ của bạn)
+        // 1. Gán dữ liệu hiển thị
         holder.tvCourseName.setText(course.getCourseName());
         holder.tvCourseCode.setText("Mã môn: " + course.getCourseCode());
 

@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,6 @@ import com.example.client.HocVien.Models.ThongBaoModel;
 import com.example.client.R;
 
 import java.util.List;
-import java.util.Random;
 
 public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHolder> {
 

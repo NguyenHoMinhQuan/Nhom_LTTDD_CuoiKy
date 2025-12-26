@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Adapter;
 
 import android.graphics.Color;
 import android.view.Gravity;

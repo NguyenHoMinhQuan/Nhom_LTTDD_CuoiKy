@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.client.HocVien.Adapter.TinNhanAdapter;
 import com.example.client.HocVien.Models.TinNhanModel;
 import com.example.client.R;
 import com.example.client.api.ApiClient;

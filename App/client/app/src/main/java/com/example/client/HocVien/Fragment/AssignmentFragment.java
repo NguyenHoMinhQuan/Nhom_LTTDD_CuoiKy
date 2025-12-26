@@ -1,8 +1,7 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.client.HocVien.Adapter.AssignmentAdapter;
+import com.example.client.HocVien.HocVien_NopBaiTapActivity;
 import com.example.client.HocVien.Models.HocVien_XemDiemDto;
 import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.R;

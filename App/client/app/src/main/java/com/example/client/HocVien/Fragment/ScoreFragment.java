@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;

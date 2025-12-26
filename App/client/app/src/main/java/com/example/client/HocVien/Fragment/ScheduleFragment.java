@@ -1,4 +1,4 @@
-package com.example.client.HocVien;
+package com.example.client.HocVien.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -43,7 +43,7 @@ public class ScheduleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Liên kết với layout cũ của bạn: hocvien_layout_calender_school
+        // Liên kết với layout cũ hocvien_layout_calender_school
         return inflater.inflate(R.layout.hocvien_layout_calender_school, container, false);
     }
 

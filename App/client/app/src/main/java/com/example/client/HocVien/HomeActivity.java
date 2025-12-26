@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.client.HocVien.Adapter.ThongBaoAdapter;
 import com.example.client.HocVien.Models.ThongBaoModel; // Import Model
 import com.example.client.R;
 import com.example.client.api.ApiClient;
