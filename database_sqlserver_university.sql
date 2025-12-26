@@ -1,58 +1,60 @@
-/*
-  DATABASE HỢP NHẤT: UNIVERSITY DB
-  - Bao gồm: Full Tables (User, Class, Assignment, Chat, Feedback)
-  - Bao gồm: Triggers tự động thông báo
-  - Bao gồm: Dữ liệu mẫu (Seed Data) để test App
-*/
-
-USE master;
-GO
-
 IF EXISTS (SELECT * FROM sys.databases WHERE name = N'UniversityDB')
 BEGIN
-    ALTER DATABASE UniversityDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    -- Đóng tất cả các kết nối đến cơ sở dữ liệu
+    EXECUTE sp_MSforeachdb 'IF ''?'' = ''UniversityDB'' 
+    BEGIN 
+        DECLARE @sql AS NVARCHAR(MAX) = ''USE [?]; ALTER DATABASE [?] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;''
+        EXEC (@sql)
+    END'
+    -- Xóa tất cả các kết nối tới cơ sở dữ liệu (thực hiện qua hệ thống master)
+    USE master;
+
+    -- Xóa cơ sở dữ liệu nếu tồn tại
     DROP DATABASE UniversityDB;
 END
-GO
-
+--Create database (optional) 
 CREATE DATABASE UniversityDB;
 GO
 USE UniversityDB;
 GO
 
 -----------------------------
--- 1. TẠO CÁC BẢNG (TABLES)
+-- Table: Roles
 -----------------------------
-
--- Bảng Quyền (Role)
 CREATE TABLE dbo.Role (
     RoleId TINYINT IDENTITY(1,1) PRIMARY KEY,
-    RoleName NVARCHAR(50) NOT NULL UNIQUE
+    RoleName NVARCHAR(50) NOT NULL UNIQUE -- e.g. 'Guest','Student','Lecturer','Admin'
 );
 
--- Bảng User (Sửa lại cột Password cho khớp file cũ)
+-----------------------------
+-- Table: [User]
+-----------------------------
 CREATE TABLE dbo.[User] (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
     Username NVARCHAR(100) NOT NULL UNIQUE,
     Email NVARCHAR(320) NULL UNIQUE,
-    [Password] NVARCHAR(72) NOT NULL, -- Giữ nguyên tên cột Password
+    [Password] NVARCHAR(72) NOT NULL, 
     RoleId TINYINT NOT NULL REFERENCES dbo.Role(RoleId),
     IsActive BIT NOT NULL DEFAULT 1,
     CreatedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME(),
     LastLoginAt DATETIME2(3) NULL
 );
 
--- Bảng Student
+-----------------------------
+-- Table: Student
+-----------------------------
 CREATE TABLE dbo.Student (
     StudentId INT PRIMARY KEY REFERENCES dbo.[User](UserId),
-    StudentNumber NVARCHAR(30) NOT NULL UNIQUE,
+    StudentNumber NVARCHAR(30) NOT NULL UNIQUE, -- Mã sinh viên
     FullName NVARCHAR(200) NOT NULL,
     DateOfBirth DATE NULL,
     Faculty NVARCHAR(150) NULL,
     Year INT NULL
 );
 
--- Bảng Lecturer
+-----------------------------
+-- Table: Lecturer
+-----------------------------
 CREATE TABLE dbo.Lecturer (
     LecturerId INT PRIMARY KEY REFERENCES dbo.[User](UserId),
     StaffNumber NVARCHAR(30) NOT NULL UNIQUE,
@@ -60,7 +62,9 @@ CREATE TABLE dbo.Lecturer (
     Department NVARCHAR(150) NULL
 );
 
--- Bảng Course
+-----------------------------
+-- Table: Course (a subject definition)
+-----------------------------
 CREATE TABLE dbo.Course (
     CourseId INT IDENTITY(1,1) PRIMARY KEY,
     CourseCode NVARCHAR(50) NOT NULL UNIQUE,
@@ -69,52 +73,62 @@ CREATE TABLE dbo.Course (
     Description NVARCHAR(MAX) NULL
 );
 
--- Bảng Class
+-----------------------------
+-- Table: Class (a specific offering/section of a course)
+-----------------------------
 CREATE TABLE dbo.Class (
     ClassId INT IDENTITY(1,1) PRIMARY KEY,
     CourseId INT NOT NULL REFERENCES dbo.Course(CourseId) ON DELETE CASCADE,
     ClassCode NVARCHAR(50) NOT NULL UNIQUE,
-    Semester NVARCHAR(20) NOT NULL,
+    Semester NVARCHAR(20) NOT NULL, -- e.g. '2025 Spring'
     Capacity INT NOT NULL DEFAULT 50,
     LecturerId INT NULL REFERENCES dbo.Lecturer(LecturerId),
     CreatedBy INT NULL REFERENCES dbo.[User](UserId),
     CreatedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME()
 );
 
--- Bảng ClassSchedule
+-----------------------------
+-- Table: ClassSchedule (timetable entries)
+-----------------------------
 CREATE TABLE dbo.ClassSchedule (
     ScheduleId INT IDENTITY(1,1) PRIMARY KEY,
     ClassId INT NOT NULL REFERENCES dbo.Class(ClassId) ON DELETE CASCADE,
-    DayOfWeek TINYINT NOT NULL CHECK (DayOfWeek BETWEEN 1 AND 7),
+    DayOfWeek TINYINT NOT NULL CHECK (DayOfWeek BETWEEN 1 AND 7), -- 1=Mon .. 7=Sun
     StartTime TIME(0) NOT NULL,
     EndTime TIME(0) NOT NULL,
     Room NVARCHAR(100) NULL,
     CONSTRAINT UQ_ClassSchedule_Class_Day_Start UNIQUE (ClassId, DayOfWeek, StartTime)
 );
 
--- Bảng Registration
+-----------------------------
+-- Table: Registration (student registers to a class)
+-----------------------------
 CREATE TABLE dbo.Registration (
     RegistrationId INT IDENTITY(1,1) PRIMARY KEY,
     StudentId INT NOT NULL REFERENCES dbo.Student(StudentId) ON DELETE CASCADE,
     ClassId INT NOT NULL REFERENCES dbo.Class(ClassId) ON DELETE CASCADE,
     RegisteredAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME(),
-    Status NVARCHAR(20) NOT NULL DEFAULT 'Registered',
+    Status NVARCHAR(20) NOT NULL DEFAULT 'Registered', -- Registered, Waitlist, Dropped
     Unique (StudentId, ClassId)
 );
 
--- Bảng Announcement
+-----------------------------
+-- Table: Announcement
+-----------------------------
 CREATE TABLE dbo.Announcement (
     AnnouncementId INT IDENTITY(1,1) PRIMARY KEY,
     Title NVARCHAR(300) NOT NULL,
     Body NVARCHAR(MAX) NOT NULL,
     AuthorId INT NOT NULL REFERENCES dbo.[User](UserId),
-    IsGlobal BIT NOT NULL DEFAULT 0,
-    TargetClassId INT NULL REFERENCES dbo.Class(ClassId),
+    IsGlobal BIT NOT NULL DEFAULT 0, -- if true -> visible to everyone
+    TargetClassId INT NULL REFERENCES dbo.Class(ClassId), -- if set -> only to that class
     CreatedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME(),
     UpdatedAt DATETIME2(3) NULL
 );
 
--- Bảng Notification
+-----------------------------
+-- Table: Notification (optional)
+-----------------------------
 CREATE TABLE dbo.Notification (
     NotificationId INT IDENTITY(1,1) PRIMARY KEY,
     UserId INT NOT NULL REFERENCES dbo.[User](UserId) ON DELETE CASCADE,
@@ -123,138 +137,299 @@ CREATE TABLE dbo.Notification (
     CreatedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME(),
     CONSTRAINT UQ_Notification_User_Announcement UNIQUE (UserId, AnnouncementId)
 );
-
--- Bảng Assignment (Giữ lại từ file của bạn)
 CREATE TABLE dbo.Assignment (
     AssignmentId INT IDENTITY(1,1) PRIMARY KEY,
     ClassId INT NOT NULL REFERENCES dbo.Class(ClassId) ON DELETE CASCADE,
     Title NVARCHAR(200) NOT NULL,
     Description NVARCHAR(MAX) NULL,
-    DueDate DATETIME2(0) NULL,
-    CreatedAt DATETIME2(3) DEFAULT SYSUTCDATETIME()
+    DueDate DATETIME2(0) NULL, -- Hạn nộp
+    CreatedAt DATETIME2(3) DEFAULT GETUTCDATE()
 );
 
--- Bảng Submission (Giữ lại từ file của bạn)
+-- Sinh viên nộp bài (Optional - nếu bạn cần tính năng nộp file)
 CREATE TABLE dbo.Submission (
     SubmissionId INT IDENTITY(1,1) PRIMARY KEY,
     AssignmentId INT NOT NULL REFERENCES dbo.Assignment(AssignmentId),
     StudentId INT NOT NULL REFERENCES dbo.Student(StudentId),
-    FileUrl NVARCHAR(MAX) NULL,
-    SubmittedAt DATETIME2(3) DEFAULT SYSUTCDATETIME(),
-    Grade FLOAT NULL
+    FileUrl NVARCHAR(MAX) NULL, -- Link file bài tập đã nộp
+    SubmittedAt DATETIME2(3) DEFAULT GETUTCDATE(),
+    Grade FLOAT NULL -- Điểm cho bài tập này
 );
 
 -------------------------------------------------------
--- [MỚI] TÍNH NĂNG CHAT & FEEDBACK
+-- 3. TẠO BẢNG FEEDBACK (PHẢN HỒI CỦA SINH VIÊN)
 -------------------------------------------------------
+CREATE TABLE dbo.Feedback (
+    FeedbackId INT IDENTITY(1,1) PRIMARY KEY,
+    ClassId INT NOT NULL REFERENCES dbo.Class(ClassId),
+    StudentId INT NOT NULL REFERENCES dbo.Student(StudentId),
+    Rating TINYINT CHECK (Rating BETWEEN 1 AND 5), -- Đánh giá 1-5 sao
+    Comment NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2(3) DEFAULT GETUTCDATE()
+);
 
--- Bảng Tin nhắn lớp học
+-------------------------------------------------------
+-- 4. TẠO BẢNG MESSAGES (CHAT TRONG LỚP)
+-------------------------------------------------------
+-- Lưu lịch sử chat của lớp học
 CREATE TABLE dbo.ClassMessage (
     MessageId INT IDENTITY(1,1) PRIMARY KEY,
     ClassId INT NOT NULL REFERENCES dbo.Class(ClassId) ON DELETE CASCADE,
-    SenderId INT NOT NULL REFERENCES dbo.[User](UserId),
+    SenderId INT NOT NULL REFERENCES dbo.[User](UserId), -- Ai nhắn? (GV hoặc SV)
     Content NVARCHAR(MAX) NOT NULL,
-    SentAt DATETIME2(3) DEFAULT SYSUTCDATETIME()
+    SentAt DATETIME2(3) DEFAULT GETUTCDATE()
 );
-
--- Bảng Feedback
-CREATE TABLE dbo.Feedback (
-    FeedbackId INT IDENTITY(1,1) PRIMARY KEY,
-    ClassId INT NOT NULL REFERENCES dbo.Class(ClassId) ON DELETE CASCADE,
-    StudentId INT NOT NULL REFERENCES dbo.Student(StudentId),
-    Rating TINYINT CHECK (Rating BETWEEN 1 AND 5),
-    Comment NVARCHAR(MAX) NULL,
-    CreatedAt DATETIME2(3) DEFAULT SYSUTCDATETIME()
-);
-
 GO
+-----------------------------
+-- Index suggestions
+-----------------------------
+CREATE INDEX IX_Registration_Student ON dbo.Registration(StudentId);
+CREATE INDEX IX_Registration_Class ON dbo.Registration(ClassId);
+CREATE INDEX IX_Class_Lecturer ON dbo.Class(LecturerId);
+CREATE INDEX IX_ClassSchedule_Class ON dbo.ClassSchedule(ClassId);
+CREATE INDEX IX_Announcement_TargetClass ON dbo.Announcement(TargetClassId);
 
 -----------------------------
--- 2. TẠO TRIGGERS (Giữ lại từ file của bạn)
+-- Seed roles and an admin user example (BCrypt)
 -----------------------------
-CREATE TRIGGER trg_AfterInsertGlobalAnnouncement
-ON dbo.Announcement
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF EXISTS (SELECT 1 FROM inserted WHERE IsGlobal = 1)
-    BEGIN
-        INSERT INTO dbo.Notification (UserId, AnnouncementId, IsRead, CreatedAt)
-        SELECT u.UserId, i.AnnouncementId, 0, SYSUTCDATETIME()
-        FROM dbo.[User] u
-        CROSS JOIN inserted i
-        WHERE i.IsGlobal = 1 AND u.IsActive = 1;
-    END
-END;
-GO
-
-CREATE TRIGGER trg_AfterInsertClassAnnouncement
-ON dbo.Announcement
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF EXISTS (SELECT 1 FROM inserted WHERE TargetClassId IS NOT NULL)
-    BEGIN
-        INSERT INTO dbo.Notification (UserId, AnnouncementId, IsRead, CreatedAt)
-        SELECT r.StudentId, i.AnnouncementId, 0, SYSUTCDATETIME()
-        FROM dbo.Registration r
-        JOIN inserted i ON r.ClassId = i.TargetClassId
-        WHERE r.Status = 'Registered';
-    END
-END;
-GO
-
------------------------------
--- 3. DỮ LIỆU MẪU (SEED DATA) - QUAN TRỌNG ĐỂ TEST
------------------------------
--- Role
 INSERT INTO dbo.Role (RoleName) VALUES ('Guest'), ('Student'), ('Lecturer'), ('Admin');
 
--- Admin (Pass: Admin@123) - Lưu ý: Password ở đây đang để dạng text để dễ test, thực tế Spring Boot sẽ mã hóa
 INSERT INTO dbo.[User] (Username, Email, [Password], RoleId)
-VALUES ('admin', 'admin@university.edu', 'Admin@123', 4);
+VALUES ('admin', 'admin@ute.edu.vn', '123456', 4);
 
--- Lecturer (Pass: 123)
-INSERT INTO dbo.[User] (Username, Email, [Password], RoleId) 
-VALUES ('gv1', 'gv1@uni.edu', '123', 3);
-INSERT INTO dbo.Lecturer (LecturerId, StaffNumber, FullName, Department) 
-VALUES ((SELECT UserId FROM dbo.[User] WHERE Username='gv1'),'GV001', N'Nguyễn Văn Hùng','Khoa CNTT');
+INSERT INTO dbo.[User] (Username, Email, [Password], RoleId)
+VALUES
+('lect1', 'lect1@ute.edu.vn', '123456', 3),
+('lect2', 'lect2@ute.edu.vn', '123456', 3),
+('lect3', 'lect3@ute.edu.vn', '123456', 3),
+('lect4', 'lect4@ute.edu.vn', '123456', 3);
 
--- Student (Pass: 123)
-INSERT INTO dbo.[User] (Username, Email, [Password], RoleId) 
-VALUES ('sv1', 'sv1@uni.edu', '123', 2);
-INSERT INTO dbo.Student (StudentId, StudentNumber, FullName, DateOfBirth, Faculty, Year) 
-VALUES ((SELECT UserId FROM dbo.[User] WHERE Username='sv1'),'SV001', N'Thương Én', '2005-01-01','CNTT',3);
+INSERT INTO dbo.Lecturer (LecturerId, StaffNumber, FullName, Department)
+VALUES
+((SELECT UserId FROM dbo.[User] WHERE Username='lect1'), 'GV001', N'Nguyễn Văn A', N'Công nghệ Phần mềm'),
+((SELECT UserId FROM dbo.[User] WHERE Username='lect2'), 'GV002', N'Trần Thị B', N'Hệ thống Thông tin'),
+((SELECT UserId FROM dbo.[User] WHERE Username='lect3'), 'GV003', N'Phạm Văn C', N'Mạng máy tính'),
+((SELECT UserId FROM dbo.[User] WHERE Username='lect4'), 'GV004', N'Lê Thị D', N'Khoa học máy tính');
 
--- Course & Class
-INSERT INTO dbo.Course (CourseCode, CourseName, Credit) VALUES ('IT001',N'Lập trình Android',3);
+DECLARE @i INT = 1;
+WHILE @i <= 40
+BEGIN
+    DECLARE @username NVARCHAR(100) = CONCAT('student', @i);
+    DECLARE @email NVARCHAR(320) = CONCAT('student', @i, '@ute.edu.vn');
+    DECLARE @fullname NVARCHAR(200) = CONCAT(N'Student ', @i);
+    DECLARE @mssv NVARCHAR(30) = CONCAT('SV', FORMAT(@i, '000'));
 
-DECLARE @gvId INT = (SELECT LecturerId FROM dbo.Lecturer WHERE StaffNumber='GV001');
-DECLARE @courseId INT = (SELECT CourseId FROM dbo.Course WHERE CourseCode='IT001');
-DECLARE @adminId INT = (SELECT UserId FROM dbo.[User] WHERE Username='admin');
+    INSERT INTO dbo.[User] (Username, Email, [Password], RoleId)
+    VALUES (@username, @email, '123456', 2);
+
+    INSERT INTO dbo.Student (StudentId, StudentNumber, FullName, Faculty, Year)
+    VALUES (
+        (SELECT UserId FROM dbo.[User] WHERE Username = @username),
+        @mssv,
+        @fullname,
+        N'Công nghệ Thông tin',
+        2023
+    );
+
+    SET @i = @i + 1;
+END
+
+INSERT INTO dbo.Course (CourseCode, CourseName, Credit)
+VALUES
+('CT101', N'Nhập môn CNTT', 3),
+('CT102', N'Lập trình C', 3),
+('CT103', N'Lập trình Java', 3),
+('CT104', N'Cơ sở dữ liệu', 3),
+('CT105', N'Web cơ bản', 3),
+('CT106', N'Web nâng cao', 3),
+('CT107', N'Mạng máy tính', 3),
+('CT108', N'Phân tích thiết kế HTTT', 3),
+('CT109', N'AI cơ bản', 3),
+('CT110', N'Hệ điều hành', 3);
 
 INSERT INTO dbo.Class (CourseId, ClassCode, Semester, Capacity, LecturerId, CreatedBy)
-VALUES (@courseId, 'ANDROID-01', 'HK1 2025', 40, @gvId, @adminId);
+SELECT CourseId, CONCAT(CourseCode, '_A'), '2025 Spring', 50,
+    (SELECT TOP 1 LecturerId FROM dbo.Lecturer ORDER BY NEWID()),
+    (SELECT UserId FROM dbo.[User] WHERE Username='admin')
+FROM dbo.Course;
 
-DECLARE @classId INT = (SELECT ClassId FROM dbo.Class WHERE ClassCode='ANDROID-01');
+INSERT INTO dbo.Class (CourseId, ClassCode, Semester, Capacity, LecturerId, CreatedBy)
+SELECT CourseId, CONCAT(CourseCode, '_B'), '2025 Spring', 50,
+    (SELECT TOP 1 LecturerId FROM dbo.Lecturer ORDER BY NEWID()),
+    (SELECT UserId FROM dbo.[User] WHERE Username='admin')
+FROM dbo.Course;
 
--- Registration
-DECLARE @svId INT = (SELECT StudentId FROM dbo.Student WHERE StudentNumber='SV001');
-INSERT INTO dbo.Registration (StudentId, ClassId, Status) VALUES (@svId, @classId, 'Registered');
+DECLARE @Day1 TINYINT, @Day2 TINYINT, @Day3 TINYINT;
+DECLARE @Index INT = 1;
 
--- Sample Chat
-DECLARE @gvUserId INT = (SELECT UserId FROM dbo.[User] WHERE Username='gv1');
-DECLARE @svUserId INT = (SELECT UserId FROM dbo.[User] WHERE Username='sv1');
+DECLARE class_cursor CURSOR FOR 
+SELECT ClassId FROM dbo.Class ORDER BY ClassId;
+
+OPEN class_cursor;
+
+DECLARE @ClassId INT;
+
+WHILE 1=1
+BEGIN
+    FETCH NEXT FROM class_cursor INTO @ClassId;
+    IF @@FETCH_STATUS <> 0 BREAK;
+
+    -- Tính 3 ngày xoay vòng, đảm bảo phủ đủ 7 thứ
+    SET @Day1 = ((@Index - 1) % 7) + 1;
+    SET @Day2 = ((@Index + 1 - 1) % 7) + 1;
+    SET @Day3 = ((@Index + 3 - 1) % 7) + 1;
+
+    -- Thêm 3 lịch học cho mỗi class
+    INSERT INTO dbo.ClassSchedule (ClassId, DayOfWeek, StartTime, EndTime, Room)
+    VALUES 
+        (@ClassId, @Day1, '07:00', '09:00', 'A101'),
+        (@ClassId, @Day2, '09:00', '11:00', 'A102'),
+        (@ClassId, @Day3, '13:00', '15:00', 'A201');
+
+    SET @Index = @Index + 1;
+END
+
+CLOSE class_cursor;
+DEALLOCATE class_cursor;
+
+DECLARE @sid INT = 1;
+
+WHILE @sid <= 40
+BEGIN
+    DECLARE @StudentId INT = (SELECT UserId FROM dbo.[User] WHERE Username = CONCAT('student', @sid));
+    
+    INSERT INTO dbo.Registration (StudentId, ClassId, Status)
+    SELECT TOP 3 @StudentId, ClassId, 'Registered'
+    FROM dbo.Class
+    ORDER BY NEWID();
+
+    SET @sid = @sid + 1;
+END
+
+INSERT INTO dbo.Announcement (Title, Body, AuthorId, IsGlobal)
+VALUES
+(N'Lịch nghỉ Tết', N'Truờng sẽ nghỉ Tết theo lịch Bộ GD.', (SELECT UserId FROM dbo.[User] WHERE Username='admin'), 1),
+(N'Lịch thi giữa kỳ', N'Các lớp chuẩn bị thi giữa kỳ.', (SELECT UserId FROM dbo.[User] WHERE Username='lect1'), 1);
+
+DECLARE @x INT = 1;
+WHILE @x <= 8
+BEGIN
+    INSERT INTO dbo.Announcement (Title, Body, AuthorId, IsGlobal)
+    VALUES (
+        CONCAT(N'Thông báo số ', @x),
+        CONCAT(N'Nội dung thông báo mẫu ', @x),
+        (SELECT TOP 1 LecturerId FROM dbo.Lecturer ORDER BY NEWID()),
+        0
+    );
+    SET @x = @x + 1;
+END
+
+INSERT INTO dbo.Assignment (ClassId, Title, Description, DueDate)
+SELECT 
+    ClassId,
+    N'Bài tập ' + CAST(ROW_NUMBER() OVER (ORDER BY ClassId) AS NVARCHAR),
+    N'Mô tả bài tập cho lớp',
+    DATEADD(DAY, 7, GETUTCDATE())
+FROM dbo.Class;
+
+INSERT INTO dbo.Submission (AssignmentId, StudentId, FileUrl, Grade)
+SELECT 
+    a.AssignmentId,
+    s.StudentId,
+    N'https://drive.fake/' + s.StudentNumber + '.pdf',
+    ROUND(RAND(CHECKSUM(NEWID())) * 4 + 6, 1) -- điểm 6.0 – 10.0
+FROM dbo.Assignment a
+JOIN dbo.Student s ON s.StudentId <= 40;
+
+INSERT INTO dbo.Feedback (ClassId, StudentId, Rating, Comment)
+SELECT TOP 100
+    r.ClassId,
+    r.StudentId,
+    (ABS(CHECKSUM(NEWID())) % 5) + 1,
+    N'Giảng viên dạy dễ hiểu'
+FROM dbo.Registration r
+ORDER BY NEWID();
+INSERT INTO dbo.ClassMessage (ClassId, SenderId, Content)
+SELECT TOP 200
+    c.ClassId,
+    u.UserId,
+    N'Tin nhắn mẫu trong lớp'
+FROM dbo.Class c
+JOIN dbo.[User] u ON u.RoleId IN (2,3) -- Student, Lecturer
+ORDER BY NEWID();
+INSERT INTO dbo.Notification (UserId, AnnouncementId)
+SELECT 
+    u.UserId,
+    a.AnnouncementId
+FROM dbo.[User] u
+CROSS JOIN dbo.Announcement a
+WHERE a.IsGlobal = 1;
+
+
+USE UniversityDB;
+GO
+
+-- KHAI BÁO BIẾN ĐỂ LẤY ID CÓ THỰC (Tránh lỗi khóa ngoại)
+DECLARE @ClassA INT = (SELECT TOP 1 ClassId FROM dbo.Class ORDER BY ClassId ASC); -- Lớp đầu tiên
+DECLARE @ClassB INT = (SELECT TOP 1 ClassId FROM dbo.Class ORDER BY ClassId DESC); -- Lớp cuối cùng
+
+-- Lấy ID của Giảng viên và Sinh viên
+DECLARE @LecturerUser INT = (SELECT TOP 1 UserId FROM dbo.[User] WHERE RoleId = 3); -- Lấy 1 ông giảng viên
+DECLARE @Student1 INT = (SELECT UserId FROM dbo.[User] WHERE Username = 'student1');
+DECLARE @Student2 INT = (SELECT UserId FROM dbo.[User] WHERE Username = 'student2');
+DECLARE @Student3 INT = (SELECT UserId FROM dbo.[User] WHERE Username = 'student3');
+DECLARE @Student4 INT = (SELECT UserId FROM dbo.[User] WHERE Username = 'student4');
+DECLARE @Student5 INT = (SELECT UserId FROM dbo.[User] WHERE Username = 'student5');
+
+-------------------------------------------------------
+-- 1. INSERT DỮ LIỆU MẪU CHO BẢNG MESSAGES (10 dòng)
+-------------------------------------------------------
+PRINT 'Dang them du lieu mau cho ClassMessage...';
 
 INSERT INTO dbo.ClassMessage (ClassId, SenderId, Content, SentAt)
 VALUES 
-(@classId, @gvUserId, N'Chào cả lớp Android!', DATEADD(MINUTE, -10, SYSUTCDATETIME())),
-(@classId, @svUserId, N'Em chào thầy ạ.', DATEADD(MINUTE, -5, SYSUTCDATETIME()));
+-- Hội thoại tại Lớp A
+(@ClassA, @LecturerUser, N'Chào cả lớp, hôm nay chúng ta học Online nhé.', DATEADD(MINUTE, -60, GETDATE())),
+(@ClassA, @Student1, N'Dạ vâng ạ, em chào thầy.', DATEADD(MINUTE, -55, GETDATE())),
+(@ClassA, @Student2, N'Thầy ơi, bài tập lớn bao giờ phải nộp ạ?', DATEADD(MINUTE, -50, GETDATE())),
+(@ClassA, @LecturerUser, N'Hạn chót là thứ 6 tuần sau nha em.', DATEADD(MINUTE, -45, GETDATE())),
+(@ClassA, @Student2, N'Dạ em cảm ơn thầy.', DATEADD(MINUTE, -40, GETDATE())),
+(@ClassA, @Student3, N'Nhóm mình còn thiếu 1 bạn, ai vào không?', DATEADD(MINUTE, -30, GETDATE())),
+(@ClassA, @Student1, N'Cho tớ xin 1 slot với @student3 ơi.', DATEADD(MINUTE, -25, GETDATE())),
 
--- Sample Feedback
-INSERT INTO dbo.Feedback (ClassId, StudentId, Rating, Comment)
-VALUES (@classId, @svId, 5, N'Môn học rất bổ ích!');
+-- Hội thoại tại Lớp B
+(@ClassB, @Student4, N'Mọi người ơi hôm nay nghỉ học đúng không?', DATEADD(MINUTE, -120, GETDATE())),
+(@ClassB, @Student5, N'Đúng rồi, thầy báo nghỉ trên hệ thống rồi đó.', DATEADD(MINUTE, -110, GETDATE())),
+(@ClassB, @Student4, N'Ok cảm ơn bạn nhé, tí nữa thì đi học uổng công.', DATEADD(MINUTE, -100, GETDATE()));
+
+
+-------------------------------------------------------
+-- 2. INSERT DỮ LIỆU MẪU CHO BẢNG FEEDBACK (10 dòng)
+-------------------------------------------------------
+PRINT 'Dang them du lieu mau cho Feedback...';
+
+-- Lưu ý: StudentId trong bảng Feedback tham chiếu tới bảng Student (UserId cũng là StudentId)
+INSERT INTO dbo.Feedback (ClassId, StudentId, Rating, Comment, CreatedAt)
+VALUES
+-- Feedback cho Lớp A (Khen nhiều)
+(@ClassA, @Student1, 5, N'Giảng viên dạy rất dễ hiểu, nhiệt tình.', DATEADD(DAY, -1, GETDATE())),
+(@ClassA, @Student2, 4, N'Bài giảng hay nhưng hơi nhanh.', DATEADD(DAY, -2, GETDATE())),
+(@ClassA, @Student3, 5, N'Rất thích môn học này, tài liệu đầy đủ.', DATEADD(DAY, -3, GETDATE())),
+(@ClassA, @Student4, 5, N'Thầy vui tính, hỗ trợ sinh viên tốt.', DATEADD(DAY, -4, GETDATE())),
+(@ClassA, @Student5, 4, N'Phòng học hơi nóng nhưng chất lượng dạy tốt.', DATEADD(DAY, -5, GETDATE())),
+
+-- Feedback cho Lớp B (Có chê để test filter rating)
+(@ClassB, @Student1, 3, N'Môn này khó quá, cần nhiều bài tập thực hành hơn.', DATEADD(DAY, -1, GETDATE())),
+(@ClassB, @Student2, 2, N'Giáo trình cũ quá rồi, cần cập nhật.', DATEADD(DAY, -2, GETDATE())),
+(@ClassB, @Student3, 4, N'Cũng ổn, nhưng bài tập về nhà hơi nhiều.', DATEADD(DAY, -3, GETDATE())),
+(@ClassB, @Student4, 1, N'Không hiểu gì cả.', DATEADD(DAY, -6, GETDATE())),
+(@ClassB, @Student5, 5, N'Tuyệt vời, 10 điểm.', DATEADD(DAY, -1, GETDATE()));
 
 GO
+PRINT 'Hoan tat them du lieu mau Chat va Feedback!';
+
+
+
+
+
+

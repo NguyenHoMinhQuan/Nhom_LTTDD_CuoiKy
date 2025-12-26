@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/tvNguoiGui"
@@ -19,9 +19,9 @@
     <TextView
         android:id="@+id/tvNoiDung"
         android:text="Nội dung tin nhắn..."
-        android:background="@drawable/bg_search_box"
+        android:background="@drawable/bg_btn_pink"
         android:padding="10dp"
-        android:textColor="@color/black"
+        android:textColor="@color/stroke_black"
         android:textSize="16sp"
         android:maxWidth="300dp"
         android:layout_width="wrap_content"

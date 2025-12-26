@@ -3,6 +3,7 @@ package com.example.server.dto;
 import java.time.LocalDateTime;
 
 public interface HocVien_NhomLopDto {
+    Integer getClassId();//thêm
     Integer getUserId();
     String getUsername();
     String getStudentName();

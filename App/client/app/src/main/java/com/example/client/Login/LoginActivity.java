@@ -1,8 +1,8 @@
 package com.example.client.Login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log; // Import thêm cái này để xem log
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,8 +16,6 @@ import com.example.client.HocVien.HomeActivity;
 import com.example.client.R;
 import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
-import com.example.client.Login.LoginRequest;
-import com.example.client.Login.LoginResponse;
 import com.example.client.lecturer.activity.LecturerDashboardActivity;
 
 import retrofit2.Call;
@@ -32,96 +30,107 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // 🟢 KIỂM TRA TOKEN ĐỂ TỰ ĐỘNG ĐĂNG NHẬP (NẾU BẠN MUỐN)
-        SharedPreferences prefs = getSharedPreferences("AUTH_PREFS", MODE_PRIVATE);
-        String savedToken = prefs.getString("JWT_TOKEN", null);
-        String savedRole = prefs.getString("USER_ROLE", null);
-        if (savedToken != null && savedRole != null) {
-            navigateToRoleBasedScreen(savedRole);
-            return;
-        }
-
         EdgeToEdge.enable(this);
         setContentView(R.layout.public_login);
 
+        // Ánh xạ View
         edt_username = findViewById(R.id.edt_username);
         edt_pass = findViewById(R.id.edt_pass);
         txtv_lostpass = findViewById(R.id.tv_lostpass);
         btn_login = findViewById(R.id.btn_login);
 
+        // SỰ KIỆN CLICK (BẮT ĐẦU TRY-CATCH TỪ ĐÂY)
         btn_login.setOnClickListener(v -> {
+            try {
+                // 1. Lấy dữ liệu nhập vào
+                String username = edt_username.getText().toString().trim();
+                String password = edt_pass.getText().toString().trim();
 
-            String username = edt_username.getText().toString().trim();
-            String password = edt_pass.getText().toString().trim();
+                // 2. Kiểm tra rỗng
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(this, "Vui lòng nhập đủ tài khoản & mật khẩu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Nhập đủ tài khoản & mật khẩu", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            LoginRequest request = new LoginRequest(username, password);
+                // 3. Tạo Request
+                LoginRequest request = new LoginRequest(username, password);
 
-            ApiService apiService = ApiClient
-                    .getClient(getApplicationContext())
-                    .create(ApiService.class);
+                // 4. Khởi tạo API Service (Có thể gây lỗi nếu Context null)
+                ApiService apiService = ApiClient
+                        .getClient(LoginActivity.this) // Dùng LoginActivity.this an toàn hơn getApplicationContext()
+                        .create(ApiService.class);
 
-            apiService.login(request).enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call,
-                                       Response<LoginResponse> response) {
+                // Toast báo hiệu đã bắt đầu gọi (để biết code có chạy ko)
+                Toast.makeText(LoginActivity.this, "Đang đăng nhập...", Toast.LENGTH_SHORT).show();
 
-                    if (response.isSuccessful()
-                            && response.body() != null
-                            && response.body().isSuccess()) {
+                // 5. Gọi API
+                apiService.login(request).enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        try {
+                            // --- TRY-CATCH CHO PHẦN XỬ LÝ DỮ LIỆU VỀ ---
+                            if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                                LoginResponse data = response.body();
 
-                        LoginResponse data = response.body();
+                                // Kiểm tra null trước khi truy cập sâu
+                                if(data.getUserProfile() == null){
+                                    Toast.makeText(LoginActivity.this, "Lỗi: Không lấy được thông tin người dùng", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
 
-                        // 🔐 LƯU TOKEN, USERNAME, USER_ID VÀ ROLE
-                        SharedPreferences.Editor editor = getSharedPreferences("AUTH_PREFS", MODE_PRIVATE).edit();
-                        editor.putString("JWT_TOKEN", data.getToken());
-                        editor.putString("USERNAME" , username);
+                                // 🔐 LƯU TOKEN
+                                getSharedPreferences("AUTH_PREFS", MODE_PRIVATE)
+                                        .edit()
+                                        .putString("JWT_TOKEN", data.getToken())
+                                        .putString("USERNAME", username)
+                                        .apply();
 
-                        // Sửa tại đây: Lưu thêm thông tin định danh
-                        if (data.getUserProfile() != null) {
-                            editor.putInt("USER_ID", data.getUserProfile().getUserId());
-                            editor.putString("USER_ROLE", data.getUserProfile().getRole());
+                                String role = data.getUserProfile().getRole();
+
+                                // Kiểm tra Role null
+                                if (role == null) {
+                                    Toast.makeText(LoginActivity.this, "Tài khoản chưa được phân quyền", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                // Điều hướng
+                                if ("ROLE_ADMIN".equals(role)) {
+                                    startActivity(new Intent(LoginActivity.this, AdminDashboardActivity.class));
+                                } else if ("ROLE_LECTURER".equals(role)) {
+                                    startActivity(new Intent(LoginActivity.this, LecturerDashboardActivity.class));
+                                } else {
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                }
+
+                                finish(); // Đóng màn hình login
+
+                            } else {
+                                // Đăng nhập thất bại (Sai pass hoặc user không tồn tại)
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại: " + response.message(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            // Bắt lỗi logic trong onResponse (ví dụ NullPointer khi getRole)
+                            Log.e("Loi_Login_Response", "Lỗi xử lý dữ liệu: " + e.getMessage());
+                            Toast.makeText(LoginActivity.this, "Lỗi dữ liệu: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
                         }
-                        editor.apply();
-
-                        String role = data.getUserProfile().getRole();
-                        navigateToRoleBasedScreen(role);
-
-                    } else {
-                        Toast.makeText(LoginActivity.this,
-                                "Sai tài khoản hoặc mật khẩu",
-                                Toast.LENGTH_SHORT).show();
                     }
-                }
 
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this,
-                            "Không kết nối được server",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+                        // Lỗi kết nối mạng hoặc Server chết
+                        Log.e("Loi_Ket_Noi", "Lỗi mạng: " + t.getMessage());
+                        Toast.makeText(LoginActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                        t.printStackTrace();
+                    }
+                });
+
+            } catch (Exception e) {
+                // BẮT LỖI TỔNG QUÁT (Ví dụ lỗi khởi tạo ApiClient hoặc lỗi View)
+                Log.e("Loi_Chung", "Crash App: " + e.getMessage());
+                Toast.makeText(LoginActivity.this, "APP BỊ LỖI: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         });
-
-    }
-
-    // Hàm phụ để điều hướng, tránh lặp lại code
-    private void navigateToRoleBasedScreen(String role) {
-        Intent intent;
-        if ("ROLE_ADMIN".equals(role)) {
-            intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-        } else if ("ROLE_LECTURER".equals(role)) {
-            intent = new Intent(LoginActivity.this, LecturerDashboardActivity.class);
-        } else {
-            intent = new Intent(LoginActivity.this, HomeActivity.class);
-        }
-        startActivity(intent);
-        finish();
     }
 }
-
-

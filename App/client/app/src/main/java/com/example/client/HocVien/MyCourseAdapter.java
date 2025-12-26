@@ -54,6 +54,8 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.Course
             // Lấy Context từ View
             Context context = v.getContext();
 
+            android.util.Log.e("CHECK_LOI", "Đang bấm vào môn: " + course.getCourseName() + " | ID Lấy được là: " + course.getClassId());
+
             Intent intent = new Intent(context, ChatActivity.class);
 
             // Truyền dữ liệu sang màn hình Chat

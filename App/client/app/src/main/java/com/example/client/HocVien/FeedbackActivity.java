@@ -57,15 +57,26 @@ public class FeedbackActivity extends AppCompatActivity {
                 return;
             }
 
-            // Tạm thời ID sinh viên là 1
-            DanhGiaModel model = new DanhGiaModel(idLop, 1, soSao, noiDung);
+            android.content.SharedPreferences prefs = getSharedPreferences("AUTH_PREFS", MODE_PRIVATE);
+            int realStudentId = prefs.getInt("USER_ID", 6);
+
+            DanhGiaModel model = new DanhGiaModel(idLop, realStudentId, soSao, noiDung);
 
             ApiClient.getClient(this).create(ApiService.class).guiDanhGia(model).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Toast.makeText(FeedbackActivity.this, "Cảm ơn đánh giá của bạn!", Toast.LENGTH_SHORT).show();
                         finish();
+                    } else {
+                        // 👇 THÊM ĐOẠN NÀY VÀO
+                        try {
+                            String errorBody = response.errorBody().string(); // Lấy nội dung lỗi từ Server
+                            android.util.Log.e("LOI_DANHGIA", "Lỗi: " + response.code() + " - " + errorBody);
+                            Toast.makeText(FeedbackActivity.this, "Gửi lỗi: " + response.code(), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 @Override

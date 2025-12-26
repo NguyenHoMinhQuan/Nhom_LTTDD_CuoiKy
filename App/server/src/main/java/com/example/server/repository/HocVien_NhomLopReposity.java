@@ -11,7 +11,7 @@ import java.util.List;
 public interface HocVien_NhomLopReposity extends JpaRepository<Registration, Integer> {
     @Query(value = """
         SELECT
-            c.ClassId AS classId,  -- 🔴 QUAN TRỌNG: Dòng này phải đứng đầu để lấy ID lớp
+            c.ClassId AS classId,  
             u.UserId,
             u.Username,
             st.StudentNumber,
