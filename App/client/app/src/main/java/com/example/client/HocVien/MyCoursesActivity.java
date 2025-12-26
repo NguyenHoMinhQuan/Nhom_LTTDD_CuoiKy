@@ -1,73 +1,83 @@
 package com.example.client.HocVien;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.R;
+import com.example.client.api.ApiClient;
+import com.example.client.api.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MyCoursesActivity extends BaseHocVienActivity {
-
-    private ImageView btnBack;
-    private RecyclerView rvCourses; // Khai báo RecyclerView
+    private RecyclerView recyclerViewCourses;
     private MyCourseAdapter adapter;
-    private List<MyCourses> listMyCourses;
-
+    private ImageView btnBack;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hocvien_mycourse);
 
+        // Ánh xạ
+        recyclerViewCourses = findViewById(R.id.recyclerViewCourses);
         btnBack = findViewById(R.id.btnBack);
 
-        // 1. Ánh xạ RecyclerView từ layout
-        rvCourses = findViewById(R.id.recyclerViewCourses);
+        // Cài đặt RecyclerView
+        recyclerViewCourses.setLayoutManager(new LinearLayoutManager(this));
 
-        // 2. Setup Header
-        setupCommonHeader();
+        // Xử lý nút Back
+        btnBack.setOnClickListener(v -> finish());
 
-        // 3. Setup Danh sách khóa học (QUAN TRỌNG)
-        setupCourseList();
+        // ấy username và gọi API
+        SharedPreferences prefs = getSharedPreferences("AUTH_PREFS", Context.MODE_PRIVATE);
+        String username = prefs.getString("USERNAME", "");
 
-        // 4. Xử lý nút back
-        if(btnBack != null){
-            btnBack.setOnClickListener(v -> {
-                finish();
-                overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
-            });
+        if (!username.isEmpty()) {
+            loadMyCourses(username);
+        } else {
+            Toast.makeText(this, "Chưa đăng nhập!", Toast.LENGTH_SHORT).show();
         }
     }
+    private void loadMyCourses(String username) {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
-    // Hàm tạo dữ liệu mẫu và cấu hình RecyclerView
-    private void setupCourseList() {
-        // Khởi tạo danh sách dữ liệu
-        listMyCourses = new ArrayList<>();
+        // Gọi API lấy danh sách lớp
+        apiService.LayNhomLopSinhVien(username).enqueue(new Callback<List<HocVien_NhomLopDto>>() {
+            @Override
+            public void onResponse(Call<List<HocVien_NhomLopDto>> call, Response<List<HocVien_NhomLopDto>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<HocVien_NhomLopDto> listCourses = response.body();
 
-        // Thêm dữ liệu mẫu giống hình bạn gửi
-        // Lưu ý: R.drawable.mon3 là tên ảnh trong hình mẫu của bạn.
-        // Nếu project bạn chưa có ảnh tên là 'mon3', hãy đổi thành hình khác (vd: R.drawable.ic_launcher_background) để không bị lỗi.
+                    // Gắn vào Adapter
+                    adapter = new MyCourseAdapter(listCourses);
+                    recyclerViewCourses.setAdapter(adapter);
 
-        String dummyDesc = "Khóa học kéo dài 3 tháng, giúp người học nắm vững kiến thức cơ bản và hành động thực tế.";
+                    if(listCourses.isEmpty()){
+                        Toast.makeText(MyCoursesActivity.this, "Bạn chưa đăng ký lớp nào.", Toast.LENGTH_SHORT).show();
+                    }
 
-        listMyCourses.add(new MyCourses("Lập trình trực quan", dummyDesc, R.drawable.ic_launcher_background));
-        listMyCourses.add(new MyCourses("Thiết kế đồ họa", dummyDesc, R.drawable.ic_launcher_background));
-        listMyCourses.add(new MyCourses("Lập trình Web", dummyDesc, R.drawable.ic_launcher_background));
-        listMyCourses.add(new MyCourses("Cơ sở dữ liệu", dummyDesc, R.drawable.ic_launcher_background));
-        listMyCourses.add(new MyCourses("Kỹ năng mềm", dummyDesc, R.drawable.ic_launcher_background));
+                } else {
+                    Toast.makeText(MyCoursesActivity.this, "Không lấy được dữ liệu", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        // Cấu hình Adapter
-        adapter = new MyCourseAdapter(listMyCourses);
-
-        // Cấu hình LayoutManager (Dạng danh sách dọc)
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rvCourses.setLayoutManager(layoutManager);
-
-        // Gán Adapter vào RecyclerView
-        rvCourses.setAdapter(adapter);
+            @Override
+            public void onFailure(Call<List<HocVien_NhomLopDto>> call, Throwable t) {
+                Toast.makeText(MyCoursesActivity.this, "Lỗi kết nối Server", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

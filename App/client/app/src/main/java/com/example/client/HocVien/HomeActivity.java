@@ -20,7 +20,7 @@ public class HomeActivity extends BaseHocVienActivity {
     private RecyclerView rvHomeCourses;
 
     // Khai báo Adapter và List cho phần Mua khóa học
-    private BuyCoursesAdapter featuredAdapter;
+
     private List<BuyCourses> featuredList;
 
     @SuppressLint("MissingInflatedId")
@@ -63,13 +63,13 @@ public class HomeActivity extends BaseHocVienActivity {
         featuredList.add(new BuyCourses("Data Science Cơ bản", "4.500.000 đ", "5 tháng", imgDefault));
 
         // Khởi tạo Adapter
-        featuredAdapter = new BuyCoursesAdapter(featuredList);
+
 
         // Setup LayoutManager (Dọc)
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvHomeCourses.setLayoutManager(linearLayoutManager);
 
         // Gán Adapter
-        rvHomeCourses.setAdapter(featuredAdapter);
+
     }
 }

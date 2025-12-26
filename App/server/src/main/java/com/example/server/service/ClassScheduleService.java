@@ -7,6 +7,8 @@ import com.example.server.dto.ClassScheduleDTO;
 
 public interface ClassScheduleService {
     
+    List<ClassScheduleDTO> findScheduleByLecturerIdForToday(Integer lecturerId);
+
     List<ClassScheduleDTO> findAllClassSchedules();
 
     List<ClassScheduleDTO> findScheduleByLecturerId(Integer lecturerId);

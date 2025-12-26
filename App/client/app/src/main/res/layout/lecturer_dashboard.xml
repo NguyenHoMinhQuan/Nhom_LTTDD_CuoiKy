@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    tools:context=".lecturer.LecturerDashboardActivity">
+    tools:context=".lecturer.activity.LecturerDashboardActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -29,14 +29,17 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="8dp">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/avatar"
                     android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/CircleImageView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:contentDescription="@string/lecturer_dashboard_iv_avatar" />
 
                 <TextView
@@ -53,10 +56,10 @@
                     android:text="@string/lecturer_dashboard_tv_gretting" />
 
                 <ImageView
-                    android:id="@+id/iv_notification"
+                    android:id="@+id/iv_messenger"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/notifi"
+                    android:src="@drawable/messenger"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_avatar"
                     app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
