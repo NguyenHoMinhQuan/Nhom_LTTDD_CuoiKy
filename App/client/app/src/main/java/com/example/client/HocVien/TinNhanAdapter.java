@@ -19,19 +19,11 @@ import java.util.List;
 public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHolder> {
 
     private List<TinNhanModel> list;
-<<<<<<< HEAD
     private int currentUserId;
 
     public TinNhanAdapter(List<TinNhanModel> list,int currentUserId) {
         this.list = list;
         this.currentUserId = currentUserId;
-=======
-    private String currentUsername; // Username của người đang đăng nhập
-
-    public TinNhanAdapter(List<TinNhanModel> list, String currentUsername) {
-        this.list = list;
-        this.currentUsername = currentUsername;
->>>>>>> develop
     }
 
     @NonNull
@@ -45,7 +37,6 @@ public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TinNhanModel item = list.get(position);
-<<<<<<< HEAD
         holder.tvNoiDung.setText(item.getContent());
 
         // 2.  so sánh: Dùng ID
@@ -54,35 +45,15 @@ public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHold
 
         if (isMe) {
             // ... (Code giao diện bên trong giữ nguyên)
-=======
-
-        // Hiển thị nội dung
-        holder.tvNoiDung.setText(item.getContent());
-
-        // Xử lý hiển thị: Tin nhắn của mình vs Tin nhắn người khác
-        if (item.getSenderUsername() != null && item.getSenderUsername().equals(currentUsername)) {
-            // Của mình: Căn phải, đổi màu
->>>>>>> develop
             holder.layoutMsg.setGravity(Gravity.END);
             holder.tvNguoi.setText("Tôi");
             holder.tvNguoi.setTextColor(Color.BLUE);
         } else {
-<<<<<<< HEAD
             // ...
             holder.layoutMsg.setGravity(Gravity.START);
             holder.tvNguoi.setText(item.getSenderName());
             holder.tvNguoi.setTextColor(Color.BLACK);
         }
-=======
-            // Của người khác: Căn trái
-            holder.layoutMsg.setGravity(Gravity.START);
-            holder.tvNguoi.setText(item.getSenderName()); // Hiện tên đầy đủ
-            holder.tvNguoi.setTextColor(Color.BLACK);
-        }
-
-        // Hiện thời gian (nếu có)
-        // holder.tvTime.setText(item.getSentAt());
->>>>>>> develop
     }
 
     @Override

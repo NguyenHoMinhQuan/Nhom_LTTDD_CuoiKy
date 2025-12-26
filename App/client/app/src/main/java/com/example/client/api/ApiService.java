@@ -206,19 +206,10 @@ public interface ApiService {
     @POST("/api/chat/gui")
     Call<TinNhanModel> guiTinNhan(@Body TinNhanModel tinNhan);
 
-<<<<<<< HEAD
+
     @POST("api/feedback/gui")
     Call<Void> guiDanhGia(@Body DanhGiaModel model);
 
-=======
-    // --- FEEDBACK ---
-    @POST("/api/feedback/gui")
-    Call<Void> guiDanhGia(@Body DanhGiaModel danhGia);
-    @GET("api/student/chat")
-    Call<List<TinNhanModel>> layTinNhan(
-            @Query("username") String username,
-            @Query("classCode") String classCode
-    );
->>>>>>> develop
+
 
 }

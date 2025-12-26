@@ -133,22 +133,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-<<<<<<< HEAD
 }
-=======
-
-    // Hàm phụ để điều hướng, tránh lặp lại code
-    private void navigateToRoleBasedScreen(String role) {
-        Intent intent;
-        if ("ROLE_ADMIN".equals(role)) {
-            intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-        } else if ("ROLE_LECTURER".equals(role)) {
-            intent = new Intent(LoginActivity.this, LecturerDashboardActivity.class);
-        } else {
-            intent = new Intent(LoginActivity.this, HomeActivity.class);
-        }
-        startActivity(intent);
-        finish();
-    }
-}
->>>>>>> develop

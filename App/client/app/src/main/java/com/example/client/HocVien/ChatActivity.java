@@ -65,28 +65,17 @@ public class ChatActivity extends AppCompatActivity {
         if (tenLop != null) tvTitle.setText(tenLop);
 
         // 4. Cấu hình RecyclerView
-<<<<<<< HEAD
         adapter = new TinNhanAdapter(listChat, currentUserId);
-=======
-        adapter = new TinNhanAdapter(listChat, currentUsername);
->>>>>>> develop
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
         // 5. Load dữ liệu (Quan trọng: Dùng classCode)
-<<<<<<< HEAD
         if (idLop > 0) {
             loadData();
         } else {
             Toast.makeText(this, "Lỗi: Không tìm thấy mã lớp (ID = 0)!", Toast.LENGTH_SHORT).show();
             // In log để debug nếu cần
             android.util.Log.e("ChatActivity", "Lỗi: idLop nhận được là 0");
-=======
-        if (classCode != null && !classCode.isEmpty()) {
-            loadData();
-        } else {
-            Toast.makeText(this, "Lỗi: Không tìm thấy mã lớp!", Toast.LENGTH_SHORT).show();
->>>>>>> develop
         }
 
         // 6. Xử lý sự kiện
@@ -149,7 +138,6 @@ public class ChatActivity extends AppCompatActivity {
 
     // --- HÀM LOAD TIN NHẮN THEO CLASS CODE ---
     void loadData() {
-<<<<<<< HEAD
         // Kiểm tra ID trước
         if (idLop <= 0) {
             Toast.makeText(this, "Lỗi: ID lớp chưa hợp lệ", Toast.LENGTH_SHORT).show();
@@ -160,38 +148,20 @@ public class ChatActivity extends AppCompatActivity {
 
         //
         api.layTinNhan(idLop).enqueue(new Callback<List<TinNhanModel>>() {
-=======
-        ApiService api = ApiClient.getClient(this).create(ApiService.class);
-
-        // Gọi API GET: /api/student/chat?username=...&classCode=...
-        api.layTinNhan(currentUsername, classCode).enqueue(new Callback<List<TinNhanModel>>() {
->>>>>>> develop
             @Override
             public void onResponse(Call<List<TinNhanModel>> call, Response<List<TinNhanModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listChat.clear();
                     listChat.addAll(response.body());
                     adapter.notifyDataSetChanged();
-<<<<<<< HEAD
-=======
-
-                    // Cuộn xuống tin nhắn mới nhất
->>>>>>> develop
                     if (!listChat.isEmpty()) {
                         rv.scrollToPosition(listChat.size() - 1);
                     }
                 }
             }
-<<<<<<< HEAD
             @Override
             public void onFailure(Call<List<TinNhanModel>> call, Throwable t) {
                 Toast.makeText(ChatActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-=======
-
-            @Override
-            public void onFailure(Call<List<TinNhanModel>> call, Throwable t) {
-                Toast.makeText(ChatActivity.this, "Không thể tải tin nhắn: " + t.getMessage(), Toast.LENGTH_SHORT).show();
->>>>>>> develop
             }
         });
     }
