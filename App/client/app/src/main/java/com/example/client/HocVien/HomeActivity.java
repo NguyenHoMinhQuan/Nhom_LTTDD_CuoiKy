@@ -1,7 +1,6 @@
 package com.example.client.HocVien;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.client.HocVien.Models.ThongBaoModel; // Import Model tiếng Việt
+import com.example.client.HocVien.Models.ThongBaoModel; // Import Model
 import com.example.client.R;
 import com.example.client.api.ApiClient;
 import com.example.client.api.ApiService;
@@ -24,11 +23,11 @@ import retrofit2.Response;
 
 public class HomeActivity extends BaseHocVienActivity {
 
-    // Khai báo View
+    // --- 1. KHAI BÁO BIẾN ---
     private TextView tvSearch;
     private RecyclerView rvThongBao;
 
-    // Khai báo Adapter và List
+    // Adapter và List dữ liệu
     private ThongBaoAdapter thongBaoAdapter;
     private List<ThongBaoModel> listThongBao;
 
@@ -38,66 +37,70 @@ public class HomeActivity extends BaseHocVienActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hocvien_dashboard);
 
-        // 1. Setup Header chung (Menu, Avatar...)
-        setupCommonHeader();
+        // --- 2. SETUP GIAO DIỆN CHUNG ---
+        setupCommonHeader(); // Hàm từ BaseActivity (nếu có)
 
-        // 2. Ánh xạ View
-        // Lưu ý: ID trong file xml là recyclerViewCourses
+        // --- 3. ÁNH XẠ VIEW ---
+        // Đảm bảo ID 'recyclerViewCourses' là đúng trong file xml của bạn
         rvThongBao = findViewById(R.id.recyclerViewCourses);
         tvSearch = findViewById(R.id.tvSearchTitle);
 
-        // 3. Setup sự kiện Click tìm kiếm
+        // --- 4. XỬ LÝ SỰ KIỆN ---
         if (tvSearch != null) {
             tvSearch.setOnClickListener(v -> navigate(SearchActivity.class));
         }
 
-        // 4. Cấu hình danh sách và Gọi API
+        // --- 5. KHỞI TẠO DANH SÁCH ---
         setupAnnouncementList();
     }
 
+    /**
+     * Hàm cấu hình RecyclerView và Adapter
+     */
     private void setupAnnouncementList() {
-        // Khởi tạo danh sách rỗng
+        // Khởi tạo danh sách rỗng để tránh lỗi Null
         listThongBao = new ArrayList<>();
 
         // Khởi tạo Adapter
         thongBaoAdapter = new ThongBaoAdapter(listThongBao);
 
         // Cấu hình RecyclerView (Dạng danh sách dọc)
-        rvThongBao.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvThongBao.setAdapter(thongBaoAdapter);
+        if (rvThongBao != null) {
+            rvThongBao.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            rvThongBao.setAdapter(thongBaoAdapter);
+        }
 
-        // Gọi API lấy dữ liệu thật
+        // Gọi API tải dữ liệu
         getAnnouncementsFromApi();
     }
 
+    /**
+     * Hàm gọi API lấy danh sách thông báo
+     */
     private void getAnnouncementsFromApi() {
         // Tạo API Service
         ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
-        // Gọi hàm lấy danh sách (đã định nghĩa trong ApiService)
+        // Gọi API (Tên hàm getListAnnouncements phải khớp với ApiService)
         apiService.getListAnnouncements().enqueue(new Callback<List<ThongBaoModel>>() {
             @Override
             public void onResponse(Call<List<ThongBaoModel>> call, Response<List<ThongBaoModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<ThongBaoModel> data = response.body();
 
-                    // Xóa dữ liệu cũ (nếu có) để tránh trùng lặp
+                    // Xóa dữ liệu cũ và thêm dữ liệu mới
                     listThongBao.clear();
-
-                    // Thêm dữ liệu mới từ Server vào List
                     listThongBao.addAll(data);
 
-                    // Báo cho Adapter biết để vẽ lại màn hình
+                    // Cập nhật giao diện
                     thongBaoAdapter.notifyDataSetChanged();
                 } else {
-                    // Trường hợp Server trả về lỗi hoặc danh sách rỗng
-                    Toast.makeText(HomeActivity.this, "Không có thông báo nào.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeActivity.this, "Không có thông báo mới.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ThongBaoModel>> call, Throwable t) {
-                // Trường hợp lỗi mạng hoặc Server chưa bật
                 Toast.makeText(HomeActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

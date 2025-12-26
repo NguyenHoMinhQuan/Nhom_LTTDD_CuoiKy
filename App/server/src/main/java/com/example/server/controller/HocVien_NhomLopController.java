@@ -1,9 +1,7 @@
 package com.example.server.controller;
 
 import com.example.server.dto.HocVien_NhomLopDto;
-import com.example.server.dto.HocVien_SoYeuLiLich;
 import com.example.server.service.HocVien_NhomLopService;
-import com.example.server.service.HocVien_SoYeuLiLichService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

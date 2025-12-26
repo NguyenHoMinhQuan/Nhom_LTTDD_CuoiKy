@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,17 +52,18 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.Course
 
         // 2. Thêm sự kiện Click (MỚI THÊM)
         holder.itemView.setOnClickListener(v -> {
-            // Lấy Context từ View
             Context context = v.getContext();
+<<<<<<< HEAD
 
             android.util.Log.e("CHECK_LOI", "Đang bấm vào môn: " + course.getCourseName() + " | ID Lấy được là: " + course.getClassId());
 
+=======
+>>>>>>> develop
             Intent intent = new Intent(context, ChatActivity.class);
 
-            // Truyền dữ liệu sang màn hình Chat
-            // Lưu ý: Đảm bảo DTO của bạn có hàm getClassId() trả về int
-            intent.putExtra("ID_LOP", course.getClassId());
-            intent.putExtra("TEN_LOP", course.getCourseName()); // Hoặc getClassName() tùy bạn muốn hiện tên gì
+            intent.putExtra("ID_LOP", course.getClassId()); // Để dùng khi gửi tin nhắn (Insert)
+            intent.putExtra("MA_LOP", course.getClassCode()); // QUAN TRỌNG: Để dùng khi Load tin nhắn (Select)
+            intent.putExtra("TEN_LOP", course.getCourseName());
 
             context.startActivity(intent);
         });

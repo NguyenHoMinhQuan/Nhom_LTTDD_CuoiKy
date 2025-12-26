@@ -1,197 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_screen"
-    android:fillViewport="true">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp">
+            android:paddingHorizontal="16dp">
 
             <ImageView
                 android:id="@+id/btnMenu"
-                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="5dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"/>
+                android:src="@android:drawable/ic_menu_sort_by_size" />
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="80dp"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo" />
 
             <ImageView
-                android:src="@android:drawable/ic_menu_search"
+                android:id="@+id/btnSearch"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="5dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"/>
+                android:src="@android:drawable/ic_menu_search" />
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="QUẢN LÝ NGƯỜI DÙNG"
             android:layout_gravity="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_brown"
-            android:shadowColor="#888"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="1"
-            android:layout_marginBottom="20dp"/>
+            android:text="QUẢN LÝ NGƯỜI DÙNG"
+            android:textColor="#5D4037"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:padding="2dp"
-            android:scrollbars="vertical">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EEE">
 
-            <HorizontalScrollView
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:background="#DFDFDF"
+                android:orientation="horizontal">
 
-                <TableLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                <TextView android:text="ID" android:layout_width="70dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Username" android:layout_width="150dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Họ tên" android:layout_width="250dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Email" android:layout_width="280dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Vai trò" android:layout_width="120dp" style="@style/HeaderStyle"/>
+                <TextView android:text="Khoa/Bộ môn" android:layout_width="180dp" style="@style/HeaderStyle"/>
+                <TextView android:text="TT" android:layout_width="70dp" style="@style/HeaderStyle"/>
+            </LinearLayout>
 
-                    <TableRow>
-                        <TextView android:text="ID" android:textStyle="bold" android:gravity="center" android:padding="10dp" android:textColor="#000" android:background="@drawable/bg_table_cell"
-                            android:layout_width="70dp" android:minHeight="55dp"/>
-
-                        <TextView android:text="Họ tên" android:textStyle="bold" android:gravity="center" android:padding="10dp" android:textColor="#000" android:background="@drawable/bg_table_cell"
-                            android:layout_width="250dp" android:minHeight="55dp"/>
-
-                        <TextView android:text="Email" android:textStyle="bold" android:gravity="center" android:padding="10dp" android:textColor="#000" android:background="@drawable/bg_table_cell"
-                            android:layout_width="280dp" android:minHeight="55dp"/>
-
-                        <TextView android:text="Bộ môn" android:textStyle="bold" android:gravity="center" android:padding="10dp" android:textColor="#000" android:background="@drawable/bg_table_cell"
-                            android:layout_width="180dp" android:minHeight="55dp"/>
-
-                        <TextView android:text="TT" android:textStyle="bold" android:gravity="center" android:padding="10dp" android:textColor="#000" android:background="@drawable/bg_table_cell"
-                            android:layout_width="70dp" android:minHeight="55dp"/>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="250dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="280dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="180dp" android:minHeight="55dp"/>
-                        <FrameLayout android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp">
-                            <View android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_red" android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="250dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="280dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="180dp" android:minHeight="55dp"/>
-                        <FrameLayout android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp">
-                            <View android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_yellow" android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="250dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="280dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="180dp" android:minHeight="55dp"/>
-                        <FrameLayout android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp">
-                            <View android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_green" android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="250dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="280dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="180dp" android:minHeight="55dp"/>
-                        <FrameLayout android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp">
-                            <View android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_green" android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="250dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="280dp" android:minHeight="55dp"/>
-                        <TextView android:background="@drawable/bg_table_cell" android:layout_width="180dp" android:minHeight="55dp"/>
-                        <FrameLayout android:background="@drawable/bg_table_cell" android:layout_width="70dp" android:minHeight="55dp">
-                            <View android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/bg_btn_pink" android:backgroundTint="@color/status_yellow" android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </TableRow>
-
-                </TableLayout>
-            </HorizontalScrollView>
-        </ScrollView>
-
-        <LinearLayout
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatButton android:text="+ Thêm người dùng mới" android:textAllCaps="false" android:background="@drawable/bg_btn_pink" android:textColor="#000" android:layout_weight="2" android:layout_width="0dp" android:layout_height="45dp"/>
-            <androidx.appcompat.widget.AppCompatButton android:text="Xóa" android:textAllCaps="false" android:layout_marginLeft="10dp" android:background="@drawable/bg_btn_green" android:textColor="#000" android:layout_weight="1" android:layout_width="0dp" android:layout_height="45dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvUsers"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#FFF" />
         </LinearLayout>
+    </HorizontalScrollView>
 
-        <EditText android:hint="Họ tên" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:paddingEnd="15dp" android:layout_marginBottom="10dp" android:layout_width="match_parent" android:layout_height="45dp"/>
-        <EditText android:hint="Email" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:paddingEnd="15dp" android:layout_marginBottom="10dp" android:layout_width="match_parent" android:layout_height="45dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:elevation="10dp"
+        android:padding="10dp">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <FrameLayout android:background="@drawable/bg_input_field" android:layout_weight="1" android:layout_width="0dp" android:layout_height="45dp">
-                <Spinner android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="10dp"/>
-                <TextView android:text="Trạng thái" android:textColor="#888"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <ImageView android:src="@android:drawable/arrow_down_float" android:layout_gravity="center_vertical|end" android:layout_marginRight="10dp" android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.3"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFormTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="THÔNG TIN CHI TIẾT"
+                android:textColor="#D32F2F"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnClear"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_pink"
+                    android:text="Tạo Mới / Hủy"
+                    android:textAllCaps="false"
+                    android:textColor="#000" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_green"
+                    android:text="Xóa User này"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <EditText android:id="@+id/edtUsername" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Username (*)" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+            <EditText android:id="@+id/edtFullName" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Họ tên" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+            <EditText android:id="@+id/edtEmail" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Email" android:inputType="textEmailAddress" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <FrameLayout android:background="@drawable/bg_input_field" android:layout_weight="0.8" android:layout_width="0dp" android:layout_height="45dp">
+                    <Spinner android:id="@+id/spnRole" android:layout_width="match_parent" android:layout_height="match_parent" />
+                </FrameLayout>
+
+                <FrameLayout android:layout_marginLeft="10dp" android:background="@drawable/bg_input_field" android:layout_weight="1.2" android:layout_width="0dp" android:layout_height="45dp">
+                    <Spinner android:id="@+id/spnDepartment" android:layout_width="match_parent" android:layout_height="match_parent" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <FrameLayout android:background="@drawable/bg_input_field" android:layout_marginBottom="10dp" android:layout_width="match_parent" android:layout_height="45dp">
+                <Spinner android:id="@+id/spnStatus" android:layout_width="match_parent" android:layout_height="match_parent" />
             </FrameLayout>
-            <FrameLayout android:layout_marginLeft="10dp" android:background="@drawable/bg_input_field" android:layout_weight="1" android:layout_width="0dp" android:layout_height="45dp">
-                <Spinner android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="10dp"/>
-                <TextView android:text="Bộ môn" android:textColor="#888"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <ImageView android:src="@android:drawable/arrow_down_float" android:layout_gravity="center_vertical|end" android:layout_marginRight="10dp" android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.3"/>
-            </FrameLayout>
+
+            <EditText android:id="@+id/edtPassword" android:layout_width="match_parent" android:layout_height="45dp" android:hint="Mật khẩu" android:inputType="textPassword" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:layout_marginBottom="10dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_btn_green"
+                android:text="LƯU DỮ LIỆU"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
         </LinearLayout>
-
-        <EditText android:hint="Mật khẩu" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:paddingEnd="15dp" android:layout_marginBottom="10dp" android:layout_width="match_parent" android:layout_height="45dp"/>
-        <EditText android:hint="Xác nhận mật khẩu" android:background="@drawable/bg_input_field" android:paddingStart="15dp" android:paddingEnd="15dp" android:layout_marginBottom="15dp" android:layout_width="match_parent" android:layout_height="45dp"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatButton android:text="Lưu thay đổi" android:textAllCaps="false" android:background="@drawable/bg_btn_green" android:textColor="#000" android:layout_weight="1" android:layout_width="0dp" android:layout_height="45dp"/>
-            <androidx.appcompat.widget.AppCompatButton android:text="Hủy bỏ" android:textAllCaps="false" android:background="@drawable/bg_btn_grey" android:textColor="#000" android:layout_marginLeft="15dp" android:layout_weight="1" android:layout_width="0dp" android:layout_height="45dp"/>
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

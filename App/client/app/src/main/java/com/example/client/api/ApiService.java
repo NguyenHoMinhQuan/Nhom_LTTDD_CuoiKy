@@ -1,26 +1,33 @@
 package com.example.client.api;
 
 import android.app.DownloadManager;
+import retrofit2.http.DELETE;
+import retrofit2.http.PUT;
 
+import com.example.client.HocVien.Models.HocVien_BaiTapDto;
 import com.example.client.HocVien.Models.HocVien_NhomLopDto;
 import com.example.client.HocVien.Models.HocVien_XemDiemDto;
 import com.example.client.HocVien.Models.LichHocSinhVienModel;
 import com.example.client.HocVien.Models.SoYeuLyLichModel;
 import com.example.client.Login.LoginRequest;
 import com.example.client.Login.LoginResponse;
-
+import com.example.client.Models.HocVien_NopBaiDto;
 import com.example.client.lecturer.model.Announcement;
 import com.example.client.lecturer.model.AssignmentDTO;
+import com.example.client.lecturer.model.ChatMessageDTO;
 import com.example.client.lecturer.model.ClassDTO;
+import com.example.client.lecturer.model.LecturerProfileDTO;
 import com.example.client.lecturer.model.NotificationItem;
 import com.example.client.lecturer.model.ScheduleItem;
+
+import com.example.client.lecturer.model.SubmissionDTO;
+
 import com.example.client.HocVien.Models.ThongBaoModel;
 import com.example.client.HocVien.Models.TinNhanModel;
 import com.example.client.HocVien.Models.DanhGiaModel;
-
-
-
 import java.util.List;
+import java.util.Map;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -69,6 +76,8 @@ public interface ApiService {
     @GET("/api/hocvien/nhomlop") // dành cho học viên - đụng t chặt tay
     Call<List<HocVien_NhomLopDto>> LayNhomLopSinhVien(@Query("Username") String username);
 
+    @POST("api/assignment/submit")
+    Call<Void> nopBaiTap(@Body HocVien_NopBaiDto request);
     @GET("api/assignments/{id}")
     Call<AssignmentDTO> getAssignmentById(@Path("id") Integer id);
 
@@ -83,6 +92,104 @@ public interface ApiService {
     @GET("api/assignments/lecturer/{lecturerId}")
     Call<List<AssignmentDTO>> getAssignmentsByLecturer(@Path("lecturerId") Integer lecturerId);
 
+    @GET("/api/messages/history/{classId}")
+    Call<List<ChatMessageDTO>> getChatHistory(@Path("classId") Integer classId);
+
+
+    @GET("api/lecturers/profile/{id}")
+    Call<LecturerProfileDTO> getLecturerProfile(@Path("id") Integer id);
+
+    @PUT("api/lecturers/profile/{id}")
+    Call<LecturerProfileDTO> updateLecturerProfile(@Path("id") Integer id, @Body LecturerProfileDTO dto);
+    @GET("/api/assignments/{id}/submissionCount")
+    Call<Long> getSubmissionCount(@Path("id") Integer assignmentId);
+
+    @GET("/api/assignments/{id}/submissions")
+    Call<List<SubmissionDTO>> getSubmissions(@Path("id") Integer assignmentId);
+    @POST("/api/assignments/grade/{submissionId}")
+    Call<SubmissionDTO> gradeSubmission(
+            @Path("submissionId") Integer submissionId,
+            @Query("grade") Double grade
+    );
+
+
+
+    @GET("/api/schedule-schedules/today")
+    Call<List<ScheduleItem>> getTodaySchedule();
+
+    @GET("/api/announcements/recent")
+    Call<List<Announcement>> getRecentAnnouncements();
+
+    // ==================================================
+    // 2. ADMIN - QUẢN LÝ NGƯỜI DÙNG (USER)
+    // ==================================================
+    @GET("api/admin/users")
+    Call<List<AdminResponse.User>> getUsers();
+
+    @POST("api/admin/user/add")
+    Call<ResponseBody> addUser(@Body AdminResponse.UserRequest req);
+
+    @PUT("api/admin/user/update")
+    Call<ResponseBody> updateUser(@Body AdminResponse.UserRequest req);
+
+    @DELETE("api/admin/user/delete/{id}")
+    Call<ResponseBody> deleteUser(@Path("id") int id);
+
+    // ==================================================
+    // 3. ADMIN - QUẢN LÝ KHÓA HỌC (COURSE)
+    // ==================================================
+    @GET("api/admin/courses")
+    Call<List<AdminResponse.CourseRow>> getCourses();
+
+    @POST("api/admin/course/add")
+    Call<ResponseBody> addCourse(@Body AdminResponse.CourseRequest req);
+
+    @PUT("api/admin/course/update")
+    Call<ResponseBody> updateCourse(@Body AdminResponse.CourseRequest req);
+
+    @DELETE("api/admin/course/delete/{id}")
+    Call<ResponseBody> deleteCourse(@Path("id") int id);
+
+    // ==================================================
+    // 4. ADMIN - QUẢN LÝ LỚP HỌC (CLASS)
+    // ==================================================
+    @GET("api/admin/classes")
+    Call<List<AdminResponse.ClassItem>> getClasses();
+
+    Call<List<AdminResponse.ClassRow>> getAdminClasses();
+    @POST("api/admin/class/add")
+    Call<Map<String, Object>> addClass(@Body AdminResponse.ClassRequest request);
+    @PUT("api/admin/class/update")
+    Call<Map<String, Object>> updateClass(@Body AdminResponse.ClassRequest request);
+    @DELETE("api/admin/class/delete/{id}")
+    Call<Map<String, Object>> deleteClass(@Path("id") Integer id);
+
+    // ==================================================
+    // 5. METADATA (DỮ LIỆU BỔ TRỢ)
+    // ==================================================
+    @GET("api/admin/metadata/departments")
+    Call<List<String>> getDepartments();
+
+    @GET("api/admin/metadata/coursenames")
+    Call<List<String>> getCourseNames();
+
+
+
+    // 1. Lấy danh sách (GET)
+    @GET("api/admin/announcement/all")
+    Call<List<AdminResponse.Announcement>> getAnnouncements();
+
+    // 2. Thêm mới (POST) - Body là AdminResponse.Announcement
+    @POST("api/admin/announcement/add")
+    Call<Map<String, Object>> addAnnouncement(@Body AdminResponse.Announcement req);
+
+    // 3. Cập nhật (PUT) - Body là AdminResponse.Announcement
+    @PUT("api/admin/announcement/update")
+    Call<Map<String, Object>> updateAnnouncement(@Body AdminResponse.Announcement req);
+
+    // 4. Xóa (DELETE)
+    @DELETE("api/admin/announcement/delete/{id}")
+    Call<Map<String, Object>> deleteAnnouncement(@Path("id") Integer id);
 
     @GET("api/xemdiem/view") // api cho học viên - xem điểm
     Call<List<HocVien_XemDiemDto>> xemDiemSinhVien(
@@ -99,8 +206,19 @@ public interface ApiService {
     @POST("/api/chat/gui")
     Call<TinNhanModel> guiTinNhan(@Body TinNhanModel tinNhan);
 
+<<<<<<< HEAD
     @POST("api/feedback/gui")
     Call<Void> guiDanhGia(@Body DanhGiaModel model);
 
+=======
+    // --- FEEDBACK ---
+    @POST("/api/feedback/gui")
+    Call<Void> guiDanhGia(@Body DanhGiaModel danhGia);
+    @GET("api/student/chat")
+    Call<List<TinNhanModel>> layTinNhan(
+            @Query("username") String username,
+            @Query("classCode") String classCode
+    );
+>>>>>>> develop
 
 }

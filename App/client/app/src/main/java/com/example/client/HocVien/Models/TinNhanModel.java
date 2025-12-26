@@ -36,6 +36,7 @@ public class TinNhanModel {
     }
 
     // Constructor đầy đủ (dùng khi Gson parse dữ liệu từ Server)
+<<<<<<< HEAD
     public TinNhanModel() {
     }
 
@@ -60,3 +61,13 @@ public class TinNhanModel {
         return senderId;
     }
 }
+=======
+    public TinNhanModel() {}
+
+    // Getter
+    public String getContent() { return content; }
+    public String getSenderName() { return senderName; }
+    public String getSenderUsername() { return senderUsername; }
+    public String getSentAt() { return sentAt; }
+}
+>>>>>>> develop

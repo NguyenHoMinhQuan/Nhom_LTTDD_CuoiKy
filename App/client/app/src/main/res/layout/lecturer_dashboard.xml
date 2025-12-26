@@ -29,14 +29,17 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="8dp">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/avatar"
                     android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/CircleImageView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:contentDescription="@string/lecturer_dashboard_iv_avatar" />
 
                 <TextView

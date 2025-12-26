@@ -40,11 +40,17 @@
         <activity android:name=".lecturer.activity.LecturerCreateAssignment" />
         <activity android:name=".lecturer.activity.LecturerAssignmentDetailActivity" />
 
+        <activity android:name=".lecturer.activity.ChatActivity"/>
+
+        <activity android:name=".lecturer.activity.ChatListActivity"/>
+
+        <activity android:name=".lecturer.activity.ProfileActivity" />
+
         <!--end lecturer-->
 
         <activity android:name=".ForgotPassActivity"/>
 
-        <activity android:name=".AdminDashboardActivity"/>
+        <activity android:name=".Admin.AdminDashboardActivity"/>
 
         <activity android:name=".MainActivity"/>
 
@@ -66,7 +72,14 @@
             android:exported="true" >  </activity>
         <activity android:name=".HocVien.HomeActivity" />
         <activity android:name=".HocVien.MyCoursesActivity" />
+        <activity android:name=".HocVien.HocVien_NopBaiTapActivity" />
         <!-- end Hocvien-->
+
+
+        <activity android:name=".Admin.QuanLyKhoaHocActivity"/>
+        <activity android:name=".Admin.QuanLyLopHocActivity"/>
+        <activity android:name=".Admin.QuanLyUserActivity"/>
+        <activity android:name=".Admin.QuanLyThongBaoActivity"/>
 
         <activity android:name=".QuanLyKhoaHocActivity"/>
         <activity android:name=".QuanLyLopHocActivity"/>
@@ -74,6 +87,7 @@
 
         <activity android:name=".HocVien.ChatActivity" />
         <activity android:name=".HocVien.FeedbackActivity" />
+
 
     </application>
 </manifest>
