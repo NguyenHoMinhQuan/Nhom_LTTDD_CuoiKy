@@ -53,10 +53,10 @@ public class ChatActivity extends AppCompatActivity {
         // 1. Lấy thông tin User đăng nhập (Từ SharedPreferences)
         layThongTinUser();
 
-        // 2. Nhận dữ liệu từ Adapter truyền sang
+        // 2. Nhận dữ liệu từ MyCourseAdapter truyền sang
         Intent intent = getIntent();
         idLop = intent.getIntExtra("ID_LOP", 0);
-        classCode = intent.getStringExtra("MA_LOP"); // Nhận Mã Lớp (ví dụ: CT101_B)
+        //classCode = intent.getStringExtra("MA_LOP"); // Nhận Mã Lớp (ví dụ: CT101_B)
         tenLop = intent.getStringExtra("TEN_LOP");
 
         // 3. Ánh xạ View
@@ -64,7 +64,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if (tenLop != null) tvTitle.setText(tenLop);
 
-        // 4. Cấu hình RecyclerView
+        // 4. Cấu hình RecyclerView , khởi tạo adapter
         adapter = new TinNhanAdapter(listChat, currentUserId);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
@@ -83,13 +83,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void layThongTinUser() {
-        // Giả lập lấy từ SharedPreferences (Bạn thay bằng key thực tế của bạn)
+        // Giả lập lấy từ SharedPreferences
         SharedPreferences prefs = getSharedPreferences("AUTH_PREFS", MODE_PRIVATE);
         currentUsername = prefs.getString("USERNAME", "student1"); // Mặc định student1 để test
         currentUserId = prefs.getInt("USER_ID", 1);
     }
 
-    private void initViews() {
+    private void initViews() { // hiện view
         rv = findViewById(R.id.rvTinNhan);
         edtInput = findViewById(R.id.edtChatInput);
         btnGui = findViewById(R.id.btnChatSend);
@@ -98,7 +98,7 @@ public class ChatActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvTitleLop);
     }
 
-    private void handleEvents() {
+    private void handleEvents() { // xử lý sự kiện
         btnBack.setOnClickListener(v -> finish());
 
         // Chuyển sang Feedback
@@ -113,14 +113,15 @@ public class ChatActivity extends AppCompatActivity {
         btnGui.setOnClickListener(v -> {
             String txt = edtInput.getText().toString().trim();
             if (!txt.isEmpty() && idLop > 0) {
-                // Tạo model gửi đi (Dùng classId để Insert vào bảng ClassMessage)
-                TinNhanModel msg = new TinNhanModel(idLop, currentUserId, txt);
+                // Tạo model gửi đi (Dùng IdLop để Insert vào bảng ClassMessage)
+                TinNhanModel msg = new TinNhanModel(idLop, currentUserId, txt); // mã lớp , ai gửi , nôội dung
 
+                // gọi api gửi tin nhắn
                 ApiClient.getClient(this).create(ApiService.class).guiTinNhan(msg).enqueue(new Callback<TinNhanModel>() {
                     @Override
                     public void onResponse(Call<TinNhanModel> call, Response<TinNhanModel> response) {
                         if (response.isSuccessful()) {
-                            edtInput.setText("");
+                            edtInput.setText(""); // xóa ô nhập liệu
                             loadData(); // Load lại tin nhắn sau khi gửi
                         } else {
                             Toast.makeText(ChatActivity.this, "Gửi thất bại", Toast.LENGTH_SHORT).show();
@@ -136,7 +137,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // --- HÀM LOAD TIN NHẮN THEO CLASS CODE ---
+    // --- HÀM LOAD lịch sử TIN NHẮN THEO CLASS CODE ---
     void loadData() {
         // Kiểm tra ID trước
         if (idLop <= 0) {
@@ -146,7 +147,7 @@ public class ChatActivity extends AppCompatActivity {
 
         ApiService api = ApiClient.getClient(this).create(ApiService.class);
 
-        //
+        // gọi api lấy tin nhắn
         api.layTinNhan(idLop).enqueue(new Callback<List<TinNhanModel>>() {
             @Override
             public void onResponse(Call<List<TinNhanModel>> call, Response<List<TinNhanModel>> response) {

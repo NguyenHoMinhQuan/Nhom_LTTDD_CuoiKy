@@ -32,7 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bg_white_card"
+        android:background="@color/accent_orange"
         android:paddingStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

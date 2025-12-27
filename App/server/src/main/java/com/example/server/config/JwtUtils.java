@@ -12,6 +12,7 @@ public class JwtUtils {
     private Key getSigingKey(){
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
+    //tạo cuỗi mã hóa token
     public String generateJwtToken(String username){
         return Jwts.builder()
                 .setSubject(username)

@@ -41,7 +41,7 @@
                 android:hint="Tên đăng nhập (vd: student1)"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="#000000"
+                android:textColor="@color/stroke_black"
                 android:textSize="14sp"
                 android:singleLine="true"
                 app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle"/>
@@ -55,7 +55,7 @@
                 android:hint="Mã lớp (vd: CT101_B)"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="#000000"
+                android:textColor="@color/stroke_black"
                 android:textSize="14sp"
                 android:inputType="textCapCharacters"
                 android:singleLine="true"

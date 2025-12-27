@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
 public interface HocVien_LichHocRepository extends JpaRepository<ClassSchedule, Integer> {
     @Query(value = """
         SELECT

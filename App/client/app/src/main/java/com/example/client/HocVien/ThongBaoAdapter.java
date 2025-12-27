@@ -27,9 +27,9 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hocvien_item_thongbao, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view); // chuyển giao diện thành view
     }
-
+//ấy data từ Thong báo model
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ThongBaoModel item = mList.get(position);
@@ -50,7 +50,8 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHo
             holder.tvDate.setText(rawDate);
         }
 
-        // 4. Random ảnh cho sinh động
+        //ảnh đại diện
+
         holder.imgIcon.setImageResource(R.drawable.ute);
     }
 
@@ -76,3 +77,5 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHo
         }
     }
 }
+
+// => sắp xếp data vào từng dòng của thông báo và đưa cho home trình ra màn hình

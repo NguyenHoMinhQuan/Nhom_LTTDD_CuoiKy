@@ -89,7 +89,7 @@ public class ScheduleFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Lưu dữ liệu vào biến toàn cục
                     dsLichHoc = response.body();
-
+                //=> trả về  cục data to
                     Toast.makeText(getContext(), "Đã tải: " + dsLichHoc.size() + " môn học", Toast.LENGTH_SHORT).show();
 
                     // Mặc định hiển thị Thứ 2 (DayOfWeek = 1 theo quy ước của bạn)

@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.client.Login.LoginActivity;
 import com.example.client.R;
-import com.example.client.StudyStatusActivity;
 
 // Class này chứa logic chung cho toàn bộ App
 public class BaseHocVienActivity extends AppCompatActivity {

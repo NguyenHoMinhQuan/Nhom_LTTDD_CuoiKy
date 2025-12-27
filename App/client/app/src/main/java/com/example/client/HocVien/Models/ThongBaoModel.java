@@ -41,3 +41,5 @@ public class ThongBaoModel {
         return ngayTao;
     }
 }
+
+// dứng dữ liệu đc đưa từ service lên

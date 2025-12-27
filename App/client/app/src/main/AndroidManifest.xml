@@ -61,7 +61,7 @@
 
         <activity android:name=".HocVien.ProfileActivity" />
 
-        <activity android:name=".StudyStatusActivity" />
+        <activity android:name=".HocVien.StudyStatusActivity" />
 
 
 

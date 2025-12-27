@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnnouncementRepository extends JpaRepository<Announcement, Integer> {
-    
+    //đã có findAll() từ JpaRepository
 }

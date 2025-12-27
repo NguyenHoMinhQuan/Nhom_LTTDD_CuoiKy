@@ -37,6 +37,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/border_txt"
+        android:textColor="@color/primary_blue"
         android:hint="Tên đăng nhập" />
     <TextView
         android:layout_width="match_parent"
@@ -53,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="*******"
+        android:textColor="@color/primary_blue"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:inputType="textPassword"

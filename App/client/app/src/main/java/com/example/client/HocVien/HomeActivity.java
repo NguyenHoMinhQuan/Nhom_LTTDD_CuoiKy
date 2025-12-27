@@ -38,7 +38,7 @@ public class HomeActivity extends BaseHocVienActivity {
         setContentView(R.layout.hocvien_dashboard);
 
         // --- 2. SETUP GIAO DIỆN CHUNG ---
-        setupCommonHeader(); // Hàm từ BaseActivity (nếu có)
+        setupCommonHeader(); //gọi hàm chung
 
         // --- 3. ÁNH XẠ VIEW ---
         // Đảm bảo ID 'recyclerViewCourses' là đúng trong file xml của bạn
@@ -87,12 +87,12 @@ public class HomeActivity extends BaseHocVienActivity {
             public void onResponse(Call<List<ThongBaoModel>> call, Response<List<ThongBaoModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<ThongBaoModel> data = response.body();
-
+                    // sau khi lấy dữ liệu về , gọi adater ra sắp xếp , xử lý , nhét data vào từng dòng của thông báo
                     // Xóa dữ liệu cũ và thêm dữ liệu mới
                     listThongBao.clear();
                     listThongBao.addAll(data);
 
-                    // Cập nhật giao diện
+                    // gọi adapter ,Cập nhật giao diện
                     thongBaoAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(HomeActivity.this, "Không có thông báo mới.", Toast.LENGTH_SHORT).show();

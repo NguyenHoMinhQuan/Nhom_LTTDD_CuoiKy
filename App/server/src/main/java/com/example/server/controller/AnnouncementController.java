@@ -23,6 +23,7 @@ public class AnnouncementController {
     private AnnouncementService announcementService;
 
     @GetMapping
+    //gọi và lấy danh sách thông báo 
     public ResponseEntity<List<AnnouncementDTO>> getAllAnnouncements() {
         List<AnnouncementDTO> announcements = announcementService.findAllAnnouncements();
         return ResponseEntity.ok(announcements);

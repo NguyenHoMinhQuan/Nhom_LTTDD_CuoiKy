@@ -42,13 +42,13 @@ public class UserDetailsServiceImpl implements UserService, UserDetailsService {
         String roleName = mapRoleIdToRoleName(user.getRoleId());
 
         // Dùng password trực tiếp từ PasswordHash, không băm
-        return new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User( // 2. Chuyển đổi User (Entity) -> UserDetails (Security Object)
                 user.getUsername(),
                 user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(roleName)));
     }
 
-    @Override
+    @Override //gọi userRepository vsof db tìm data
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

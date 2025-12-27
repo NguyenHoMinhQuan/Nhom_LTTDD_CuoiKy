@@ -32,6 +32,7 @@ public class AuthController {
             // 1. Thực hiện xác thực (Spring Security sẽ kiểm tra Username/Password)
             // Nếu Lombok lỗi, hãy đảm bảo LoginRequest có hàm getUsername() và
             // getPassword() viết tay
+            // gọi authenticationManager kiểm tra username và password
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),

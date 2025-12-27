@@ -102,7 +102,7 @@ public class AssignmentFragment extends Fragment {
                 tenHienThi
         );
         spChonLop.setAdapter(spinnerAdapter);
-
+        // bắt s kiện chọn lớp => gọi api lấy bài tập
         spChonLop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

@@ -45,12 +45,12 @@ public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHold
 
         if (isMe) {
             // ... (Code giao diện bên trong giữ nguyên)
-            holder.layoutMsg.setGravity(Gravity.END);
+            holder.layoutMsg.setGravity(Gravity.END); // nếu là tôi , tin nhắn hiện phải
             holder.tvNguoi.setText("Tôi");
             holder.tvNguoi.setTextColor(Color.BLUE);
         } else {
             // ...
-            holder.layoutMsg.setGravity(Gravity.START);
+            holder.layoutMsg.setGravity(Gravity.START); // người lại tin nhắn hiện trái
             holder.tvNguoi.setText(item.getSenderName());
             holder.tvNguoi.setTextColor(Color.BLACK);
         }
@@ -74,3 +74,5 @@ public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHold
         }
     }
 }
+
+// sắp xếp tin nhắn xuất hiện

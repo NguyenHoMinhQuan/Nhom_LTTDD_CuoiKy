@@ -43,7 +43,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return announcement;
     }
 
-    @Override
+    // gọi respository lấy danh sách thông báo
+    
+    @Override 
     public List<AnnouncementDTO> findAllAnnouncements() {
         // 1. Dùng Repository lấy Entity List
         List<Announcement> announcements = announcementRepository.findAll();
